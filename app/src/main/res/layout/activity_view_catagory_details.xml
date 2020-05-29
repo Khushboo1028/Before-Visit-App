@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:id="@+id/super_rel"
+    android:padding="16dp"
+    tools:context=".Activities.ViewCategoryDetailsActivity">
+
+    <include layout="@layout/snippet_top_bar"
+        android:id="@+id/top_bar"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_bar"
+        android:id="@+id/scrollView">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/main_rel">
+
+
+
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@drawable/ic_apparel"
+                android:layout_marginTop="24dp"
+                android:id="@+id/img_head"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/img_head"
+                android:layout_toRightOf="@id/img_head"
+                android:layout_marginStart="8dp"
+                android:text="Apparel"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/robo_bold"
+                android:layout_marginTop="16dp"
+                android:textAllCaps="true"
+                android:textSize="24dp"
+                android:id="@+id/tv_header"/>
+
+            <include layout="@layout/snippet_search_bar"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_below="@id/img_head"
+                android:layout_marginTop="16dp"
+                android:id="@+id/search_bar"/>
+
+
+            <com.beforevisit.beforevisit.utility.ExpandableHeightGridView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/search_bar"
+                android:columnWidth="160dp"
+                android:numColumns="2"
+                android:layout_marginTop="16dp"
+                android:scrollbarStyle="outsideInset"
+                android:verticalSpacing="24dp"
+                android:horizontalSpacing="24dp"
+                android:gravity="center_horizontal"
+                android:stretchMode="columnWidth"
+                android:textAlignment="center"
+                android:paddingBottom="16dp"
+                android:clipToPadding="false"
+                android:listSelector="@android:color/transparent"
+                android:id="@+id/grid_view"
+                />
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/grid_view"
+                android:id="@+id/go_to_top_rel">
+
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@drawable/ic_arrow_top"
+                android:layout_marginTop="40dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/img_top"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/app_name"
+                android:layout_marginTop="12dp"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/roboto_medium"
+                android:textAllCaps="true"
+                android:textSize="16dp"
+                android:layout_below="@id/img_top"
+                android:layout_marginBottom="16dp"/>
+
+            </RelativeLayout>
+
+
+
+
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

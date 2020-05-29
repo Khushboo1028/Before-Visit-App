@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
+    app:cardCornerRadius="10dp"
+    android:background="@color/colorPrimary"
+    android:layout_gravity="center_horizontal"
+    android:id="@+id/card_view"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="Place Image"
+            android:src="@drawable/star_filled"
+            android:id="@+id/image_place"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_below="@id/image_place"
+            android:text="Shien Dress"
+            android:layout_marginHorizontal="8dp"
+            android:textAllCaps="true"
+            android:lines="2"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="18dp"
+            android:layout_marginTop="16dp"
+            android:id="@+id/tv_store_name"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_store_name"
+            android:text="Unit B/45, Sri Ramanjenaya Complex, Marathalli Main Rd, Mararhalli, Bengaluru"
+            android:textColor="@color/light_black"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:fontFamily="@font/roboto_medium"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="8dp"
+            android:textSize="12dp"
+            android:id="@+id/tv_place_address"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_place_address"
+            android:paddingHorizontal="8dp">
+
+            <RatingBar
+                android:id="@+id/rating_bar_place"
+                android:theme="@style/MyRatingBarSmallAlt"
+                style="@style/MyRatingBarSmallAlt"
+                android:isIndicator="true"
+                android:layout_marginTop="16dp"
+                android:stepSize="1"
+                android:numStars="5"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="5dp"
+                android:src="@drawable/ic_heart_unfilled_alt"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="4dp"
+                android:layout_marginTop="18dp"
+                android:layout_centerVertical="true"
+                android:id="@+id/image_saved"
+                />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
+

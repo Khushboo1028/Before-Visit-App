@@ -1,0 +1,141 @@
+<resources>
+    <string name="app_name">Before Visit</string>
+
+    <string name="search_places">Search for places</string>
+    <string name="app_name_first_word">BEFORE</string>
+    <string name="app_name_second_word"> VISIT</string>
+
+    <string name="app_description">Explore the world like never before with the help of Before Visit</string>
+    <string name="categories_name">Categories</string>
+    <string name="trending">Trending</string>
+    <string name="popular">Popular</string>
+    <string name="sponsored">Sponsored</string>
+    <string name="newest">Newest</string>
+    <string name="view_all_text">View All</string>
+
+    <string name="create_an_account">Create Account</string>
+    <string name="login">Login</string>
+    <string name="alternate_login">Or Login Using</string>
+    <string name="skip">Skip</string>
+
+    <string name="enter_email">Enter Email Address</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="enter_mobile">Enter Mobile Number</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="re_enter_password">Re Enter Password</string>
+
+    <string name="search_transition">SEARCH_TRANSITION</string>
+
+    <string name="showing_results">Showing results for </string>
+    <string name="filter_results">Filter Results</string>
+    <string name="saved_places_info">Tap on the save button to remove a place</string>
+
+    <string name="USER_SEARCH_LIST">USER_SEARCH_LIST</string>
+    <string name="user_preferences">UserPreferences</string>
+
+
+    <!--    API KEYS DO NOT TOUCH-->
+    <string name="FACEBOOK_APP_ID">576167786341616</string>
+    <string name="FB_LOGIN_PROTOCOL_SCHEME">fb576167786341616</string>
+    <string name="YOUTUBE_API_KEY">AIzaSyD70aNotNwhQoRmECQz2m8S7aYlUgXCvo4</string>
+
+    <!--    Firebase Strings-->
+
+    <!--    Collection String-->
+    <string name="users">users</string>
+    <string name="business_requests">business_requests</string>
+    <string name="feedback">feedback</string>
+    <string name="issues_reported">issues_reported</string>
+    <string name="faq">faq</string>
+    <string name="categories">categories</string>
+    <string name="places">places</string>
+    <string name="about_us">about_us</string>
+    <string name="ratings_and_reviews">ratings_and_reviews</string>
+
+
+    <!--    User Document Fields-->
+
+    <string name="address">address</string>
+    <string name="date_created">date_created</string>
+    <string name="dob">dob</string>
+    <string name="email">email</string>
+    <string name="gender">gender</string>
+    <string name="interests">interests</string>
+    <string name="mobile_no">mobile_no</string>
+    <string name="name">name</string>
+    <string name="notification_pref">notification_pref</string>
+    <string name="places_saved">places_saved</string>
+
+    <string name="notification_pref_all">all</string>
+    <string name="gender_male">male</string>
+    <string name="gender_female">female</string>
+    <string name="gender_other">other</string>
+
+    <!--    business requests fields-->
+
+    <string name="shop_name">shop_name</string>
+    <string name="owner_name">owner_name</string>
+    <string name="business_email">business_email</string>
+    <string name="business_mobile_no">business_mobile_no</string>
+    <string name="business_address">address</string>
+    <string name="userid">userid</string>
+    <string name="is_hidden">is_hidden</string>
+
+    <!--    feedback fields-->
+
+    <string name="feedback_name">name</string>
+    <string name="rating">rating</string>
+    <string name="review">review</string>
+
+    <!--    issues reported fields -->
+
+    <!--    * UserID-->
+    <!--    * USER KA Name-->
+    <!--    * Description-->
+    <!--    * isHidden-->
+
+    <string name="issue_description">description</string>
+
+
+    <!--    faq fields-->
+
+    <string name="question">question</string>
+    <string name="answer">answer</string>
+
+    <!--    category fields-->
+
+    <string name="is_home">is_home</string>
+    <string name="icon_name">name</string>
+    <string name="icon_url">icon_url</string>
+
+
+    <!--    places fields-->
+
+    <string name="about_store">about_store</string>
+    <string name="place_address">address</string>
+    <string name="category_id">category_id</string>
+    <string name="images_url">images_url</string>
+    <string name="is_offering_promo">is_offering_promo</string>
+    <string name="is_sponsored">is_sponsored</string>
+    <string name="mobile_no_array">mobile_no</string>
+    <string name="place_name">name</string>
+    <string name="offer_image_url">offer_image_url</string>
+    <string name="saved_count">saved_count</string>
+    <string name="search_keywords">search_keywords</string>
+    <string name="video_url">video_url</string>
+    <string name="visitor_count">visitor_count</string>
+    <string name="no_of_reviews">no_of_reviews</string>
+    <string name="home_image_url">home_image_url</string>
+    <string name="avg_rating">avg_review</string>
+
+    <!--    about_us fields-->
+    <string name="description">description</string>
+    <string name="visit_us_url">visit_us_url</string>
+
+    <!--    ratings and reviews fields-->
+    <string name="place_id">place_id</string>
+    <string name="place_name_review">place_name</string>
+    <string name="user_name">user_name</string>
+
+
+</resources>

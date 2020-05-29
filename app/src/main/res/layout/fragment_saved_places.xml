@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorPrimaryDark"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/main_rel">
+
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@drawable/ic_heart"
+                android:layout_marginTop="16dp"
+                android:id="@+id/img_head"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="40dp"
+                android:layout_below="@id/img_head"
+                android:text="Saved Places"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/robo_bold"
+                android:maxLines="2"
+                android:layout_marginTop="16dp"
+                android:textAllCaps="true"
+                android:textSize="36dp"
+                android:id="@+id/tv_place_name"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_place_name"
+                android:text="Tap on the Save button to remove from the list."
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/robo_bold"
+                android:layout_marginTop="16dp"
+                android:textSize="26dp"
+                android:id="@+id/tv_header"/>
+
+
+            <com.beforevisit.beforevisit.utility.ExpandableHeightGridView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_header"
+                android:columnWidth="160dp"
+                android:numColumns="2"
+                android:layout_marginTop="16dp"
+                android:scrollbarStyle="outsideInset"
+                android:verticalSpacing="24dp"
+                android:horizontalSpacing="24dp"
+                android:gravity="center_horizontal"
+                android:stretchMode="columnWidth"
+                android:textAlignment="center"
+                android:paddingBottom="16dp"
+                android:clipToPadding="false"
+                android:listSelector="@android:color/transparent"
+                android:id="@+id/grid_view"
+                />
+
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</RelativeLayout>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:id="@+id/super_rel"
+    android:padding="16dp"
+    tools:context=".Activities.SearchActivity">
+
+
+    <include layout="@layout/snippet_top_bar"
+        android:id="@+id/top_bar"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_bar"
+        android:id="@+id/scrollView">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/main_rel">
+
+            <include layout="@layout/snippet_search_bar"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/search_bar"/>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/search_bar"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                android:id="@+id/recent_search_rel">
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:text="Recent"
+                android:textAlignment="center"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="24dp"
+                android:id="@+id/tv_recent"/>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_recent"
+                android:nestedScrollingEnabled="true"
+                android:scrollbars="vertical"
+                android:layout_marginTop="16dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:id="@+id/recycler_view_search"/>
+
+            </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/search_bar"
+            android:layout_marginTop="12dp"
+            android:id="@+id/places_search_rel">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/showing_results"
+                android:textAlignment="center"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="18dp"
+                android:id="@+id/tv_showing_results"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_below="@id/tv_showing_results"
+                android:layout_marginTop="12dp"
+                android:id="@+id/ll_filter">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_filter"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:text="@string/filter_results"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="18dp"
+                    android:layout_marginStart="12dp"
+                    android:id="@+id/tv_filter_results"/>
+
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:id="@+id/spinner"/>
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ll_filter"
+                android:nestedScrollingEnabled="true"
+                android:scrollbars="vertical"
+                android:layout_marginTop="16dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:id="@+id/recycler_view_results"/>
+
+
+        </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Oops! No results match your search!"
+                android:textColor="@color/colorPrimary"
+                android:layout_below="@id/places_search_rel"
+                android:textSize="24dp"
+                android:padding="16dp"
+                android:visibility="gone"
+                android:fontFamily="@font/roboto_medium"
+                android:id="@+id/text_no_search_found"/>
+
+
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+
+
+</RelativeLayout>

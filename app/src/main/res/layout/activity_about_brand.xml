@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/super_rel"
+    android:background="@color/colorPrimaryDark"
+    android:padding="16dp"
+    tools:context=".Activities.AboutBrandActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/main_rel">
+
+            <include layout="@layout/snippet_top_bar"
+                android:id="@+id/top_bar"/>
+
+            <FrameLayout
+                android:id="@+id/youtube_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_below="@id/top_bar"
+                android:layout_centerHorizontal="true"
+                android:visibility="visible" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="40dp"
+                android:layout_below="@id/youtube_fragment"
+                android:text="Nike Factory Store"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/robo_bold"
+                android:maxLines="2"
+                android:layout_marginTop="16dp"
+                android:textAllCaps="true"
+                android:textSize="36dp"
+                android:id="@+id/tv_place_name"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_place_name"
+                android:text="Unit B/45, Sri Ramanjenaya Complex, Marathalli Main Rd, Mararhalli, Bengaluru"
+                android:textColor="@color/light_grey"
+                android:fontFamily="@font/roboto_medium"
+                android:layout_marginTop="16dp"
+                android:textSize="18dp"
+                android:id="@+id/tv_place_address"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_below="@id/tv_place_address"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal"
+                android:weightSum="4"
+                android:id="@+id/icons_layout">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/call_rel"
+                    >
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_call"
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/img_call"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/img_call"
+                        android:text="Call"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="12dp"
+                        android:textColor="@color/colorPrimary"
+                        android:fontFamily="@font/roboto_medium"
+                        android:textSize="16dp"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/location_rel"
+                    >
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/ic_location"
+                        android:id="@+id/img_location"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@id/img_location"
+                        android:text="Location"
+                        android:layout_marginTop="12dp"
+                        android:textColor="@color/colorPrimary"
+                        android:fontFamily="@font/roboto_medium"
+                        android:textSize="16dp"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/share_rel"
+                    >
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_share"
+                        android:id="@+id/img_share"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/img_share"
+                        android:text="Share"
+                        android:layout_marginTop="12dp"
+                        android:textColor="@color/colorPrimary"
+                        android:fontFamily="@font/roboto_medium"
+                        android:textSize="16dp"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:id="@+id/save_rel"
+                    >
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_heart_unfilled"
+                        android:id="@+id/img_save"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/img_save"
+                        android:text="Save"
+                        android:layout_marginTop="12dp"
+                        android:textColor="@color/colorPrimary"
+                        android:fontFamily="@font/roboto_medium"
+                        android:textSize="16dp"/>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_below="@id/icons_layout"
+                android:text="About the Store"
+                android:textAlignment="center"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="24dp"
+                android:layout_marginTop="24dp"
+                android:id="@+id/text_about_store"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_about_store"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/roboto_medium"
+                android:layout_marginTop="16dp"
+                android:textSize="18dp"
+                android:id="@+id/tv_about_store"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_below="@id/tv_about_store"
+                android:text="Phone:  "
+                android:textAlignment="center"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="16dp"
+                android:layout_marginTop="24dp"
+                android:id="@+id/text_phone"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
+                android:layout_below="@id/tv_about_store"
+                android:layout_toRightOf="@id/text_phone"
+                android:text="09865432132"
+                android:textAlignment="center"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="16dp"
+                android:layout_marginTop="24dp"
+                android:id="@+id/tv_phone"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_below="@id/tv_phone"
+                android:text="Image Gallery"
+                android:textAlignment="center"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="24dp"
+                android:layout_marginTop="24dp"
+                android:id="@+id/text_image_gallery"/>
+
+
+            <com.beforevisit.beforevisit.utility.ExpandableHeightGridView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_below="@id/text_image_gallery"
+                android:columnWidth="210dp"
+                android:numColumns="3"
+                android:layout_marginTop="22dp"
+                android:scrollbarStyle="outsideInset"
+                android:verticalSpacing="20dp"
+                android:stretchMode="columnWidth"
+                android:textAlignment="center"
+                android:clipToPadding="false"
+                android:listSelector="@android:color/transparent"
+                android:id="@+id/images_grid_view"
+                />
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_below="@id/images_grid_view"
+                android:text="Ratings and Reviews"
+                android:textAlignment="center"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="24dp"
+                android:layout_marginTop="24dp"
+                android:id="@+id/text_ratings"/>
+
+
+            <RatingBar android:id="@+id/ratingBarAvg"
+                android:theme="@style/MyRatingBar"
+                style="@style/MyRatingBar"
+                android:isIndicator="true"
+                android:layout_marginTop="16dp"
+                android:stepSize="1"
+                android:numStars="5"
+                android:layout_below="@id/text_ratings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/ratingBarAvg"
+                android:layout_below="@id/text_ratings"
+                android:layout_marginTop="18dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="0/5"
+                android:textSize="30dp"
+                android:layout_marginLeft="16dp"
+                android:textColor="@color/colorPrimary"
+                android:id="@+id/tv_rating_avg"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_rating_avg"
+                android:nestedScrollingEnabled="false"
+                android:scrollbars="vertical"
+                android:layout_marginTop="16dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:id="@+id/recycler_view_ratings"/>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_below="@id/recycler_view_ratings"
+                android:text="Rate and Review \nthis place"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="24dp"
+                android:layout_marginTop="24dp"
+                android:id="@+id/text_rating_the_place"/>
+
+            <RatingBar android:id="@+id/rating_bar_user"
+                android:theme="@style/MyRatingBar"
+                style="@style/MyRatingBar"
+                android:layout_marginTop="16dp"
+                android:stepSize="1"
+                android:numStars="5"
+                android:layout_below="@id/text_rating_the_place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/rating_bar_user"
+                android:layout_below="@id/text_rating_the_place"
+                android:layout_marginTop="18dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="0/5"
+                android:textSize="30dp"
+                android:layout_marginLeft="16dp"
+                android:textColor="@color/colorPrimary"
+                android:id="@+id/tv_rating_user"/>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_rating_user"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/white_border_rectangle"
+                android:padding="12dp"
+                android:id="@+id/review_rel">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Write a review"
+                    android:textSize="18dp"
+                    android:textColor="@color/colorPrimary"
+                    android:id="@+id/tv_write_review"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minLines="4"
+                    android:layout_below="@id/tv_write_review"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textColor="@color/colorPrimary"
+                    android:background="@null"
+                    android:textSize="18dp"
+                    android:hint="Please write a review"
+                    android:textColorHint="@color/light_grey_hint"
+                    android:gravity="start"
+                    android:id="@+id/et_review"/>
+            </RelativeLayout>
+
+
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@drawable/ic_check"
+                android:layout_below="@id/review_rel"
+                android:layout_marginVertical="36dp"
+                android:layout_alignParentRight="true"
+                android:id="@+id/img_done"/>
+
+
+
+
+
+        </RelativeLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:id="@+id/progress_bar"/>
+
+</RelativeLayout>

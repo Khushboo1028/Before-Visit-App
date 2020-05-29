@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:id="@+id/super_rel"
+    >
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/main_rel">
+
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@drawable/ic_question"
+                android:layout_marginTop="24dp"
+                android:id="@+id/img_head"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/img_head"
+                android:text="Help and Support"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/robo_bold"
+                android:layout_marginTop="16dp"
+                android:textAllCaps="true"
+                android:textSize="32dp"
+                android:id="@+id/tv_header"/>
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:src="@drawable/ic_help_support"
+                android:layout_marginTop="24dp"
+                android:layout_below="@id/tv_header"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/img_help"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_below="@id/img_help"
+                android:text="Need some help?"
+                android:layout_centerHorizontal="true"
+                android:textAllCaps="true"
+                android:textAlignment="center"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="24dp"
+                android:layout_marginTop="16dp"
+                android:id="@+id/tv_need_help"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_below="@id/tv_need_help"
+                android:text="Got lost? Don't know how to use?\nFeel Free to get in touch with us."
+                android:layout_centerHorizontal="true"
+                android:textAlignment="center"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="18dp"
+                android:layout_marginTop="16dp"
+                android:id="@+id/tv_help_description"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Report issue"
+                android:layout_below="@id/tv_help_description"
+                android:layout_marginTop="16dp"
+                android:layout_alignLeft="@id/tv_help_description"
+                android:layout_alignRight="@id/tv_help_description"
+                android:background="@drawable/white_rectangle_10"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="18dp"
+                android:id="@+id/btn_report_issue"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_below="@id/btn_report_issue"
+                android:text="FAQ"
+                android:textAllCaps="true"
+                android:textAlignment="center"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="24dp"
+                android:layout_marginTop="16dp"
+                android:id="@+id/tv_faq"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_below="@id/tv_faq"
+                android:text="Frequently Asked Questions"
+                android:textAllCaps="true"
+                android:textAlignment="center"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="18dp"
+                android:layout_marginTop="8dp"
+                android:id="@+id/tv_faq_full"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_faq_full"
+                android:nestedScrollingEnabled="false"
+                android:layout_marginTop="24dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:scrollbars="vertical"
+                android:id="@+id/recycler_view"
+                />
+
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

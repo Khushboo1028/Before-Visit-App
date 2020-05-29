@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".Activities.ViewAllCategories">
+
+    <include layout="@layout/snippet_top_bar"
+        android:id="@+id/top_bar"/>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_bar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/top_bar"
+            android:padding="16dp">
+
+            <include layout="@layout/snippet_search_bar"
+                android:id="@+id/search_bar"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/categories_name"
+                android:textSize="16dp"
+                android:fontFamily="@font/roboto_medium"
+                android:layout_below="@id/search_bar"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="10dp"
+                android:id="@+id/tv_categories"/>
+
+
+            <com.beforevisit.beforevisit.utility.ExpandableHeightGridView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_categories"
+                android:columnWidth="220dp"
+                android:numColumns="3"
+                android:layout_marginTop="22dp"
+                android:scrollbarStyle="outsideInset"
+                android:verticalSpacing="40dp"
+                android:stretchMode="spacingWidthUniform"
+                android:textAlignment="center"
+                android:clipToPadding="false"
+                android:listSelector="@android:color/transparent"
+                android:id="@+id/grid_view"
+                />
+
+
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</RelativeLayout>

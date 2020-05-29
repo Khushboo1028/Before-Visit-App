@@ -1,0 +1,34 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="MyRatingBar" parent="Widget.AppCompat.RatingBar">
+        <item name="android:progressDrawable">@drawable/rating_bar_selector</item>
+        <item name="colorControlNormal">#33FFFFFF</item>
+        <item name="colorControlActivated">#FFFFFF</item>
+    </style>
+
+    <style name="MyRatingBarSmall" parent="Widget.AppCompat.RatingBar.Indicator">
+        <item name="android:progressDrawable">@drawable/rating_bar_selector_small</item>
+        <item name="colorControlNormal">#33FFFFFF</item>
+        <item name="colorControlActivated">#FFFFFF</item>
+    </style>
+
+
+    <style name="MyRatingBarSmallAlt" parent="Widget.AppCompat.RatingBar.Indicator">
+        <item name="android:progressDrawable">@drawable/rating_bar_selector_small</item>
+        <item name="colorControlNormal">#33000000</item>
+        <item name="colorControlActivated">#000000</item>
+    </style>
+
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/splash_theme</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+</resources>

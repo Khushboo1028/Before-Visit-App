@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingVertical="16dp"
+    android:background="@color/colorPrimaryDark">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Khushboo"
+        android:textSize="24dp"
+        android:textColor="@color/colorPrimary"
+        android:id="@+id/tv_user_name"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_user_name"
+        android:text="Unit B/45, Sri Ramanjenaya Complex, Marathalli Main Rd, Mararhalli, Bengaluru"
+        android:textColor="@color/light_grey"
+        android:fontFamily="@font/roboto_light"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="48dp"
+        android:textSize="18dp"
+        android:id="@+id/tv_user_review"/>
+
+    <RatingBar android:id="@+id/rating_bar_user"
+        android:theme="@style/MyRatingBar"
+        style="@style/MyRatingBarSmall"
+        android:isIndicator="true"
+        android:layout_marginTop="16dp"
+        android:stepSize="1"
+        android:numStars="5"
+        android:layout_below="@id/tv_user_review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/rating_bar_user"
+        android:layout_below="@id/tv_user_review"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="0/5"
+        android:textSize="16dp"
+        android:layout_marginLeft="8dp"
+        android:textColor="@color/colorPrimary"
+        android:id="@+id/tv_rating_avg"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_rating_avg"
+        android:text="9th May 2020"
+        android:textColor="@color/light_grey"
+        android:fontFamily="@font/roboto_light"
+        android:layout_marginTop="16dp"
+        android:textSize="18dp"
+        android:id="@+id/tv_user_review_date"/>
+
+</RelativeLayout>

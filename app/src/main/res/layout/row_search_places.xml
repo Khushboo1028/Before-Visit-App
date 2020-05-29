@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:paddingVertical="12dp">
+
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp"
+    android:id="@+id/card_view"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/main_rel">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:layout_centerVertical="true"
+            android:id="@+id/image_place"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_toRightOf="@id/image_place"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:gravity="start|center_vertical"
+
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="40dp"
+                android:layout_below="@id/youtube_fragment"
+                android:text="Nike Factory Store"
+                android:textColor="@color/colorPrimaryDark"
+                android:ellipsize="end"
+                android:fontFamily="@font/robo_bold"
+                android:maxLines="2"
+                android:textAllCaps="true"
+                android:textSize="20dp"
+                android:id="@+id/tv_place_name"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_place_name"
+                android:text="Unit B/45, Sri Ramanjenaya Complex, Marathalli Main Rd, Mararhalli, Bengaluru"
+                android:textColor="@color/colorAccent"
+                android:fontFamily="@font/roboto_medium"
+                android:layout_marginTop="16dp"
+                android:textSize="12dp"
+                android:id="@+id/tv_place_address"/>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <RatingBar android:id="@+id/rating_bar_user"
+                    android:theme="@style/MyRatingBarSmallAlt"
+                    style="@style/MyRatingBarSmallAlt"
+                    android:layout_centerVertical="true"
+                    android:isIndicator="true"
+                    android:stepSize="1"
+                    android:numStars="5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:padding="5dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_share_alt"
+                    android:layout_alignParentRight="true"
+                    />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
+</RelativeLayout>
+
+

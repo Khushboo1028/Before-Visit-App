@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:id="@+id/super_rel"
+    android:padding="16dp"
+    tools:context=".Activities.MainActivity">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="72dp"
+        android:background="@color/colorPrimaryDark"
+        android:id="@+id/fragment_container"/>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/nestedScrollView"
+        android:layout_marginTop="72dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/snippet_search_bar"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="20dp"
+                android:id="@+id/search_bar"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/search_bar"
+                android:id="@+id/top_rel">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="10dp"
+                    android:id="@+id/cardview_top">
+                    <androidx.viewpager.widget.ViewPager
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:id="@+id/viewpager_top"/>
+                </androidx.cardview.widget.CardView>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/top_rel"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:id="@+id/pager_dots">
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/categories_name"
+                android:textSize="16dp"
+                android:fontFamily="@font/roboto_medium"
+                android:layout_below="@id/top_rel"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="10dp"
+                android:id="@+id/tv_categories"/>
+
+            <GridView
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:layout_below="@id/tv_categories"
+                android:columnWidth="200dp"
+                android:numColumns="3"
+                android:layout_marginTop="22dp"
+                android:scrollbarStyle="outsideInset"
+                android:verticalSpacing="40dp"
+                android:stretchMode="spacingWidthUniform"
+                android:textAlignment="center"
+                android:clipToPadding="false"
+                android:listSelector="@android:color/transparent"
+                android:id="@+id/grid_view"
+                />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/trending_rel"
+                android:layout_below="@id/grid_view">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/trending"
+                    android:textSize="16dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:textColor="@color/colorPrimary"
+                    android:id="@+id/tv_trending"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/view_all_text"
+                    android:textSize="16dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="@color/highlight_blue"
+                    android:id="@+id/view_more_trending"/>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_trending"
+                    app:cardCornerRadius="10dp"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/cardview_trending">
+                    <androidx.viewpager.widget.ViewPager
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_below="@id/tv_trending"
+                        android:id="@+id/viewpager_trending"/>
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/cardview_trending"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/transparent"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:id="@+id/pager_dots_trending">
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/popular_rel"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/trending_rel">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/popular"
+                    android:textSize="16dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:textColor="@color/colorPrimary"
+                    android:id="@+id/tv_popular"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/view_all_text"
+                    android:textSize="16dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="@color/highlight_blue"
+                    android:id="@+id/view_more_popular"/>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_popular"
+                    app:cardCornerRadius="10dp"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/cardview_pop">
+                    <androidx.viewpager.widget.ViewPager
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_below="@id/tv_popular"
+                        android:id="@+id/viewpager_popular"/>
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/cardview_pop"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/transparent"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:id="@+id/pager_dots_popular">
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sponsored_rel"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/popular_rel">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sponsored"
+                    android:textSize="16dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:textColor="@color/colorPrimary"
+                    android:id="@+id/tv_sponsor"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/view_all_text"
+                    android:textSize="16dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="@color/highlight_blue"
+                    android:id="@+id/view_more_sponsored"/>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_sponsor"
+                    app:cardCornerRadius="10dp"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/cardview_sponsored">
+                    <androidx.viewpager.widget.ViewPager
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_below="@id/view_more_sponsored"
+                        android:id="@+id/viewpager_sponsored"/>
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/cardview_sponsored"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/transparent"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:id="@+id/pager_dots_sponsored">
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:src="@drawable/ic_arrow_top"
+                    android:layout_marginTop="40dp"
+                    android:layout_below="@id/pager_dots_sponsored"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/img_top"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:text="@string/app_name"
+                    android:layout_marginTop="12dp"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textAllCaps="true"
+                    android:textSize="16dp"
+                    android:layout_below="@id/img_top"
+                    android:layout_marginBottom="16dp"/>
+
+            </RelativeLayout>
+
+
+
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <include layout="@layout/snippet_top_bar_main"
+        android:id="@+id/top_bar"/>
+
+
+</RelativeLayout>

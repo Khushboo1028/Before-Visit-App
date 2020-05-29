@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:paddingVertical="8dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:text="Question here.. Big Question so big that it can fir 2 lines ore more, lets make a big question"
+        android:textAlignment="textStart"
+        android:fontFamily="@font/roboto_medium"
+        android:textSize="18dp"
+        android:layout_marginTop="8dp"
+        android:id="@+id/tv_question"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/light_grey"
+        android:layout_below="@id/tv_question"
+        android:text="Answer here.. very big answer that fits 4 lines  very big answer that fits 4 lines Answer here.. very big answer that fits 4 lines"
+        android:textAlignment="textStart"
+        android:fontFamily="@font/roboto_medium"
+        android:textSize="18dp"
+        android:layout_marginTop="8dp"
+        android:id="@+id/tv_answer"
+        />
+
+</RelativeLayout>

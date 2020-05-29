@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/super_rel"
+    android:background="@color/colorPrimaryDark"
+    android:padding="16dp"
+    tools:context=".Activities.CreateAccountActivity">
+
+    <include layout="@layout/snippet_top_bar"
+        android:id="@+id/top_bar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_bar"
+        android:id="@+id/scrollView">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/main_rel"
+            android:layout_marginTop="16dp">
+
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@drawable/ic_user"
+                android:layout_marginTop="24dp"
+                android:id="@+id/img_head"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/img_head"
+                android:text="Create\nAccount"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/robo_bold"
+                android:lines="2"
+                android:layout_marginTop="16dp"
+                android:textAllCaps="true"
+                android:textSize="36dp"
+                android:id="@+id/tv_header"/>
+
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:layout_below="@id/tv_header"
+            android:text="@string/enter_email"
+            android:textAlignment="center"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="18dp"
+            android:layout_marginTop="16dp"
+            android:id="@+id/tv_email"/>
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_email"
+                android:layout_marginTop="12dp"
+                android:padding="12dp"
+                android:inputType="textEmailAddress"
+                android:imeOptions="actionNext"
+                android:hint="account@gmail.com"
+                android:fontFamily="@font/roboto_medium"
+                android:textColorHint="@color/light_grey_hint"
+                android:textColor="@color/colorPrimary"
+                android:background="@drawable/white_border_rectangle"
+                android:id="@+id/et_email"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/incorrect_red"
+                android:layout_below="@id/et_email"
+                android:text="Please enter a correct email"
+                android:textAlignment="center"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="12dp"
+                android:layout_marginTop="6dp"
+                android:visibility="gone"
+                android:id="@+id/tv_error_email"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_below="@id/tv_error_email"
+                android:text="@string/enter_name"
+                android:textAlignment="center"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="18dp"
+                android:layout_marginTop="24dp"
+                android:id="@+id/tv_name"/>
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_name"
+                android:layout_marginTop="12dp"
+                android:padding="12dp"
+                android:inputType="textCapWords"
+                android:imeOptions="actionNext"
+                android:hint="John Doe"
+                android:fontFamily="@font/roboto_medium"
+                android:textColorHint="@color/light_grey_hint"
+                android:textColor="@color/colorPrimary"
+                android:background="@drawable/white_border_rectangle"
+                android:id="@+id/et_name"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_below="@id/et_name"
+                android:text="@string/enter_mobile"
+                android:textAlignment="center"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="18dp"
+                android:layout_marginTop="24dp"
+                android:id="@+id/tv_mobile"/>
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_mobile"
+                android:layout_marginTop="12dp"
+                android:padding="12dp"
+                android:inputType="phone"
+                android:imeOptions="actionNext"
+                android:hint="9876543210"
+                android:maxLength="10"
+                android:fontFamily="@font/roboto_medium"
+                android:textColorHint="@color/light_grey_hint"
+                android:textColor="@color/colorPrimary"
+                android:background="@drawable/white_border_rectangle"
+                android:id="@+id/et_mobile"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/incorrect_red"
+                android:layout_below="@id/et_mobile"
+                android:text="Please enter a mobile number"
+                android:textAlignment="center"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="12dp"
+                android:layout_marginTop="6dp"
+                android:visibility="gone"
+                android:id="@+id/tv_error_mobile"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_below="@id/tv_error_mobile"
+                android:text="@string/enter_password"
+                android:textAlignment="center"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="18dp"
+                android:layout_marginTop="24dp"
+                android:id="@+id/tv_password"/>
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_password"
+                android:layout_marginTop="12dp"
+                android:padding="12dp"
+                android:inputType="textPassword"
+                android:imeOptions="actionNext"
+                android:hint="***********"
+                android:fontFamily="@font/roboto_medium"
+                android:textColorHint="@color/light_grey_hint"
+                android:textColor="@color/colorPrimary"
+                android:background="@drawable/white_border_rectangle"
+                android:id="@+id/et_password"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:layout_below="@id/et_password"
+                android:text="@string/re_enter_password"
+                android:textAlignment="center"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="18dp"
+                android:layout_marginTop="24dp"
+                android:id="@+id/tv_re_password"/>
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_re_password"
+                android:layout_marginTop="12dp"
+                android:padding="12dp"
+                android:inputType="textPassword"
+                android:imeOptions="actionGo"
+                android:hint="***********"
+                android:fontFamily="@font/roboto_medium"
+                android:textColorHint="@color/light_grey_hint"
+                android:textColor="@color/colorPrimary"
+                android:background="@drawable/white_border_rectangle"
+                android:id="@+id/et_re_password"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/incorrect_red"
+                android:layout_below="@id/et_re_password"
+                android:text="Please enter correct passwords"
+                android:textAlignment="center"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="12dp"
+                android:layout_marginTop="6dp"
+                android:visibility="gone"
+                android:id="@+id/tv_error_password"/>
+
+
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@drawable/ic_check"
+                android:layout_below="@id/tv_error_password"
+                android:layout_marginVertical="36dp"
+                android:layout_alignParentRight="true"
+                android:id="@+id/img_done"/>
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:id="@+id/progress_bar"/>
+
+
+
+</RelativeLayout>
