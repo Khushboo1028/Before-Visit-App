@@ -11,6 +11,7 @@
     <string name="popular">Popular</string>
     <string name="sponsored">Sponsored</string>
     <string name="newest">Newest</string>
+    <string name="nearest">Nearest</string>
     <string name="view_all_text">View All</string>
 
     <string name="create_an_account">Create Account</string>
@@ -127,6 +128,8 @@
     <string name="no_of_reviews">no_of_reviews</string>
     <string name="home_image_url">home_image_url</string>
     <string name="avg_rating">avg_review</string>
+    <string name="latitude">latitude</string>
+    <string name="longitude">longitude</string>
 
     <!--    about_us fields-->
     <string name="description">description</string>

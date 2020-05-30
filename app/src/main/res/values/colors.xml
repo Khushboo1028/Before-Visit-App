@@ -13,5 +13,6 @@
     <color name="light_black_hint">#33000000</color>
 
     <color name="incorrect_red">#D21F1F</color>
+    <color name="correct_green">#189332</color>
 
 </resources>

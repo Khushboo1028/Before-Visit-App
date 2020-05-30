@@ -27,6 +27,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerUtils;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
@@ -146,17 +147,28 @@ public class AboutUsFragment extends Fragment {
         // If you don't add YouTubePlayerView as a lifecycle observer, you will have to release it manually.
         getLifecycle().addObserver(youTubePlayerView);
 
-        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+//        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+//            @Override
+//            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+//
+//
+//                String url_cue = video_url.substring(video_url.lastIndexOf("=")+1);
+//
+//                YouTubePlayerUtils.loadOrCueVideo(
+//                        youTubePlayer, getLifecycle(),
+//                        url_cue,0f
+//                );
+//            }
+//        });
+
+        youTubePlayerView.addFullScreenListener(new YouTubePlayerFullScreenListener() {
             @Override
-            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+            public void onYouTubePlayerEnterFullScreen() {
+                youTubePlayerView.toggleFullScreen();
+            }
 
-
-                String url_cue = video_url.substring(video_url.lastIndexOf("=")+1);
-
-                YouTubePlayerUtils.loadOrCueVideo(
-                        youTubePlayer, getLifecycle(),
-                        url_cue,0f
-                );
+            @Override
+            public void onYouTubePlayerExitFullScreen() {
             }
         });
     }

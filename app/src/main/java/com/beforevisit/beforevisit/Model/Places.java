@@ -20,8 +20,10 @@ public class Places {
     String video_url;
     long visitor_count;
     int avg_rating;
+    double latitude;
+    double longitude;
 
-    public Places(String doc_id, String about_Store, String place_address, String category_id, String home_image_url, ArrayList<String> images_url, Boolean is_offering_promo, Boolean is_sponsored, ArrayList<String> mobile_no_array, String place_name, String offer_image_url, long saved_count, String search_keywords, String video_url, long visitor_count, int avg_rating) {
+    public Places(String doc_id, String about_Store, String place_address, String category_id, String home_image_url, ArrayList<String> images_url, Boolean is_offering_promo, Boolean is_sponsored, ArrayList<String> mobile_no_array, String place_name, String offer_image_url, long saved_count, String search_keywords, String video_url, long visitor_count, int avg_rating, double latitude, double longitude) {
         this.doc_id = doc_id;
         this.about_Store = about_Store;
         this.place_address = place_address;
@@ -38,6 +40,24 @@ public class Places {
         this.video_url = video_url;
         this.visitor_count = visitor_count;
         this.avg_rating = avg_rating;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     public String getHome_image_url() {

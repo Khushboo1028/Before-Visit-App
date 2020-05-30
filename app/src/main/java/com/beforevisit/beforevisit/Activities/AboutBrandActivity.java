@@ -358,6 +358,7 @@ public class AboutBrandActivity extends AppCompatActivity {
                             final String video_url;
                             long visitor_count;
                             int avg_rating;
+                            double latitude,longitude;
 
                             if (snapshot != null && snapshot.exists()) {
 
@@ -481,6 +482,17 @@ public class AboutBrandActivity extends AppCompatActivity {
                                 }
 
 
+                                if(snapshot.get(getString(R.string.latitude))!=null){
+                                    latitude = snapshot.getDouble(getString(R.string.latitude));
+                                }else{
+                                    latitude = 0.0;
+                                }
+
+                                if(snapshot.get(getString(R.string.longitude))!=null){
+                                    longitude = snapshot.getDouble(getString(R.string.longitude));
+                                }else{
+                                    longitude = 0.0;
+                                }
 
                                 placesArrayList.add(new Places(
                                         place_id,
@@ -498,11 +510,13 @@ public class AboutBrandActivity extends AppCompatActivity {
                                         search_keywords,
                                         video_url,
                                         visitor_count,
-                                        avg_rating
+                                        avg_rating,
+                                        latitude,
+                                        longitude
 
                                 ));
 
-                                //TODO: Images suddenly not displaying
+
                                 gridImagePlaceAdapter = new GridImagePlaceAdapter(AboutBrandActivity.this, images_url_5);
                                 images_grid_view.setAdapter(gridImagePlaceAdapter);
 

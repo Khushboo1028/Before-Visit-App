@@ -120,6 +120,7 @@ public class SavedPlacesFragment extends Fragment {
                                                         String image_url;
                                                         float rating;
                                                         Boolean isSaved;
+                                                        double latitude,longitude;
 
                                                         if(snapshot.get(mActivity.getString(R.string.place_name))!=null){
                                                             store_name = snapshot.getString(mActivity.getString(R.string.place_name));
@@ -151,7 +152,18 @@ public class SavedPlacesFragment extends Fragment {
                                                             rating = 0;
                                                         }
 
-                                                        //TODO: Put isSaved Logic Here
+                                                        if(snapshot.get(getString(R.string.latitude))!=null){
+                                                            latitude = snapshot.getDouble(getString(R.string.latitude));
+                                                        }else{
+                                                            latitude = 0.0;
+                                                        }
+
+                                                        if(snapshot.get(getString(R.string.longitude))!=null){
+                                                            longitude = snapshot.getDouble(getString(R.string.longitude));
+                                                        }else{
+                                                            longitude = 0.0;
+                                                        }
+
 
                                                         isSaved = true;
 
@@ -161,7 +173,10 @@ public class SavedPlacesFragment extends Fragment {
                                                                 image_url,
                                                                 rating,
                                                                 isSaved,
-                                                                snapshot.getId()
+                                                                snapshot.getId(),
+                                                                latitude,
+                                                                longitude,
+                                                                ""
                                                         ));
 
                                                         gridAdapter.notifyDataSetChanged();

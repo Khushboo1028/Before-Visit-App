@@ -21,6 +21,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -51,6 +52,8 @@ import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.w3c.dom.Text;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -67,7 +70,7 @@ public class ProfileFragment extends Fragment{
     EditText et_name, et_email, et_mobile, et_address, et_dob;
     String name, mobile, address, dob, gender;
     ImageView img_done;
-    TextView tv_error_email,tv_error_mobile,tv_dob;
+    TextView tv_error_email,tv_error_mobile,tv_dob,tv_profile_percent;
 
     AlertDialog.Builder builder;
     AlertDialog alert;
@@ -92,8 +95,13 @@ public class ProfileFragment extends Fragment{
     ArrayList<String> usersCurrentInterestsList;
 
     FlexboxLayoutManager manager;
+    ProgressBar profile_progress_bar;
 
     Context mContext;
+    double profile_percent;
+
+
+    int completed_count=7;
 
 
     @Override
@@ -293,6 +301,9 @@ public class ProfileFragment extends Fragment{
         interestsAdapter = new InterestsAdapter(getContext(),interestsList);
         recyclerViewInterest.setAdapter(interestsAdapter);
 
+        profile_progress_bar = (ProgressBar) view.findViewById(R.id.profile_progress_bar);
+        tv_profile_percent = (TextView) view.findViewById(R.id.tv_profile_percent);
+
 
 
     }
@@ -396,6 +407,7 @@ public class ProfileFragment extends Fragment{
     private void readUserData(){
 
 
+
         if(firebaseUser!=null){
             DocumentReference docref = db.collection(mContext.getString(R.string.users)).document(firebaseUser.getUid());
 
@@ -414,12 +426,22 @@ public class ProfileFragment extends Fragment{
                                 if (snapshot.get(mContext.getString(R.string.name)) != null) {
                                     name = snapshot.getString(mContext.getString(R.string.name));
                                     et_name.setText(name);
+                                    if(name.isEmpty()){
+                                        completed_count=completed_count-1;
+                                    }
+                                }else{
+                                    completed_count=completed_count-1;
                                 }
 
 
                                 if (snapshot.get(mContext.getString(R.string.mobile_no)) != null) {
                                     mobile = snapshot.getString(mContext.getString(R.string.mobile_no));
                                     et_mobile.setText(mobile);
+                                    if(mobile.isEmpty()){
+                                        completed_count=completed_count-1;
+                                    }
+                                }else{
+                                    completed_count=completed_count-1;
                                 }
 
                                 if (snapshot.get(mContext.getString(R.string.dob)) != null) {
@@ -427,16 +449,29 @@ public class ProfileFragment extends Fragment{
                                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
                                     dob = dateFormat.format(dob_ts.toDate());
                                     tv_dob.setText(dob);
+                                }else{
+                                    completed_count=completed_count-1;
                                 }
 
                                 if (snapshot.get(mContext.getString(R.string.address)) != null) {
                                     address = snapshot.getString(mContext.getString(R.string.address));
                                     et_address.setText(address);
+
+                                    if(address.isEmpty()){
+                                        completed_count=completed_count-1;
+                                    }
+                                }else{
+                                    completed_count=completed_count-1;
                                 }
 
                                 if (snapshot.get(mContext.getString(R.string.interests)) != null) {
                                     usersCurrentInterestsList = (ArrayList<String>) snapshot.get(mContext.getString(R.string.interests));
+                                    if(usersCurrentInterestsList.isEmpty()){
+                                        completed_count=completed_count-1;
+                                    }
 
+                                }else{
+                                    completed_count=completed_count-1;
                                 }
 
                                 if (snapshot.get(mContext.getString(R.string.gender)) != null) {
@@ -452,8 +487,19 @@ public class ProfileFragment extends Fragment{
                                         gender_other.setChecked(true);
                                     }
 
+                                }else{
+                                    completed_count=completed_count-1;
                                 }
 
+
+                                profile_percent = Math.round((completed_count/7.0) * 100);
+                                int progress = Integer.parseInt(String.format("%.0f", profile_percent));
+                                profile_progress_bar.setProgress(progress);
+                                if(progress == 100){
+                                    tv_profile_percent.setText("Profile Complete");
+                                }else{
+                                    tv_profile_percent.setText(String.format("%.0f", profile_percent) + " %");
+                                }
                                 interestsAdapter.notifyDataSetChanged();
                             }
 
@@ -520,9 +566,13 @@ public class ProfileFragment extends Fragment{
     public void onStop() {
         super.onStop();
 
+        img_signout.setVisibility(View.GONE);
+        img_notification_bell.setVisibility(View.VISIBLE);
         if(listenerRegistration!=null){
             listenerRegistration = null;
         }
+
+
     }
 
     @Override

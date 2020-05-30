@@ -84,6 +84,7 @@
                     android:padding="5dp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_share_alt"
+                    android:visibility="gone"
                     android:layout_alignParentRight="true"
                     />
 

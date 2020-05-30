@@ -3,10 +3,15 @@ package com.beforevisit.beforevisit.Activities;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,10 +29,25 @@ import android.widget.Toast;
 
 import com.beforevisit.beforevisit.Adapters.RecyclerSearchResultsAdapter;
 import com.beforevisit.beforevisit.Adapters.SearchAdapter;
+import com.beforevisit.beforevisit.Model.Location;
 import com.beforevisit.beforevisit.Model.Places;
 import com.beforevisit.beforevisit.Model.SearchResults;
 import com.beforevisit.beforevisit.R;
 import com.beforevisit.beforevisit.utility.DefaultTextConfig;
+import com.beforevisit.beforevisit.utility.DisctanceCalculator;
+import com.beforevisit.beforevisit.utility.LocationTrack;
+import com.beforevisit.beforevisit.utility.SortingClass;
+import com.beforevisit.beforevisit.utility.Utils;
+import com.bumptech.glide.util.Util;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -42,13 +62,17 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 public class SearchActivity extends AppCompatActivity {
 
     public static final String TAG = "SearchActivity";
+    public static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 69;
+    public static final int REQUEST_CHECK_SETTINGS = 23;
     RecyclerView recyclerViewSearch,recycler_view_results;
     SearchAdapter adapter;
     ArrayList<String> searchList;
@@ -70,6 +94,9 @@ public class SearchActivity extends AppCompatActivity {
     FirebaseFirestore db;
 
     String filterFromMainActivity;
+    Utils utils;
+    LocationTrack locationTrack;
+    double user_longitude,user_latitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,10 +151,12 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        filterList.add(getString(R.string.nearest));
         filterList.add(getString(R.string.newest));
         filterList.add(getString(R.string.trending));
         filterList.add(getString(R.string.popular));
         filterList.add(getString(R.string.sponsored));
+
 
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.item_spinner_filter, filterList);
@@ -144,14 +173,61 @@ public class SearchActivity extends AppCompatActivity {
         }
 
 
-        getNewestPlacesData("");
+        if (ContextCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(SearchActivity.this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+            } else {
+                ActivityCompat.requestPermissions(SearchActivity.this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+
+            }
+        }else{
+            displayLocationSettingsRequest(getApplicationContext());
+            locationTrack = new LocationTrack(getApplicationContext());
+            if (locationTrack.canGetLocation()) {
+
+                user_latitude = locationTrack.getLongitude();
+                user_longitude = locationTrack.getLatitude();
+
+                sortByNearest();
+            }
+        }
+
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                String selected_filter =  spinner.getSelectedItem().toString();
-               Log.i(TAG,"selected is "+selected_filter);
-               getNewestPlacesData(selected_filter);
+               if(!selected_filter.equals(getString(R.string.nearest))){
+                   getNewestPlacesData(selected_filter);
+               }else{
+                   //nearest location
+
+                   if (ContextCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                       if (ActivityCompat.shouldShowRequestPermissionRationale(SearchActivity.this,
+                               Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                       } else {
+                           ActivityCompat.requestPermissions(SearchActivity.this,
+                                   new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                   MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+
+                       }
+                   }else{
+                       displayLocationSettingsRequest(getApplicationContext());
+                       locationTrack = new LocationTrack(getApplicationContext());
+                       if (locationTrack.canGetLocation()) {
+
+                           user_latitude = locationTrack.getLongitude();
+                           user_longitude = locationTrack.getLatitude();
+
+                           sortByNearest();
+                       }
+                   }
+               }
+
             }
 
             @Override
@@ -172,6 +248,7 @@ public class SearchActivity extends AppCompatActivity {
         filterList = new ArrayList<>();
         placesArrayList = new ArrayList<>();
 
+        utils = new Utils();
         recent_search_rel = (RelativeLayout) findViewById(R.id.recent_search_rel);
         recent_search_rel.setVisibility(View.VISIBLE);
         places_search_rel = (RelativeLayout) findViewById(R.id.places_search_rel);
@@ -200,6 +277,7 @@ public class SearchActivity extends AppCompatActivity {
 
 
         db = FirebaseFirestore.getInstance();
+
 
 
 
@@ -344,6 +422,7 @@ public class SearchActivity extends AppCompatActivity {
                                 long visitor_count;
                                 int avg_rating;
                                 String home_image_url;
+                                double latitude,longitude;
 
                                 placesArrayList.clear();
                                 for (final QueryDocumentSnapshot snapshot : snapshots) {
@@ -447,6 +526,19 @@ public class SearchActivity extends AppCompatActivity {
                                         home_image_url = "";
                                     }
 
+                                    if(snapshot.get(getString(R.string.latitude))!=null){
+                                        latitude = snapshot.getDouble(getString(R.string.latitude));
+                                    }else{
+                                        latitude = 0.0;
+                                    }
+
+                                    if(snapshot.get(getString(R.string.longitude))!=null){
+                                        longitude = snapshot.getDouble(getString(R.string.longitude));
+                                    }else{
+                                        longitude = 0.0;
+                                    }
+
+
                                     placesArrayList.add(new Places(
                                             snapshot.getId(),
                                             about_Store,
@@ -463,13 +555,17 @@ public class SearchActivity extends AppCompatActivity {
                                             search_keywords,
                                             video_url,
                                             visitor_count,
-                                            avg_rating
+                                            avg_rating,
+                                            latitude,
+                                            longitude
 
                                     ));
 
                                 }
 
-                                searchResultsAdapter.notifyDataSetChanged();
+                                searchResultsAdapter = new RecyclerSearchResultsAdapter(placesArrayList,SearchActivity.this);
+                                recycler_view_results.setAdapter(searchResultsAdapter);
+
 
 
 
@@ -481,6 +577,119 @@ public class SearchActivity extends AppCompatActivity {
     }
 
 
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_FINE_LOCATION:
+
+                if (grantResults!=null && grantResults.length > 0  && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    displayLocationSettingsRequest(getApplicationContext());
+                    locationTrack = new LocationTrack(getApplicationContext());
+                    if (locationTrack.canGetLocation()) {
+
+                        user_latitude = locationTrack.getLongitude();
+                        user_longitude = locationTrack.getLatitude();
+
+                        sortByNearest();
+                    }
+                    return;
+
+                }else{
+
+                    utils.alertDialog(SearchActivity.this,"Uh-Oh","Seems like you have denied permission. The app cannot function normally");
+
+                }
+
+                break;
+
+
+
+
+        }
+    }
+
+    private void displayLocationSettingsRequest(Context context) {
+        GoogleApiClient googleApiClient = new GoogleApiClient.Builder(context)
+                .addApi(LocationServices.API).build();
+        googleApiClient.connect();
+
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(10000 / 2);
+
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
+        builder.setAlwaysShow(true);
+
+        PendingResult<LocationSettingsResult> result = LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build());
+        result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
+            @Override
+            public void onResult(LocationSettingsResult result) {
+                final Status status = result.getStatus();
+                switch (status.getStatusCode()) {
+                    case LocationSettingsStatusCodes.SUCCESS:
+                        Log.i(TAG, "All location settings are satisfied.");
+                        break;
+                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                        Log.i(TAG, "Location settings are not satisfied. Show the user a dialog to upgrade location settings ");
+
+                        try {
+                            // Show the dialog by calling startResolutionForResult(), and check the result
+                            // in onActivityResult().
+                            status.startResolutionForResult(SearchActivity.this, REQUEST_CHECK_SETTINGS);
+                        } catch (IntentSender.SendIntentException e) {
+                            Log.i(TAG, "PendingIntent unable to execute request.");
+                            utils.alertDialog(SearchActivity.this,"Error","Can't find your location! Please ensure Mobile GPS is on!");
+
+                        }
+                        break;
+                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                        Log.i(TAG, "Location settings are inadequate, and cannot be fixed here. Dialog not created.");
+                        utils.alertDialog(SearchActivity.this,"Error","Can't find your location! Please ensure Mobile GPS is on!");
+
+                        break;
+                }
+            }
+        });
+    }
+
+    private void sortByNearest(){
+        DisctanceCalculator disctanceCalculator = new DisctanceCalculator();
+        ArrayList<Location> locationArrayList = new ArrayList<>();
+        ArrayList<Places> nearbySortedList = new ArrayList<>();
+        for(int i =0 ;i<placesArrayList.size();i++){
+            double distanceFromCurrentLocation = disctanceCalculator.distance(user_latitude, user_longitude,placesArrayList.get(i).getLatitude() , placesArrayList.get(i).getLongitude(), "K");
+            Log.i(TAG,"distance is "+distanceFromCurrentLocation);
+            locationArrayList.add(new Location(placesArrayList.get(i).getDoc_id(),String.format("%.0f", distanceFromCurrentLocation)));
+        }
+
+        SortingClass sortingClass = new SortingClass(locationArrayList);
+        Collections.reverse(sortingClass.sortDistanceLowToHigh());
+
+        for(int i = 0; i<locationArrayList.size();i++){
+
+            String doc_id = locationArrayList.get(i).getDoc_id();
+            Log.i(TAG,"location doc id is "+doc_id);
+
+            for(int j =0 ;j<placesArrayList.size();j++){
+                if(placesArrayList.get(j).getDoc_id().equals(doc_id)){
+                    nearbySortedList.add(placesArrayList.get(j));
+                }
+            }
+
+
+        }
+
+
+
+        searchResultsAdapter = new RecyclerSearchResultsAdapter(nearbySortedList,SearchActivity.this);
+        recycler_view_results.setAdapter(searchResultsAdapter);
+
+
+    }
 
 
     @Override

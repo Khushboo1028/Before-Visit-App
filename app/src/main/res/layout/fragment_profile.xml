@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     android:id="@+id/super_rel">
 
     <ScrollView
@@ -37,6 +38,58 @@
                 android:textAllCaps="true"
                 android:textSize="36dp"
                 android:id="@+id/tv_header"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true">
+
+                <ProgressBar
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="175dp"
+                    android:layout_height="175dp"
+                    android:indeterminate="false"
+                    android:progressBackgroundTint="@color/correct_green"
+                    android:max="100"
+                    android:progress="69"
+                    android:progressDrawable="@drawable/circular_progressbar"
+                    android:id="@+id/profile_progress_bar"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_centerHorizontal="true"
+                    android:text="69%"
+                    android:layout_alignParentBottom="true"
+                    android:paddingBottom="36dp"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="30dp"
+                    android:id="@+id/tv_profile_percent"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_centerHorizontal="true"
+                    android:text="Complete\nProfile"
+                    android:paddingBottom="36dp"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="18dp"
+                    android:layout_marginTop="36dp"
+                    android:id="@+id/tv_complete_profile"/>
+
+
+
+            </RelativeLayout>
+
+
+
+
 
             <TextView
                 android:layout_width="wrap_content"

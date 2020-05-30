@@ -50,4 +50,6 @@ dependencies {
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
 
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+
 }
