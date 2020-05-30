@@ -22,14 +22,6 @@
             <include layout="@layout/snippet_top_bar"
                 android:id="@+id/top_bar"/>
 
-<!--            <FrameLayout-->
-<!--                android:id="@+id/youtube_fragment"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="24dp"-->
-<!--                android:layout_below="@id/top_bar"-->
-<!--                android:layout_centerHorizontal="true"-->
-<!--                android:visibility="visible" />-->
 
             <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
                 android:id="@+id/youtube_player_view"
@@ -310,13 +302,26 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:id="@+id/recycler_view_ratings"/>
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/recycler_view_ratings"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Show More ➤"
+                android:minHeight="24dp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12dp"
+                android:paddingHorizontal="8dp"
+                android:background="@drawable/white_border_rectangle"
+                android:id="@+id/btn_show_more"/>
+
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimary"
-                android:layout_below="@id/recycler_view_ratings"
+                android:layout_below="@id/btn_show_more"
                 android:text="Rate and Review \nthis place"
                 android:fontFamily="@font/roboto_medium"
                 android:textSize="24dp"

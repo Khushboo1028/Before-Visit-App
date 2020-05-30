@@ -46,6 +46,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
@@ -70,7 +71,7 @@ public class ProfileFragment extends Fragment{
     EditText et_name, et_email, et_mobile, et_address, et_dob;
     String name, mobile, address, dob, gender;
     ImageView img_done;
-    TextView tv_error_email,tv_error_mobile,tv_dob,tv_profile_percent;
+    TextView tv_error_email,tv_error_mobile,tv_dob,tv_profile_percent,tv_complete_profile;
 
     AlertDialog.Builder builder;
     AlertDialog alert;
@@ -152,7 +153,7 @@ public class ProfileFragment extends Fragment{
                 }else if(gender_female.isChecked()){
                     gender = getString(R.string.gender_female);
                 }else if(gender_male.isChecked()){
-                    gender = getString(R.string.gender_female);
+                    gender = getString(R.string.gender_male);
                 }else{
                     gender = getString(R.string.gender_other);
                 }
@@ -303,6 +304,7 @@ public class ProfileFragment extends Fragment{
 
         profile_progress_bar = (ProgressBar) view.findViewById(R.id.profile_progress_bar);
         tv_profile_percent = (TextView) view.findViewById(R.id.tv_profile_percent);
+        tv_complete_profile = (TextView) view.findViewById(R.id.tv_complete_profile);
 
 
 
@@ -362,7 +364,7 @@ public class ProfileFragment extends Fragment{
         }
 
         if(usersInterestsList!=null && !usersInterestsList.isEmpty()){
-            data.put(mContext.getString(R.string.interests),usersInterestsList);
+            data.put(mContext.getString(R.string.interests), usersInterestsList);
         }
 
 
@@ -370,18 +372,19 @@ public class ProfileFragment extends Fragment{
                 .update(data).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                builder = new AlertDialog.Builder(getActivity());
-                builder.setMessage("Your Profile has been updated!")
-                        .setCancelable(true)
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                getActivity().onBackPressed();
-                            }
-                        });
-                alert = builder.create();
-                alert.setTitle("Success!");
-                alert.show();
+//                builder = new AlertDialog.Builder(getActivity());
+//                builder.setMessage("Your Profile has been updated!")
+//                        .setCancelable(true)
+//                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                            }
+//                        });
+//                alert = builder.create();
+//                alert.setTitle("Success!");
+//                alert.show();
+                getActivity().onBackPressed();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -496,10 +499,11 @@ public class ProfileFragment extends Fragment{
                                 int progress = Integer.parseInt(String.format("%.0f", profile_percent));
                                 profile_progress_bar.setProgress(progress);
                                 if(progress == 100){
-                                    tv_profile_percent.setText("Profile Complete");
-                                }else{
-                                    tv_profile_percent.setText(String.format("%.0f", profile_percent) + " %");
+                                   tv_complete_profile.setText("Profile\nCompleted");
                                 }
+
+                                tv_profile_percent.setText(String.format("%.0f", profile_percent) + " %");
+
                                 interestsAdapter.notifyDataSetChanged();
                             }
 

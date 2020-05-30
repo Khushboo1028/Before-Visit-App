@@ -53,6 +53,7 @@ public class InterestsAdapter extends RecyclerView.Adapter <InterestsAdapter.Vie
         db = FirebaseFirestore.getInstance();
         usersInterestsList= new ArrayList<>();
 
+
     }
 
 
@@ -72,24 +73,24 @@ public class InterestsAdapter extends RecyclerView.Adapter <InterestsAdapter.Vie
         holder.checkBox.setText(interests.getName());
 
 
+        getUsersInterests(holder.checkBox);
+
         final String name = holder.checkBox.getText().toString();
 
         holder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                if(holder.checkBox.isChecked()){
                    usersInterestsList.add(name);
                }else{
                    usersInterestsList.remove(name);
                }
 
-
             }
         });
 
 
-        getUsersInterests(holder.checkBox);
+
 
 
 
@@ -125,6 +126,7 @@ public class InterestsAdapter extends RecyclerView.Adapter <InterestsAdapter.Vie
                                     if(usersCurrentInterestList!=null && !usersCurrentInterestList.isEmpty()){
                                         if(usersCurrentInterestList.contains(checkBox.getText().toString())){
                                             checkBox.setChecked(true);
+                                            usersInterestsList.add(checkBox.getText().toString());
                                         }else{
                                             checkBox.setChecked(false);
                                         }

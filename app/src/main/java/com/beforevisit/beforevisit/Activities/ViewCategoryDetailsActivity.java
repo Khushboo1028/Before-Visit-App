@@ -43,6 +43,9 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -74,6 +77,17 @@ public class ViewCategoryDetailsActivity extends AppCompatActivity {
     double user_longitude,user_latitude;
     EditText et_search;
     RelativeLayout go_to_top_rel;
+
+    Boolean isSaved;
+
+    String store_name;
+    String address;
+    String image_url;
+    float rating;
+
+    double latitude,longitude;
+
+    ArrayList<String> places_saved;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +97,7 @@ public class ViewCategoryDetailsActivity extends AppCompatActivity {
 
         init();
 
+        getSavedPlaces();
 
         img_top.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,6 +157,7 @@ public class ViewCategoryDetailsActivity extends AppCompatActivity {
 
     private void init(){
         categoryPlacesArrayList = new ArrayList<>();
+        places_saved = new ArrayList<>();
         gridView = (ExpandableHeightGridView) findViewById(R.id.grid_view);
         gridView.setExpanded(true);
         gridCategoryAdapter = new GridViewCategoryDetailsAdapter(categoryPlacesArrayList, ViewCategoryDetailsActivity.this);
@@ -182,12 +198,6 @@ public class ViewCategoryDetailsActivity extends AppCompatActivity {
 
                             if(snapshots!=null && !snapshots.isEmpty()){
 
-                                String store_name;
-                                String address;
-                                String image_url;
-                                float rating;
-                                Boolean isSaved;
-                                double latitude,longitude;
 
                                 categoryPlacesArrayList.clear();
                                 for (final QueryDocumentSnapshot doc : snapshots) {
@@ -235,8 +245,13 @@ public class ViewCategoryDetailsActivity extends AppCompatActivity {
                                     }
 
 
-                                    isSaved = false;
 
+                                    isSaved = false;
+                                    if(places_saved.contains(doc.getId())){
+                                        isSaved = true;
+                                    }else{
+                                        isSaved = false;
+                                    }
 
 
                                     DisctanceCalculator disctanceCalculator = new DisctanceCalculator();
@@ -254,11 +269,15 @@ public class ViewCategoryDetailsActivity extends AppCompatActivity {
                                             String.format("%.0f", distanceFromCurrentLocation)
                                     ));
 
+
                                     SortingClassCategory sortingClass = new SortingClassCategory(categoryPlacesArrayList);
                                     Collections.reverse(sortingClass.sortDistanceLowToHigh());
 
 
                                     gridCategoryAdapter.notifyDataSetChanged();
+
+
+
 
 
 
@@ -360,6 +379,33 @@ public class ViewCategoryDetailsActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void getSavedPlaces(){
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+
+        listenerRegistration =  db.collection(getString(R.string.users)).document(firebaseUser.getUid())
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
+
+                        if(e!=null){
+                            Log.i(TAG,"An error occurred "+e.getMessage());
+                        }else{
+
+                            if(snapshot.get(getString(R.string.places_saved))!=null){
+                                places_saved = (ArrayList<String>) snapshot.get(getString(R.string.places_saved));
+                            }
+
+                        }
+
+
+
+
+                    }
+                });
+
     }
 
     @Override

@@ -151,12 +151,14 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        filterList.add(getString(R.string.nearest));
+
         filterList.add(getString(R.string.newest));
         filterList.add(getString(R.string.trending));
         filterList.add(getString(R.string.popular));
         filterList.add(getString(R.string.sponsored));
+        filterList.add(getString(R.string.nearest));
 
+        getNewestPlacesData("");
 
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.item_spinner_filter, filterList);
@@ -172,28 +174,6 @@ public class SearchActivity extends AppCompatActivity {
             spinner.setSelection(dataAdapter.getPosition(filterFromMainActivity));
         }
 
-
-        if (ContextCompat.checkSelfPermission(SearchActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(SearchActivity.this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-            } else {
-                ActivityCompat.requestPermissions(SearchActivity.this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_FINE_LOCATION);
-
-            }
-        }else{
-            displayLocationSettingsRequest(getApplicationContext());
-            locationTrack = new LocationTrack(getApplicationContext());
-            if (locationTrack.canGetLocation()) {
-
-                user_latitude = locationTrack.getLongitude();
-                user_longitude = locationTrack.getLatitude();
-
-                sortByNearest();
-            }
-        }
 
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -308,7 +288,9 @@ public class SearchActivity extends AppCompatActivity {
 
             if (d.getPlace_name().toLowerCase().contains(text.toLowerCase())
                     ||(d.getSearch_keywords().toLowerCase().contains(text.toLowerCase()))
-                    || (d.getPlace_address().toLowerCase().contains(text.toLowerCase())))
+                    || (d.getPlace_address().toLowerCase().contains(text.toLowerCase()))
+
+            )
             {
                 tempPlaces.add(d);
             }
@@ -373,7 +355,7 @@ public class SearchActivity extends AppCompatActivity {
     public void searchForPlace(String searchText){
         // SEARCH FOR PLACE HERE
         Log.i(TAG,"Searched: "+ searchText);
-        et_search.setText(searchText);
+        et_search.setText(searchText.trim());
         recent_search_rel.setVisibility(View.GONE);
         places_search_rel.setVisibility(View.VISIBLE);
 

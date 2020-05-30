@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -34,9 +35,6 @@ import com.beforevisit.beforevisit.utility.ExpandableHeightGridView;
 import com.beforevisit.beforevisit.utility.Utils;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.youtube.player.YouTubeInitializationResult;
-import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -70,7 +68,6 @@ public class AboutBrandActivity extends AppCompatActivity {
     public static final String VisitorSharedPreference = "VisitorCount";
     RelativeLayout main_rel, call_rel, location_rel, share_rel, save_rel;
 
-    YouTubePlayerSupportFragment youtubePlayerSupportFragment;
     TextView tv_place_name, tv_place_address, tv_about_store, tv_phone, tv_rating_avg, tv_rating_user;
 
     ExpandableHeightGridView images_grid_view;
@@ -83,7 +80,6 @@ public class AboutBrandActivity extends AppCompatActivity {
     ListenerRegistration listenerRegistration;
     ArrayList<Places> placesArrayList;
 
-    YouTubePlayer activePlayer;
 
     TextView text_phone;
 
@@ -113,7 +109,7 @@ public class AboutBrandActivity extends AppCompatActivity {
 
     String share_link, share_text;
 
-
+    Button btn_show_more;
     ArrayList<VisitorCount> visitorCountArrayList;
     float current_seconds;
 
@@ -272,6 +268,15 @@ public class AboutBrandActivity extends AppCompatActivity {
 
             }
         });
+        btn_show_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),ShowAllReviewsActivity.class);
+                intent.putExtra("place_name",placesArrayList.get(0).getPlace_name());
+                intent.putExtra("place_id",placesArrayList.get(0).getDoc_id());
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -302,6 +307,7 @@ public class AboutBrandActivity extends AppCompatActivity {
         rating_bar_user = (RatingBar) findViewById(R.id.rating_bar_user);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
+        btn_show_more = (Button)findViewById(R.id.btn_show_more);
         place_id = getIntent().getStringExtra("place_id");
         Log.i(TAG, "Place id is " + place_id);
 
@@ -854,6 +860,7 @@ public class AboutBrandActivity extends AppCompatActivity {
         listenerRegistration = db.collection(getString(R.string.ratings_and_reviews))
                 .whereEqualTo(getString(R.string.place_id),place_id)
                 .orderBy(getString(R.string.date_created), Query.Direction.DESCENDING)
+                .limit(5)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException e) {
@@ -994,10 +1001,6 @@ public class AboutBrandActivity extends AppCompatActivity {
             listenerRegistration=null;
         }
 
-        if (activePlayer != null) {
-            activePlayer.release();
-            activePlayer = null;
-        }
 
     }
 

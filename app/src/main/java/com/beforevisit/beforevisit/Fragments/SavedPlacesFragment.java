@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.beforevisit.beforevisit.Activities.LoginMainActivity;
 import com.beforevisit.beforevisit.Adapters.GridImagePlaceAdapter;
 import com.beforevisit.beforevisit.Adapters.GridViewCategoryDetailsAdapter;
+import com.beforevisit.beforevisit.Adapters.SavedPlacesAdapter;
 import com.beforevisit.beforevisit.Model.CategoryPlaces;
 import com.beforevisit.beforevisit.R;
 import com.beforevisit.beforevisit.utility.ExpandableHeightGridView;
@@ -29,6 +32,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class SavedPlacesFragment extends Fragment {
@@ -37,7 +42,7 @@ public class SavedPlacesFragment extends Fragment {
     ImageView img_signout,img_notification_bell;
 
     ExpandableHeightGridView gridView;
-    GridViewCategoryDetailsAdapter gridAdapter;
+    SavedPlacesAdapter gridAdapter;
     ArrayList<CategoryPlaces> savedPlacesArrayList;
 
     FirebaseFirestore db;
@@ -48,7 +53,9 @@ public class SavedPlacesFragment extends Fragment {
     ListenerRegistration listenerRegistration;
     ArrayList<String> savedPlacesIdList;
 
+    TextView tv_header;
     Context mContext;
+
 
 
     @Override
@@ -75,8 +82,10 @@ public class SavedPlacesFragment extends Fragment {
         savedPlacesArrayList = new ArrayList<>();
         savedPlacesIdList = new ArrayList<>();
 
+        tv_header = (TextView) view.findViewById(R.id.tv_header);
         gridView = (ExpandableHeightGridView) view.findViewById(R.id.grid_view);
-        gridAdapter = new GridViewCategoryDetailsAdapter(savedPlacesArrayList,getActivity());
+        gridView.setExpanded(true);
+        gridAdapter = new SavedPlacesAdapter(savedPlacesArrayList,getActivity());
         gridView.setAdapter(gridAdapter);
 
         mAuth = FirebaseAuth.getInstance();
@@ -97,14 +106,17 @@ public class SavedPlacesFragment extends Fragment {
                             if(e!=null){
                                 Log.i(TAG,"Error: "+e.getMessage());
                             }else{
+                                savedPlacesIdList.clear();
                                 if(snapshot.get(mContext.getString(R.string.places_saved))!=null){
                                     savedPlacesIdList = (ArrayList<String>) snapshot.get(mActivity.getString(R.string.places_saved));
                                 }
                             }
 
+
                             if(savedPlacesIdList!=null && !savedPlacesIdList.isEmpty()){
                                 Log.i(TAG,"saved Places Id's are" + savedPlacesIdList);
 
+                                savedPlacesArrayList.clear();
                                 for(int i=0;i<savedPlacesIdList.size();i++) {
                                     listenerRegistration = db.collection(mActivity.getString(R.string.places)).document(savedPlacesIdList.get(i))
                                             .addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -152,14 +164,14 @@ public class SavedPlacesFragment extends Fragment {
                                                             rating = 0;
                                                         }
 
-                                                        if(snapshot.get(getString(R.string.latitude))!=null){
-                                                            latitude = snapshot.getDouble(getString(R.string.latitude));
+                                                        if(snapshot.get(mActivity.getString(R.string.latitude))!=null){
+                                                            latitude = snapshot.getDouble(mActivity.getString(R.string.latitude));
                                                         }else{
                                                             latitude = 0.0;
                                                         }
 
-                                                        if(snapshot.get(getString(R.string.longitude))!=null){
-                                                            longitude = snapshot.getDouble(getString(R.string.longitude));
+                                                        if(snapshot.get(mActivity.getString(R.string.longitude))!=null){
+                                                            longitude = snapshot.getDouble(mActivity.getString(R.string.longitude));
                                                         }else{
                                                             longitude = 0.0;
                                                         }
@@ -182,11 +194,20 @@ public class SavedPlacesFragment extends Fragment {
                                                         gridAdapter.notifyDataSetChanged();
 
 
+
                                                     }
+
+
                                                 }
                                             });
                                 }
+
+
+
+
                             }
+
+
                         }
                     });
 

@@ -93,12 +93,12 @@ public class GridViewCategoryDetailsAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 if(categoryPlacesArrayList.get(i).getSaved()){
+
+
                     image_saved.setImageResource(R.drawable.ic_heart_unfilled_alt);
-                    categoryPlacesArrayList.get(i).setSaved(false);
                     setSaved(categoryPlacesArrayList.get(i).getPlace_id(),false,i,image_saved);
 
                 }else{
-                    categoryPlacesArrayList.get(i).setSaved(true);
                     image_saved.setImageResource(R.drawable.ic_heart_filled_alt);
                     setSaved(categoryPlacesArrayList.get(i).getPlace_id(),true,i,image_saved);
                 }
@@ -146,11 +146,9 @@ public class GridViewCategoryDetailsAdapter extends BaseAdapter {
 
                             if(places_saved.contains(place_id)){
                                 Log.i(TAG,"Set saved is true for place id "+place_id);
-                                categoryPlacesArrayList.get(pos).setSaved(true);
                                 img_save.setImageResource(R.drawable.ic_heart_filled_alt);
 
                             }else{
-                                categoryPlacesArrayList.get(pos).setSaved(false);
                                 img_save.setImageResource(R.drawable.ic_heart_unfilled_alt);
                             }
                         }
@@ -163,8 +161,10 @@ public class GridViewCategoryDetailsAdapter extends BaseAdapter {
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
+
         if(firebaseUser!=null){
             if(isSaved) {
+
                 db.collection(mActivity.getString(R.string.users)).document(firebaseUser.getUid())
                         .update(mActivity.getString(R.string.places_saved), FieldValue.arrayUnion(place_id))
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -172,7 +172,7 @@ public class GridViewCategoryDetailsAdapter extends BaseAdapter {
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(mActivity.getApplicationContext(),"Added to your favourites",Toast.LENGTH_SHORT).show();
                                 image_saved.setImageResource(R.drawable.ic_heart_unfilled_alt);
-                                categoryPlacesArrayList.get(i).setSaved(false);
+
                                 db.collection(mActivity.getString(R.string.places)).document(place_id)
                                         .update(mActivity.getString(R.string.saved_count),FieldValue.increment(1))
                                         .addOnFailureListener(new OnFailureListener() {
@@ -197,8 +197,8 @@ public class GridViewCategoryDetailsAdapter extends BaseAdapter {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                categoryPlacesArrayList.get(i).setSaved(true);
-                                image_saved.setImageResource(R.drawable.ic_heart_filled_alt);
+
+                                image_saved.setImageResource(R.drawable.ic_heart_unfilled_alt);
                                 Toast.makeText(mActivity.getApplicationContext(),"Removed from your favourites",Toast.LENGTH_SHORT).show();
                                 db.collection(mActivity.getString(R.string.places)).document(place_id)
                                         .update(mActivity.getString(R.string.saved_count),FieldValue.increment(-1))
