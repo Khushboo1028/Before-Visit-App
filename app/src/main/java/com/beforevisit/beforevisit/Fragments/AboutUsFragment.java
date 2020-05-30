@@ -101,12 +101,15 @@ public class AboutUsFragment extends Fragment {
 
                                 if(doc.getString(mContext.getString(R.string.video_url))!=null){
                                     video_url = doc.getString(mContext.getString(R.string.video_url));
+                                    initYouTubePlayerView(video_url);
                                 }
 
                                 if(doc.getString(mContext.getString(R.string.visit_us_url))!=null){
                                     visit_us_url = doc.getString(mContext.getString(R.string.visit_us_url));
                                 }
                             }
+
+
 
 //                            youtubePlayerSupportFragment.initialize(getString(R.string.YOUTUBE_API_KEY), new YouTubePlayer.OnInitializedListener() {
 //                                @Override
@@ -137,7 +140,7 @@ public class AboutUsFragment extends Fragment {
 
     }
 
-    private void initYouTubePlayerView() {
+    private void initYouTubePlayerView(final String video_url) {
         // The player will automatically release itself when the fragment is destroyed.
         // The player will automatically pause when the fragment is stopped
         // If you don't add YouTubePlayerView as a lifecycle observer, you will have to release it manually.
@@ -147,9 +150,12 @@ public class AboutUsFragment extends Fragment {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
 
+
+                String url_cue = video_url.substring(video_url.lastIndexOf("=")+1);
+
                 YouTubePlayerUtils.loadOrCueVideo(
                         youTubePlayer, getLifecycle(),
-                        "ZbxbbOVAG6I",0f
+                        url_cue,0f
                 );
             }
         });

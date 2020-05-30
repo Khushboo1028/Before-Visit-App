@@ -1,6 +1,7 @@
 package com.beforevisit.beforevisit.Activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -40,6 +41,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.facebook.FacebookSdk;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 
 
 public class LoginMainActivity extends AppCompatActivity {
@@ -64,7 +70,8 @@ public class LoginMainActivity extends AppCompatActivity {
     //firebasefirestore
     AddUserDataToFirestore addUserDataToFirestore;
     Utils utils;
-
+    ListenerRegistration listenerRegistration;
+    String mobile_no;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +106,7 @@ public class LoginMainActivity extends AppCompatActivity {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("708801181328-1f6kcpjchanm8qg5lls8pcdp1ovf3v5k.apps.googleusercontent.com")
                 .requestEmail()
+                .requestProfile()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(LoginMainActivity.this, gso);
 
@@ -217,13 +225,38 @@ public class LoginMainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Log.i(TAG,"userID "+user.getDisplayName());
-                            Log.i(TAG,"userID "+user.getPhoneNumber());
+                            final FirebaseUser user = mAuth.getCurrentUser();
 
-                            addUserDataToFirestore.addUsersDataToFirestore(getApplicationContext(),user.getUid(),user.getDisplayName(),user.getEmail(),user.getPhoneNumber());
-                            Toast.makeText(getApplicationContext(),"Sign In Successful",Toast.LENGTH_LONG).show();
-                            finish();
+                            listenerRegistration = FirebaseFirestore.getInstance().collection(getString(R.string.users)).document(user.getUid())
+                                    .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
+                                            if(e!=null){
+                                                Log.i(TAG,"Error: "+e.getMessage());
+                                            }else{
+                                                if(snapshot!=null && snapshot.exists()) {
+                                                    mobile_no = snapshot.getString(getString(R.string.mobile_no));
+
+                                                    if (mobile_no == null) {
+                                                        Intent intent = new Intent(getApplicationContext(), CreateAccountActivity.class);
+                                                        startActivity(intent);
+
+                                                    } else {
+
+                                                        finish();
+
+                                                    }
+                                                }else{
+                                                    Intent intent = new Intent(getApplicationContext(), CreateAccountActivity.class);
+                                                    startActivity(intent);
+                                                }
+                                            }
+                                        }
+                                    });
+
+
+
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -286,9 +319,34 @@ public class LoginMainActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            addUserDataToFirestore.addUsersDataToFirestore(getApplicationContext(),user.getUid(),user.getDisplayName(),user.getEmail(),user.getPhoneNumber());
-                            Toast.makeText(getApplicationContext(),"Sign In Successful",Toast.LENGTH_LONG).show();
-                            finish();
+                            listenerRegistration = FirebaseFirestore.getInstance().collection(getString(R.string.users)).document(user.getUid())
+                                    .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
+                                            if(e!=null){
+                                                Log.i(TAG,"Error: "+e.getMessage());
+                                            }else{
+                                                if(snapshot!=null && snapshot.exists()) {
+                                                    mobile_no = snapshot.getString(getString(R.string.mobile_no));
+
+                                                    if (mobile_no == null) {
+                                                        Intent intent = new Intent(getApplicationContext(), CreateAccountActivity.class);
+                                                        startActivity(intent);
+
+                                                    } else {
+
+                                                        finish();
+
+                                                    }
+                                                }else{
+                                                    Intent intent = new Intent(getApplicationContext(), CreateAccountActivity.class);
+                                                    startActivity(intent);
+                                                }
+                                            }
+                                        }
+                                    });
+
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -318,5 +376,13 @@ public class LoginMainActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(listenerRegistration!=null){
+            listenerRegistration=null;
+        }
     }
 }

@@ -8,7 +8,12 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.ActivityOptions;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,6 +38,7 @@ import com.beforevisit.beforevisit.Model.Category;
 import com.beforevisit.beforevisit.Model.PlacesHomePage;
 import com.beforevisit.beforevisit.R;
 import com.beforevisit.beforevisit.utility.DefaultTextConfig;
+import com.beforevisit.beforevisit.utility.JobService;
 import com.beforevisit.beforevisit.utility.Utils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -47,11 +53,15 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Timer;
+
+import static com.beforevisit.beforevisit.Activities.AboutBrandActivity.VisitorSharedPreference;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String TAG = "MainActivity";
+    public static final int JOB_ID = 123;
     ImageView img_menu,img_notification_bell;
     RelativeLayout expanded_menu,top_main_rel;
     Boolean is_menu_clicked = false;
@@ -252,12 +262,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
+
+
     }
 
 
     private void init(){
        img_menu = (ImageView) findViewById(R.id.img_menu);
        img_notification_bell = (ImageView) findViewById(R.id.img_notification_bell);
+       img_notification_bell.setVisibility(View.VISIBLE);
+
+        img_signout = (ImageView) findViewById(R.id.img_signout);
+        img_signout.setVisibility(View.GONE);
 
        expanded_menu = (RelativeLayout) findViewById(R.id.expanded_menu);
        super_rel = (RelativeLayout) findViewById(R.id.super_rel);
@@ -668,6 +684,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
+
+
+
     @Override
     public void onBackPressed() {
 
@@ -686,6 +705,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onStart() {
         super.onStart();
         makeMenuItemInvisible(tv_home);
+        img_notification_bell.setVisibility(View.VISIBLE);
+        img_signout.setVisibility(View.GONE);
     }
 
     @Override

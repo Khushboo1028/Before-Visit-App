@@ -206,13 +206,7 @@ public class FeedbackFragment extends Fragment {
                            builder = new AlertDialog.Builder(mContext);
                            builder.setMessage("Your feedback is valuable to us!")
                                    .setCancelable(false)
-                                   .setPositiveButton("Okay!", new DialogInterface.OnClickListener() {
-                                       @Override
-                                       public void onClick(DialogInterface dialogInterface, int i) {
-
-                                       }
-                                   });
-
+                                   .setPositiveButton("Okay!",null);
                            alert = builder.create();
                            alert.setTitle("Thank You!");
                            alert.show();

@@ -6,8 +6,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +27,7 @@ import com.beforevisit.beforevisit.Adapters.GridImagePlaceAdapter;
 import com.beforevisit.beforevisit.Adapters.RecyclerRatingAdapter;
 import com.beforevisit.beforevisit.Model.Places;
 import com.beforevisit.beforevisit.Model.RatingAndReviews;
+import com.beforevisit.beforevisit.Model.VisitorCount;
 import com.beforevisit.beforevisit.R;
 import com.beforevisit.beforevisit.utility.DefaultTextConfig;
 import com.beforevisit.beforevisit.utility.ExpandableHeightGridView;
@@ -47,7 +50,13 @@ import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerUtils;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -57,6 +66,7 @@ import java.util.Map;
 public class AboutBrandActivity extends AppCompatActivity {
 
     public static final String TAG = "AboutBrandActivity";
+    public static final String VisitorSharedPreference = "VisitorCount";
     RelativeLayout main_rel, call_rel, location_rel, share_rel, save_rel;
 
     YouTubePlayerSupportFragment youtubePlayerSupportFragment;
@@ -99,6 +109,11 @@ public class AboutBrandActivity extends AppCompatActivity {
     RecyclerView recycler_view_ratings;
     RecyclerRatingAdapter ratingAdapter;
     int previous_rating = 0;
+
+
+
+
+    ArrayList<VisitorCount> visitorCountArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,6 +167,7 @@ public class AboutBrandActivity extends AppCompatActivity {
 
 
 
+        storeVisitorCount();
 
 
 
@@ -262,7 +278,6 @@ public class AboutBrandActivity extends AppCompatActivity {
 
         img_done = (ImageView) findViewById(R.id.img_done);
 
-
         ratingBarAvg = (RatingBar) findViewById(R.id.ratingBarAvg);
         rating_bar_user = (RatingBar) findViewById(R.id.rating_bar_user);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
@@ -273,6 +288,7 @@ public class AboutBrandActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         placesArrayList = new ArrayList<>();
         ratingAndReviewsArrayList = new ArrayList<>();
+        visitorCountArrayList = new ArrayList<>();
         recycler_view_ratings = (RecyclerView) findViewById(R.id.recycler_view_ratings);
         ratingAdapter = new RecyclerRatingAdapter(ratingAndReviewsArrayList,AboutBrandActivity.this);
         recycler_view_ratings.setAdapter(ratingAdapter);
@@ -514,6 +530,7 @@ public class AboutBrandActivity extends AppCompatActivity {
                     }
                 });
     }
+
 
     private void getUserData() {
 
@@ -861,6 +878,16 @@ public class AboutBrandActivity extends AppCompatActivity {
             }
 
         }
+    }
+
+    private void storeVisitorCount(){
+
+        db.collection(getString(R.string.places)).document(place_id)
+                .update(getString(R.string.visitor_count),FieldValue.increment(1));
+
+
+
+
     }
     @Override
     public void onBackPressed() {

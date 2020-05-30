@@ -85,7 +85,7 @@ public class HelpSupportFragment extends Fragment {
         btn_report_issue = view.findViewById(R.id.btn_report_issue);
 
         img_signout = (ImageView) getActivity().findViewById(R.id.img_signout);
-        img_signout.setVisibility(View.INVISIBLE);
+        img_signout.setVisibility(View.GONE);
 
         img_notification_bell = (ImageView) getActivity().findViewById(R.id.img_notification_bell);
         img_notification_bell.setVisibility(View.VISIBLE);

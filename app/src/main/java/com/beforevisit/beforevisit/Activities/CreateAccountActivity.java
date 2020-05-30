@@ -23,10 +23,13 @@ import com.beforevisit.beforevisit.utility.AddUserDataToFirestore;
 import com.beforevisit.beforevisit.utility.DefaultTextConfig;
 import com.beforevisit.beforevisit.utility.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
@@ -40,12 +43,14 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     String email, name, mobile, password, re_password;
 
-    TextView tv_error_email,tv_error_mobile,tv_error_password;
+    TextView tv_error_email,tv_error_mobile,tv_error_password,tv_password,tv_re_password;
     AddUserDataToFirestore addUserDataToFirestore;
     private FirebaseAuth mAuth;
+    FirebaseUser firebaseUser;
 
     Utils utils;
     ProgressBar progressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +61,15 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         init();
 
+        if(firebaseUser!=null){
+            et_email.setText(firebaseUser.getEmail());
+            et_name.setText(firebaseUser.getDisplayName());
+            et_email.setEnabled(false);
+            et_password.setVisibility(View.GONE);
+            et_re_password.setVisibility(View.GONE);
+            tv_re_password.setVisibility(View.GONE);
+            tv_password.setVisibility(View.GONE);
+        }
 
         main_rel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,75 +84,113 @@ public class CreateAccountActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-
-                email = et_email.getText().toString().trim();
-                name = et_name.getText().toString().trim();
-                mobile = et_mobile.getText().toString().trim();
-                password = et_password.getText().toString().trim();
-                re_password = et_re_password.getText().toString().trim();
-
-                tv_error_email.setVisibility(View.GONE);
-                tv_error_mobile.setVisibility(View.GONE);
-                tv_error_password.setVisibility(View.GONE);
-
                 if(utils.isInternetAvailable(CreateAccountActivity.this)) {
 
+                    if(firebaseUser!=null){
+                        //User logged in using google or facebook. They have come here to update mobile number
+                        mobile = et_mobile.getText().toString().trim();
+                        name = et_name.getText().toString().trim();
 
-                    if (email.equals("") || name.equals("") || mobile.equals("") || password.equals("") || re_password.equals("")) {
-                        builder = new AlertDialog.Builder(CreateAccountActivity.this);
-                        builder.setMessage("Please enter all the details")
-                                .setCancelable(true)
-                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        dialogInterface.cancel();
-                                    }
-                                });
-                        alert = builder.create();
-                        alert.setTitle("Incomplete Details!");
-                        alert.show();
-                    } else if (!isValidEmailAddress(email)) {
-                        tv_error_email.setVisibility(View.VISIBLE);
-                        et_email.requestFocus();
-                        et_email.setBackgroundResource(R.drawable.red_border_rectangle);
-                        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                        v.vibrate(500);
-                    } else if (mobile.length() != 10) {
-                        tv_error_mobile.setVisibility(View.VISIBLE);
-                        et_mobile.requestFocus();
-                        et_mobile.setBackgroundResource(R.drawable.red_border_rectangle);
-                        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                        v.vibrate(500);
-                    } else if (!password.equals(re_password)) {
 
-                        tv_error_password.setVisibility(View.VISIBLE);
-                        et_re_password.setText("");
-                        et_re_password.requestFocus();
-                        et_password.setBackgroundResource(R.drawable.red_border_rectangle);
-                        et_re_password.setBackgroundResource(R.drawable.red_border_rectangle);
-                        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                        v.vibrate(500);
-                    } else {
-                        builder = new AlertDialog.Builder(CreateAccountActivity.this);
-                        builder.setMessage("You will be sent a confirmation email. Please check your email to verify your email.")
-                                .setCancelable(true)
-                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        emailSignIn(email, password, name, mobile);
 
-                                    }
-                                })
-                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        dialogInterface.cancel();
-                                    }
-                                });
+                        if (name.equals("") || mobile.equals("")) {
+                            builder = new AlertDialog.Builder(CreateAccountActivity.this);
+                            builder.setMessage("Please enter all the details")
+                                    .setCancelable(true)
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            dialogInterface.cancel();
+                                        }
+                                    });
+                            alert = builder.create();
+                            alert.setTitle("Incomplete Details!");
+                            alert.show();
+                        }
+                        if (mobile.length() != 10) {
+                            tv_error_mobile.setVisibility(View.VISIBLE);
+                            et_mobile.requestFocus();
+                            et_mobile.setBackgroundResource(R.drawable.red_border_rectangle);
+                            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                            v.vibrate(500);
+                        }else{
+                            //update mobile to firestore
+                            progressBar.setVisibility(View.VISIBLE);
+                            addUserDataToFirestore.addUsersDataToFirestore(getApplicationContext(),firebaseUser.getUid(),name,firebaseUser.getEmail(),mobile);
+                            finish();
 
-                        alert = builder.create();
-                        alert.setTitle("Confirm Your Details!");
-                        alert.show();
+                        }
+
+                    }else {
+
+
+                        email = et_email.getText().toString().trim();
+                        name = et_name.getText().toString().trim();
+                        mobile = et_mobile.getText().toString().trim();
+                        password = et_password.getText().toString().trim();
+                        re_password = et_re_password.getText().toString().trim();
+
+                        tv_error_email.setVisibility(View.GONE);
+                        tv_error_mobile.setVisibility(View.GONE);
+                        tv_error_password.setVisibility(View.GONE);
+
+
+                        if (email.equals("") || name.equals("") || mobile.equals("") || password.equals("") || re_password.equals("")) {
+                            builder = new AlertDialog.Builder(CreateAccountActivity.this);
+                            builder.setMessage("Please enter all the details")
+                                    .setCancelable(true)
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            dialogInterface.cancel();
+                                        }
+                                    });
+                            alert = builder.create();
+                            alert.setTitle("Incomplete Details!");
+                            alert.show();
+                        } else if (!isValidEmailAddress(email)) {
+                            tv_error_email.setVisibility(View.VISIBLE);
+                            et_email.requestFocus();
+                            et_email.setBackgroundResource(R.drawable.red_border_rectangle);
+                            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                            v.vibrate(500);
+                        } else if (mobile.length() != 10) {
+                            tv_error_mobile.setVisibility(View.VISIBLE);
+                            et_mobile.requestFocus();
+                            et_mobile.setBackgroundResource(R.drawable.red_border_rectangle);
+                            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                            v.vibrate(500);
+                        } else if (!password.equals(re_password)) {
+
+                            tv_error_password.setVisibility(View.VISIBLE);
+                            et_re_password.setText("");
+                            et_re_password.requestFocus();
+                            et_password.setBackgroundResource(R.drawable.red_border_rectangle);
+                            et_re_password.setBackgroundResource(R.drawable.red_border_rectangle);
+                            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                            v.vibrate(500);
+                        } else {
+                            builder = new AlertDialog.Builder(CreateAccountActivity.this);
+                            builder.setMessage("You will be sent a confirmation email. Please check your email to verify your email.")
+                                    .setCancelable(true)
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            emailCreateAccount(email, password, name, mobile);
+
+                                        }
+                                    })
+                                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            dialogInterface.cancel();
+                                        }
+                                    });
+
+                            alert = builder.create();
+                            alert.setTitle("Confirm Your Details!");
+                            alert.show();
+                        }
                     }
 
                 }
@@ -161,10 +213,13 @@ public class CreateAccountActivity extends AppCompatActivity {
         tv_error_email = (TextView) findViewById(R.id.tv_error_email);
         tv_error_mobile = (TextView) findViewById(R.id.tv_error_mobile);
         tv_error_password = (TextView) findViewById(R.id.tv_error_password);
+        tv_password = (TextView) findViewById(R.id.tv_password);
+        tv_re_password = (TextView) findViewById(R.id.tv_re_password);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
         addUserDataToFirestore = new AddUserDataToFirestore();
         mAuth = FirebaseAuth.getInstance();
+        firebaseUser = mAuth.getCurrentUser();
         utils = new Utils();
 
     }
@@ -179,7 +234,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         return m.matches();
     }
 
-    private void emailSignIn(String email, String password, final String name, final String mobile){
+    private void emailCreateAccount(String email, String password, final String name, final String mobile){
         progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -208,7 +263,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                                         }
                                     });
                             alert = builder.create();
-                            alert.setTitle("Incomplete Details!");
+                            alert.setTitle("Uh-Oh!");
                             alert.show();
                             utils.vibrate(getApplicationContext());
 

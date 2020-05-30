@@ -305,7 +305,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private void getNewestPlacesData(String selected) {
         text_no_search_found.setVisibility(View.GONE);
-        Query query = null;
+        Query query;
         if(selected.equals(getString(R.string.popular))){
             Log.i(TAG,"In query 1");
             query =  db.collection(getString(R.string.places))
