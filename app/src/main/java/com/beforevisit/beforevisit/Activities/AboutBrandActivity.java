@@ -53,6 +53,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerUtils;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
@@ -114,7 +115,9 @@ public class AboutBrandActivity extends AppCompatActivity {
 
 
     ArrayList<VisitorCount> visitorCountArrayList;
+    float current_seconds;
 
+    YouTubePlayerView youTubePlayerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -274,8 +277,6 @@ public class AboutBrandActivity extends AppCompatActivity {
 
     private void init() {
 
-        youtubePlayerSupportFragment = YouTubePlayerSupportFragment.newInstance();
-        getSupportFragmentManager().beginTransaction().add(R.id.youtube_fragment, youtubePlayerSupportFragment).commit();
 
         main_rel = (RelativeLayout) findViewById(R.id.main_rel);
         call_rel = (RelativeLayout) findViewById(R.id.call_rel);
@@ -313,6 +314,9 @@ public class AboutBrandActivity extends AppCompatActivity {
         recycler_view_ratings.setAdapter(ratingAdapter);
         utils = new Utils();
         img_save = (ImageView) findViewById(R.id.img_save);
+        youTubePlayerView = findViewById(R.id.youtube_player_view);
+        current_seconds =0;
+
 
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
@@ -536,27 +540,11 @@ public class AboutBrandActivity extends AppCompatActivity {
                                 ));
 
 
+                                initYouTubePlayerView(video_url);
                                 gridImagePlaceAdapter = new GridImagePlaceAdapter(AboutBrandActivity.this, images_url_5);
                                 images_grid_view.setAdapter(gridImagePlaceAdapter);
 
 
-                                youtubePlayerSupportFragment.initialize(getString(R.string.YOUTUBE_API_KEY), new YouTubePlayer.OnInitializedListener() {
-                                    @Override
-                                    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                                        if (!b) {
-
-                                            activePlayer = youTubePlayer;
-                                            String myString = video_url;
-                                            String newString = myString.substring(myString.lastIndexOf("=") + 1);
-                                            activePlayer.cueVideo(newString);
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-
-                                    }
-                                });
 
                             }
                         }
@@ -590,6 +578,50 @@ public class AboutBrandActivity extends AppCompatActivity {
 
     }
 
+    private void initYouTubePlayerView(final String video_url) {
+        // The player will automatically release itself when the fragment is destroyed.
+        // The player will automatically pause when the fragment is stopped
+        // If you don't add YouTubePlayerView as a lifecycle observer, you will have to release it manually.
+        getLifecycle().addObserver(youTubePlayerView);
+
+        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer youTubePlayer) {
+
+
+                String url_cue = video_url.substring(video_url.lastIndexOf("=")+1);
+                YouTubePlayerUtils.loadOrCueVideo(
+                        youTubePlayer, getLifecycle(),
+                        url_cue,0f
+                );
+            }
+
+            @Override
+            public void onCurrentSecond(com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer youTubePlayer, float second) {
+                super.onCurrentSecond(youTubePlayer, second);
+                current_seconds = Math.abs(second-1);
+
+
+            }
+        });
+
+
+        youTubePlayerView.addFullScreenListener(new YouTubePlayerFullScreenListener() {
+            @Override
+            public void onYouTubePlayerEnterFullScreen() {
+
+                Intent intent = new Intent(getApplicationContext(), FullScreenActivity.class);
+                intent.putExtra("current_seconds", current_seconds);
+                intent.putExtra("video_url",video_url);
+                startActivity(intent);
+
+            }
+
+            @Override
+            public void onYouTubePlayerExitFullScreen() {
+            }
+        });
+    }
 
     private void getUserData() {
 

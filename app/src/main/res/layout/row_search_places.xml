@@ -40,7 +40,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="40dp"
-                android:layout_below="@id/youtube_fragment"
                 android:text="Nike Factory Store"
                 android:textColor="@color/colorPrimaryDark"
                 android:ellipsize="end"

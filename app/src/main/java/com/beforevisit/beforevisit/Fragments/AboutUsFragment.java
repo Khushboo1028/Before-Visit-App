@@ -1,6 +1,7 @@
 package com.beforevisit.beforevisit.Fragments;
 
-import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,21 +14,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Lifecycle;
 
+import com.beforevisit.beforevisit.Activities.FullScreenActivity;
 import com.beforevisit.beforevisit.Model.Category;
 import com.beforevisit.beforevisit.R;
-import com.google.android.youtube.player.YouTubeInitializationResult;
-import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerUtils;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
@@ -44,10 +46,11 @@ public class AboutUsFragment extends Fragment {
     ListenerRegistration listenerRegistration;
     String video_url;
     String visit_us_url;
+    float current_seconds;
 
-    Context mContext;
 
     private YouTubePlayerView youTubePlayerView;;
+
 
 
     @Override
@@ -62,6 +65,7 @@ public class AboutUsFragment extends Fragment {
 
 
         getAboutUsData();
+
 
 
         return view;
@@ -83,11 +87,13 @@ public class AboutUsFragment extends Fragment {
 
 
         youTubePlayerView = view.findViewById(R.id.youtube_player_view);
+        current_seconds =0;
+
 
     }
 
     private  void getAboutUsData(){
-        listenerRegistration = db.collection(mContext.getString(R.string.about_us))
+        listenerRegistration = db.collection(getActivity().getString(R.string.about_us))
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException e) {
@@ -96,44 +102,24 @@ public class AboutUsFragment extends Fragment {
                         }else {
 
                             for (final DocumentSnapshot doc : snapshots) {
-                                if(doc.getString(mContext.getString(R.string.description))!=null){
-                                    tv_about_desc.setText(doc.getString(mContext.getString(R.string.description)));
+                                if(doc.getString(getActivity().getString(R.string.description))!=null){
+                                    tv_about_desc.setText(doc.getString(getActivity().getString(R.string.description)));
                                 }
 
-                                if(doc.getString(mContext.getString(R.string.video_url))!=null){
-                                    video_url = doc.getString(mContext.getString(R.string.video_url));
-                                    initYouTubePlayerView(video_url);
+                                if(doc.getString(getActivity().getString(R.string.video_url))!=null){
+                                    video_url = doc.getString(getActivity().getString(R.string.video_url));
                                 }
 
-                                if(doc.getString(mContext.getString(R.string.visit_us_url))!=null){
-                                    visit_us_url = doc.getString(mContext.getString(R.string.visit_us_url));
+                                if(doc.getString(getActivity().getString(R.string.visit_us_url))!=null){
+                                    visit_us_url = doc.getString(getActivity().getString(R.string.visit_us_url));
                                 }
                             }
 
+                            if(video_url!=null || !video_url.isEmpty()){
+                                initYouTubePlayerView(video_url);
+                            }
 
 
-//                            youtubePlayerSupportFragment.initialize(getString(R.string.YOUTUBE_API_KEY), new YouTubePlayer.OnInitializedListener() {
-//                                @Override
-//                                public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-//                                    if(!b){
-//
-//                                        Log.i(TAG, "video url is "+ video_url);
-//                                        if(video_url!=null && !video_url.isEmpty()){
-//                                            activePlayer = youTubePlayer;
-//                                            String myString = video_url;
-//                                            String newString = myString.substring(myString.lastIndexOf("=")+1);
-//                                            activePlayer.cueVideo(newString);
-//                                            activePlayer.
-//                                        }
-//
-//                                    }
-//                                }
-//
-//                                @Override
-//                                public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-//
-//                                }
-//                            });
 
                         }
                     }
@@ -147,24 +133,37 @@ public class AboutUsFragment extends Fragment {
         // If you don't add YouTubePlayerView as a lifecycle observer, you will have to release it manually.
         getLifecycle().addObserver(youTubePlayerView);
 
-//        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
-//            @Override
-//            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-//
-//
-//                String url_cue = video_url.substring(video_url.lastIndexOf("=")+1);
-//
-//                YouTubePlayerUtils.loadOrCueVideo(
-//                        youTubePlayer, getLifecycle(),
-//                        url_cue,0f
-//                );
-//            }
-//        });
+        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+
+
+                String url_cue = video_url.substring(video_url.lastIndexOf("=")+1);
+                YouTubePlayerUtils.loadOrCueVideo(
+                        youTubePlayer, getLifecycle(),
+                        url_cue,0f
+                );
+            }
+
+            @Override
+            public void onCurrentSecond(YouTubePlayer youTubePlayer, float second) {
+                super.onCurrentSecond(youTubePlayer, second);
+                current_seconds = Math.abs(second-1);
+
+
+            }
+        });
+
 
         youTubePlayerView.addFullScreenListener(new YouTubePlayerFullScreenListener() {
             @Override
             public void onYouTubePlayerEnterFullScreen() {
-                youTubePlayerView.toggleFullScreen();
+
+                Intent intent = new Intent(getActivity(), FullScreenActivity.class);
+                intent.putExtra("current_seconds", current_seconds);
+                intent.putExtra("video_url",video_url);
+                startActivity(intent);
+
             }
 
             @Override
@@ -175,6 +174,8 @@ public class AboutUsFragment extends Fragment {
 
 
 
+
+
     @Override
     public void onStop() {
         super.onStop();
@@ -182,13 +183,5 @@ public class AboutUsFragment extends Fragment {
             listenerRegistration = null;
         }
 
-//        activePlayer.release();
-//        activePlayer = null;
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        mContext = getContext();
     }
 }

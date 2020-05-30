@@ -22,20 +22,27 @@
             <include layout="@layout/snippet_top_bar"
                 android:id="@+id/top_bar"/>
 
-            <FrameLayout
-                android:id="@+id/youtube_fragment"
+<!--            <FrameLayout-->
+<!--                android:id="@+id/youtube_fragment"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="24dp"-->
+<!--                android:layout_below="@id/top_bar"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:visibility="visible" />-->
+
+            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                android:id="@+id/youtube_player_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
                 android:layout_below="@id/top_bar"
-                android:layout_centerHorizontal="true"
-                android:visibility="visible" />
+                app:showFullScreenButton="true" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="40dp"
-                android:layout_below="@id/youtube_fragment"
+                android:layout_below="@id/youtube_player_view"
                 android:text="Nike Factory Store"
                 android:textColor="@color/colorPrimary"
                 android:fontFamily="@font/robo_bold"
