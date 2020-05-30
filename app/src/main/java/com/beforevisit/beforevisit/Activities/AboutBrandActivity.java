@@ -87,7 +87,7 @@ public class AboutBrandActivity extends AppCompatActivity {
     TextView text_phone;
 
     EditText et_review;
-    ImageView img_done,img_save;
+    ImageView img_done,img_save,img_share;
 
     Utils utils;
     String rating;
@@ -110,7 +110,7 @@ public class AboutBrandActivity extends AppCompatActivity {
     RecyclerRatingAdapter ratingAdapter;
     int previous_rating = 0;
 
-
+    String share_link, share_text;
 
 
     ArrayList<VisitorCount> visitorCountArrayList;
@@ -178,6 +178,24 @@ public class AboutBrandActivity extends AppCompatActivity {
                 rating = String.valueOf(v);
                 int_rating = (int)v;
                 tv_rating_user.setText((int) v + "/5");
+            }
+        });
+
+        img_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                share_text = "Check out this place:\n"+placesArrayList.get(0).getPlace_name()+"\n\nDownload from Play Store:\n"+ share_link
+                        +"\n\nBefore you visit check out Before Visit :)";
+
+
+
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, share_text);
+                sendIntent.setType("text/plain");
+
+                Intent shareIntent = Intent.createChooser(sendIntent, null);
+                startActivity(shareIntent);
             }
         });
 
@@ -277,6 +295,7 @@ public class AboutBrandActivity extends AppCompatActivity {
         images_grid_view = (ExpandableHeightGridView) findViewById(R.id.images_grid_view);
 
         img_done = (ImageView) findViewById(R.id.img_done);
+        img_share = (ImageView) findViewById(R.id.img_share);
 
         ratingBarAvg = (RatingBar) findViewById(R.id.ratingBarAvg);
         rating_bar_user = (RatingBar) findViewById(R.id.rating_bar_user);
@@ -333,7 +352,7 @@ public class AboutBrandActivity extends AppCompatActivity {
     }
 
     private void getPlaceData(final String place_id) {
-        db.collection(getString(R.string.places)).document(place_id)
+       listenerRegistration = db.collection(getString(R.string.places)).document(place_id)
                 .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
@@ -543,6 +562,32 @@ public class AboutBrandActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+
+        //getting share link
+
+        listenerRegistration = db.collection(getString(R.string.share_link))
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException e) {
+
+                        if(e!=null){
+                            Log.i(TAG,"Error is "+e.getMessage());
+                        }else{
+                            if(snapshots!=null && !snapshots.isEmpty()) {
+
+                                for (final QueryDocumentSnapshot doc : snapshots) {
+                                    share_link = doc.getString(getString(R.string.share_link));
+
+                                }
+
+
+                            }
+                        }
+
+                    }
+                });
+
     }
 
 
@@ -895,14 +940,13 @@ public class AboutBrandActivity extends AppCompatActivity {
     }
 
     private void storeVisitorCount(){
-
-        db.collection(getString(R.string.places)).document(place_id)
-                .update(getString(R.string.visitor_count),FieldValue.increment(1));
-
-
-
+        if(firebaseUser!=null){
+            db.collection(getString(R.string.places)).document(place_id)
+                    .update(getString(R.string.visitor_count),FieldValue.increment(1));
+        }
 
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();

@@ -52,6 +52,7 @@
     <string name="places">places</string>
     <string name="about_us">about_us</string>
     <string name="ratings_and_reviews">ratings_and_reviews</string>
+    <string name="share_link">share_link</string>
 
 
     <!--    User Document Fields-->
@@ -139,6 +140,7 @@
     <string name="place_id">place_id</string>
     <string name="place_name_review">place_name</string>
     <string name="user_name">user_name</string>
+
 
 
 </resources>
