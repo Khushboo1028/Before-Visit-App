@@ -60,6 +60,7 @@ public class SearchAdapter extends RecyclerView.Adapter <SearchAdapter.ViewHolde
             public void onClick(View view) {
                 // PERFORM SEARCH HERE
                 searchActivity.searchForPlace(search_name);
+                searchActivity.filterPlaces(search_name);
             }
         });
 

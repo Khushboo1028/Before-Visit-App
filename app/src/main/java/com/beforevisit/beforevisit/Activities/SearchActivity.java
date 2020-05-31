@@ -127,6 +127,7 @@ public class SearchActivity extends AppCompatActivity {
                     storeSearchData();
                     adapter.notifyDataSetChanged();
                     searchForPlace(searchText);
+
                     return true;
                 }
                 return false;
@@ -147,6 +148,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 filter(s.toString().toLowerCase().trim());
+
 
             }
         });
@@ -266,21 +268,18 @@ public class SearchActivity extends AppCompatActivity {
     private void filter(String text){
         ArrayList<String> temp = new ArrayList();
 
-
         for(int i=0;i<searchList.size();i++){
             if(searchList.get(i).toLowerCase().contains(text)){
                 temp.add(searchList.get(i));
             }
         }
 
-
         //update recyclerview
         adapter.updateList(temp);
 
-
     }
 
-    private void filterPlaces(String text){
+    public void filterPlaces(String text){
 
         ArrayList<Places> tempPlaces = new ArrayList();
 
@@ -549,12 +548,14 @@ public class SearchActivity extends AppCompatActivity {
                                 recycler_view_results.setAdapter(searchResultsAdapter);
 
 
-
+                                filterPlaces(et_search.getText().toString().toLowerCase().trim());
 
                             }
                         }
                     });
         }
+
+
 
     }
 

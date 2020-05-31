@@ -41,7 +41,7 @@ public class SavedPlacesAdapter extends BaseAdapter {
     FirebaseUser firebaseUser;
     FirebaseAuth mAuth;
     FirebaseFirestore db;
-    ListenerRegistration listenerRegistration;
+    ListenerRegistration listenerRegistrationGetSaved;
 
 
     public SavedPlacesAdapter(ArrayList<CategoryPlaces> savedPlacesList, Activity mActivity) {
@@ -87,15 +87,19 @@ public class SavedPlacesAdapter extends BaseAdapter {
         TextView tv_store_name = gridView.findViewById(R.id.tv_store_name);
         TextView tv_place_address = gridView.findViewById(R.id.tv_place_address);
         RatingBar rating_bar_place = gridView.findViewById(R.id.rating_bar_place);
-        getSaved(savedPlacesList.get(i).getPlace_id(),i,image_saved);
+        //getSaved(savedPlacesList.get(i).getPlace_id(),i,image_saved);
+        Log.i(TAG,"SavedPlacesList size is "+savedPlacesList.size());
 
         image_saved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(savedPlacesList.get(i).getSaved()){
-                    image_saved.setImageResource(R.drawable.ic_heart_unfilled_alt);
-                    setSaved(savedPlacesList.get(i).getPlace_id(),false,i,image_saved);
-                    removeFromList(i);
+                    int pos = i;
+
+                    String place_id = savedPlacesList.get(pos).getPlace_id();
+                    setSaved(place_id,false, pos);
+                    removeFromList(pos);
+
 
                 }
             }
@@ -105,6 +109,7 @@ public class SavedPlacesAdapter extends BaseAdapter {
         tv_store_name.setText(savedPlacesList.get(i).getStore_name());
         tv_place_address.setText(savedPlacesList.get(i).getAddress());
         rating_bar_place.setRating((savedPlacesList.get(i).getRating()));
+        image_saved.setImageResource(R.drawable.ic_heart_filled_alt);
 
         gridView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,48 +125,17 @@ public class SavedPlacesAdapter extends BaseAdapter {
     }
 
     public void removeFromList(int i){
-        if(!savedPlacesList.isEmpty() && i<savedPlacesList.size()-1){
+        if(!savedPlacesList.isEmpty() && i<savedPlacesList.size()){
+            Log.i(TAG,"Removing position "+i);
             savedPlacesList.remove(i);
             notifyDataSetChanged();
         }
 
     }
 
-    private void getSaved(final String place_id, final int pos,final ImageView img_save){
-        mAuth = FirebaseAuth.getInstance();
-        firebaseUser = mAuth.getCurrentUser();
-        db = FirebaseFirestore.getInstance();
-
-        if(firebaseUser!=null){
-          listenerRegistration =  db.collection(mActivity.getString(R.string.users)).document(firebaseUser.getUid())
-                    .addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                        @Override
-                        public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
-                            ArrayList<String> places_saved = new ArrayList<>();
-                            if(e!=null){
-                                Log.i(TAG,"An error occurred "+e.getMessage());
-                            }else{
-
-                                if(snapshot.get(mActivity.getString(R.string.places_saved))!=null){
-                                    places_saved = (ArrayList<String>) snapshot.get(mActivity.getString(R.string.places_saved));
-                                }
-
-                            }
-
-                            if(places_saved.contains(place_id)){
-                                Log.i(TAG,"Set saved is true for place id "+place_id);
-                                img_save.setImageResource(R.drawable.ic_heart_filled_alt);
-
-                            }else{
-                               removeFromList(pos);
-                            }
-                        }
-                    });
-        }
-    }
 
 
-    private void setSaved(final String place_id, Boolean isSaved, final int i,final ImageView image_saved ){
+    private void setSaved(final String place_id, Boolean isSaved, final int pos){
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
@@ -181,6 +155,7 @@ public class SavedPlacesAdapter extends BaseAdapter {
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 Toast.makeText(mActivity.getApplicationContext(),"Removed from your favourites",Toast.LENGTH_SHORT).show();
+
 
                                             }
                                         })
@@ -203,6 +178,7 @@ public class SavedPlacesAdapter extends BaseAdapter {
 
         }
     }
+
 
 
 }

@@ -244,7 +244,7 @@ public class LoginMainActivity extends AppCompatActivity {
                                             String token = task.getResult().getToken();
 
                                             FirebaseFirestore.getInstance().collection(getString(R.string.users)).document(user.getUid())
-                                                    .update(getString(R.string.users), FieldValue.arrayUnion(token))
+                                                    .update(getString(R.string.token), FieldValue.arrayUnion(token))
                                                     .addOnFailureListener(new OnFailureListener() {
                                                         @Override
                                                         public void onFailure(@NonNull Exception e) {
@@ -363,7 +363,7 @@ public class LoginMainActivity extends AppCompatActivity {
                                             String token = task.getResult().getToken();
 
                                             FirebaseFirestore.getInstance().collection(getString(R.string.users)).document(user.getUid())
-                                                    .update(getString(R.string.users), FieldValue.arrayUnion(token))
+                                                    .update(getString(R.string.token), FieldValue.arrayUnion(token))
                                                     .addOnFailureListener(new OnFailureListener() {
                                                         @Override
                                                         public void onFailure(@NonNull Exception e) {

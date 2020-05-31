@@ -29,7 +29,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
@@ -243,8 +246,35 @@ public class CreateAccountActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            final FirebaseUser user = mAuth.getCurrentUser();
                             user.sendEmailVerification();
+
+                            FirebaseInstanceId.getInstance().getInstanceId()
+                                    .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                                            if (!task.isSuccessful()) {
+                                                Log.w(TAG, "getInstanceId failed", task.getException());
+                                                return;
+                                            }
+
+                                            // Get new Instance ID token
+                                            String token = task.getResult().getToken();
+
+                                            FirebaseFirestore.getInstance().collection(getString(R.string.users)).document(user.getUid())
+                                                    .update(getString(R.string.token), FieldValue.arrayUnion(token))
+                                                    .addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Log.i(TAG,"Could not update token"+e.getMessage()) ;
+                                                        }
+                                                    });
+
+
+
+
+                                        }
+                                    });
                             addUserDataToFirestore.addUsersDataToFirestore(getApplicationContext(),user.getUid(),name,user.getEmail(),mobile);
                             finish();
 
