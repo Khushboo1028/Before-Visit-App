@@ -142,5 +142,6 @@
     <string name="user_name">user_name</string>
 
 
+    <string name="token">token</string>
 
 </resources>

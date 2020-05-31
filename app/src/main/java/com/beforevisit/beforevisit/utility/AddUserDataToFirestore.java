@@ -6,10 +6,15 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.beforevisit.beforevisit.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -20,9 +25,10 @@ public class AddUserDataToFirestore {
     public static final String TAG = "AddUserDataToFirestore";
 
     FirebaseFirestore db;
-    public void addUsersDataToFirestore(Context mContext, String userId, String name, String email, String mobile_no){
+    public void addUsersDataToFirestore(final Context mContext,final String userId,final String name, final String email,final String mobile_no){
 
         db = FirebaseFirestore.getInstance();
+
         Map<String, Object> data = new HashMap<>();
         data.put(mContext.getString(R.string.name), name);
         data.put(mContext.getString(R.string.date_created),new Timestamp(new Date()));
@@ -44,6 +50,10 @@ public class AddUserDataToFirestore {
                         Log.w(TAG, "Error writing document", e);
                     }
                 });
+
+
+
+
 
 
     }

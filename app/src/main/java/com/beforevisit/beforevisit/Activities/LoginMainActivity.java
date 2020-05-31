@@ -32,6 +32,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
@@ -43,9 +44,12 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.facebook.FacebookSdk;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 
 public class LoginMainActivity extends AppCompatActivity {
@@ -227,6 +231,32 @@ public class LoginMainActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithCredential:success");
                             final FirebaseUser user = mAuth.getCurrentUser();
 
+                            FirebaseInstanceId.getInstance().getInstanceId()
+                                    .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                                            if (!task.isSuccessful()) {
+                                                Log.w(TAG, "getInstanceId failed", task.getException());
+                                                return;
+                                            }
+
+                                            // Get new Instance ID token
+                                            String token = task.getResult().getToken();
+
+                                            FirebaseFirestore.getInstance().collection(getString(R.string.users)).document(user.getUid())
+                                                    .update(getString(R.string.users), FieldValue.arrayUnion(token))
+                                                    .addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Log.i(TAG,"An error occurred "+e.getMessage());
+                                                        }
+                                                    });
+
+
+
+                                        }
+                                    });
+
                             listenerRegistration = FirebaseFirestore.getInstance().collection(getString(R.string.users)).document(user.getUid())
                                     .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                                         @Override
@@ -318,7 +348,34 @@ public class LoginMainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            final FirebaseUser user = mAuth.getCurrentUser();
+
+                            FirebaseInstanceId.getInstance().getInstanceId()
+                                    .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                                            if (!task.isSuccessful()) {
+                                                Log.w(TAG, "getInstanceId failed", task.getException());
+                                                return;
+                                            }
+
+                                            // Get new Instance ID token
+                                            String token = task.getResult().getToken();
+
+                                            FirebaseFirestore.getInstance().collection(getString(R.string.users)).document(user.getUid())
+                                                    .update(getString(R.string.users), FieldValue.arrayUnion(token))
+                                                    .addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Log.i(TAG,"An error occurred "+e.getMessage());
+                                                        }
+                                                    });
+
+
+
+                                        }
+                                    });
+
                             listenerRegistration = FirebaseFirestore.getInstance().collection(getString(R.string.users)).document(user.getUid())
                                     .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                                         @Override
@@ -345,6 +402,8 @@ public class LoginMainActivity extends AppCompatActivity {
                                             }
                                         }
                                     });
+
+
 
 
                         } else {

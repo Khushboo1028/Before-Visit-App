@@ -38,8 +38,10 @@ import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -52,6 +54,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import org.w3c.dom.Text;
 
@@ -100,7 +104,7 @@ public class ProfileFragment extends Fragment{
 
     Context mContext;
     double profile_percent;
-
+    ProgressBar progressBar_loading;
 
     int completed_count=7;
 
@@ -216,11 +220,42 @@ public class ProfileFragment extends Fragment{
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                LoginMainActivity loginMainActivity = new LoginMainActivity();
-                                loginMainActivity.signOut();
-                                Toast.makeText(getContext(),"Sign Out Successful",Toast.LENGTH_LONG).show();
+                                progressBar_loading.setVisibility(View.VISIBLE);
+                                FirebaseInstanceId.getInstance().getInstanceId()
+                                        .addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
+                                            @Override
+                                            public void onSuccess(InstanceIdResult instanceIdResult) {
+                                                String token = instanceIdResult.getToken();
 
-                                getActivity().onBackPressed();
+                                                db.collection(mContext.getString(R.string.users)).document(firebaseUser.getUid())
+                                                        .update(mContext.getString(R.string.token),FieldValue.arrayRemove(token))
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+                                                                LoginMainActivity loginMainActivity = new LoginMainActivity();
+                                                                loginMainActivity.signOut();
+                                                                progressBar_loading.setVisibility(View.GONE);
+                                                                getActivity().onBackPressed();
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                Log.i(TAG,"An error occurred " +e.getMessage());
+                                                                progressBar_loading.setVisibility(View.GONE);
+                                                                Toast.makeText(getContext(),"An error occurred",Toast.LENGTH_LONG).show();
+
+                                                            }
+                                                        });
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.i(TAG,"An error occurred " +e.getMessage());
+                                            }
+                                        });
+
                             }
                         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
@@ -303,6 +338,8 @@ public class ProfileFragment extends Fragment{
         recyclerViewInterest.setAdapter(interestsAdapter);
 
         profile_progress_bar = (ProgressBar) view.findViewById(R.id.profile_progress_bar);
+        progressBar_loading = (ProgressBar) view.findViewById(R.id.progress_bar);
+        progressBar_loading.setVisibility(View.GONE);
         tv_profile_percent = (TextView) view.findViewById(R.id.tv_profile_percent);
         tv_complete_profile = (TextView) view.findViewById(R.id.tv_complete_profile);
 
