@@ -3,12 +3,11 @@ package com.beforevisit.beforevisit.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 
 import com.beforevisit.beforevisit.R;
-import com.beforevisit.beforevisit.utility.DefaultTextConfig;
+import com.beforevisit.beforevisit.Utility.DefaultTextConfig;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener;

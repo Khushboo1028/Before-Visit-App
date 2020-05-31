@@ -54,7 +54,7 @@
                 android:id="@+id/search_bar"/>
 
 
-            <com.beforevisit.beforevisit.utility.ExpandableHeightGridView
+            <com.beforevisit.beforevisit.Utility.ExpandableHeightGridView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/search_bar"

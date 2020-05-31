@@ -32,16 +32,14 @@ import com.beforevisit.beforevisit.Activities.LoginMainActivity;
 import com.beforevisit.beforevisit.Adapters.InterestsAdapter;
 import com.beforevisit.beforevisit.Model.Interests;
 import com.beforevisit.beforevisit.R;
-import com.beforevisit.beforevisit.utility.DefaultTextConfig;
-import com.beforevisit.beforevisit.utility.Utils;
+import com.beforevisit.beforevisit.Utility.DefaultTextConfig;
+import com.beforevisit.beforevisit.Utility.Utils;
 import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -56,8 +54,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
-
-import org.w3c.dom.Text;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

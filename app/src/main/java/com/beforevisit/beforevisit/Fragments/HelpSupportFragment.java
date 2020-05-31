@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.beforevisit.beforevisit.Adapters.FaqAdapter;
 import com.beforevisit.beforevisit.Model.Faq;
 import com.beforevisit.beforevisit.R;
-import com.beforevisit.beforevisit.utility.DefaultTextConfig;
+import com.beforevisit.beforevisit.Utility.DefaultTextConfig;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;

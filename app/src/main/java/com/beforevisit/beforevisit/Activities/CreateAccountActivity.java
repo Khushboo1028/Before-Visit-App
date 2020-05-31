@@ -19,12 +19,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.beforevisit.beforevisit.R;
-import com.beforevisit.beforevisit.utility.AddUserDataToFirestore;
-import com.beforevisit.beforevisit.utility.DefaultTextConfig;
-import com.beforevisit.beforevisit.utility.Utils;
+import com.beforevisit.beforevisit.Utility.AddUserDataToFirestore;
+import com.beforevisit.beforevisit.Utility.DefaultTextConfig;
+import com.beforevisit.beforevisit.Utility.Utils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;

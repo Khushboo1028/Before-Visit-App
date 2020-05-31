@@ -16,9 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beforevisit.beforevisit.R;
-import com.beforevisit.beforevisit.utility.AddUserDataToFirestore;
-import com.beforevisit.beforevisit.utility.DefaultTextConfig;
-import com.beforevisit.beforevisit.utility.Utils;
+import com.beforevisit.beforevisit.Utility.AddUserDataToFirestore;
+import com.beforevisit.beforevisit.Utility.DefaultTextConfig;
+import com.beforevisit.beforevisit.Utility.Utils;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;

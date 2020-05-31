@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Matrix;
 import android.graphics.PointF;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -12,7 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.beforevisit.beforevisit.R;
-import com.beforevisit.beforevisit.utility.DefaultTextConfig;
+import com.beforevisit.beforevisit.Utility.DefaultTextConfig;
 import com.bumptech.glide.Glide;
 
 public class ViewImageActivity extends AppCompatActivity implements View.OnTouchListener {

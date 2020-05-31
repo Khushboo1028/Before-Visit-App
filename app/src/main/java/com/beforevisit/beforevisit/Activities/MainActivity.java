@@ -8,12 +8,10 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import android.app.ActivityOptions;
-import android.app.job.JobInfo;
-import android.app.job.JobScheduler;
-import android.content.ComponentName;
-import android.content.Context;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,9 +35,8 @@ import com.beforevisit.beforevisit.Fragments.SavedPlacesFragment;
 import com.beforevisit.beforevisit.Model.Category;
 import com.beforevisit.beforevisit.Model.PlacesHomePage;
 import com.beforevisit.beforevisit.R;
-import com.beforevisit.beforevisit.utility.DefaultTextConfig;
-import com.beforevisit.beforevisit.utility.JobService;
-import com.beforevisit.beforevisit.utility.Utils;
+import com.beforevisit.beforevisit.Utility.DefaultTextConfig;
+import com.beforevisit.beforevisit.Utility.Utils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -53,15 +50,16 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Timer;
-
-import static com.beforevisit.beforevisit.Activities.AboutBrandActivity.VisitorSharedPreference;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String TAG = "MainActivity";
-    public static final int JOB_ID = 123;
+
+    public static final String CHANNEL_ID="NOTIF";
+    public static final String CHANNEL_NAME="Notifications";
+    public static final String CHANNEL_DESC="This channel is for all notifications";
+
     ImageView img_menu,img_notification_bell;
     RelativeLayout expanded_menu,top_main_rel;
     Boolean is_menu_clicked = false;
@@ -116,6 +114,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         init();
+
+        //Notification
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+            NotificationChannel channel=new NotificationChannel(CHANNEL_ID,CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH );
+            channel.setDescription(CHANNEL_DESC);
+            NotificationManager manager=getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+
+        }
 
         img_menu.setOnClickListener(new View.OnClickListener() {
             @Override

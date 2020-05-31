@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.beforevisit.beforevisit.Adapters.RecyclerRatingAdapter;
 import com.beforevisit.beforevisit.Model.RatingAndReviews;
 import com.beforevisit.beforevisit.R;
-import com.beforevisit.beforevisit.utility.DefaultTextConfig;
+import com.beforevisit.beforevisit.Utility.DefaultTextConfig;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

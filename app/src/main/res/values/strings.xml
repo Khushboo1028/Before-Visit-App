@@ -143,5 +143,7 @@
 
 
     <string name="token">token</string>
+    <string name="default_notification_channel_id">NOTIF</string>
+    <string name="developer_credits">Designed and Developed by Reltec</string>
 
 </resources>

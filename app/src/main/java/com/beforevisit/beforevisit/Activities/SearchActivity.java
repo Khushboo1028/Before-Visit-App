@@ -25,20 +25,17 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.beforevisit.beforevisit.Adapters.RecyclerSearchResultsAdapter;
 import com.beforevisit.beforevisit.Adapters.SearchAdapter;
 import com.beforevisit.beforevisit.Model.Location;
 import com.beforevisit.beforevisit.Model.Places;
-import com.beforevisit.beforevisit.Model.SearchResults;
 import com.beforevisit.beforevisit.R;
-import com.beforevisit.beforevisit.utility.DefaultTextConfig;
-import com.beforevisit.beforevisit.utility.DisctanceCalculator;
-import com.beforevisit.beforevisit.utility.LocationTrack;
-import com.beforevisit.beforevisit.utility.SortingClass;
-import com.beforevisit.beforevisit.utility.Utils;
-import com.bumptech.glide.util.Util;
+import com.beforevisit.beforevisit.Utility.DefaultTextConfig;
+import com.beforevisit.beforevisit.Utility.DisctanceCalculator;
+import com.beforevisit.beforevisit.Utility.LocationTrack;
+import com.beforevisit.beforevisit.Utility.SortingClass;
+import com.beforevisit.beforevisit.Utility.Utils;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -48,7 +45,6 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -59,14 +55,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.stream.Collectors;
 
 public class SearchActivity extends AppCompatActivity {
 

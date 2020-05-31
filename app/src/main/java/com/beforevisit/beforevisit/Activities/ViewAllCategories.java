@@ -10,15 +10,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.RelativeLayout;
 
 import com.beforevisit.beforevisit.Adapters.GridHomeCategoryAdapter;
 import com.beforevisit.beforevisit.Model.Category;
 import com.beforevisit.beforevisit.R;
-import com.beforevisit.beforevisit.utility.DefaultTextConfig;
-import com.beforevisit.beforevisit.utility.ExpandableHeightGridView;
-import com.beforevisit.beforevisit.utility.Utils;
+import com.beforevisit.beforevisit.Utility.DefaultTextConfig;
+import com.beforevisit.beforevisit.Utility.ExpandableHeightGridView;
+import com.beforevisit.beforevisit.Utility.Utils;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;

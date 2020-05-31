@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import com.beforevisit.beforevisit.Adapters.GridImagePlaceAdapter;
 import com.beforevisit.beforevisit.R;
-import com.beforevisit.beforevisit.utility.DefaultTextConfig;
-import com.beforevisit.beforevisit.utility.ExpandableHeightGridView;
+import com.beforevisit.beforevisit.Utility.DefaultTextConfig;
+import com.beforevisit.beforevisit.Utility.ExpandableHeightGridView;
 
 import java.util.ArrayList;
 
