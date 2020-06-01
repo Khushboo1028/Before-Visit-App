@@ -273,7 +273,7 @@ public class SearchActivity extends AppCompatActivity {
     public void filterPlaces(String text){
 
         ArrayList<Places> tempPlaces = new ArrayList();
-
+        text_no_search_found.setVisibility(View.GONE);
         for (Places d : placesArrayList) {
 
             if (d.getPlace_name().toLowerCase().contains(text.toLowerCase())

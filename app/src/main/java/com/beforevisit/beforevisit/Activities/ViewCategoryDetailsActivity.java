@@ -382,26 +382,26 @@ public class ViewCategoryDetailsActivity extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
-        listenerRegistration =  db.collection(getString(R.string.users)).document(firebaseUser.getUid())
-                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
+        if(firebaseUser!=null) {
+            listenerRegistration = db.collection(getString(R.string.users)).document(firebaseUser.getUid())
+                    .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
 
-                        if(e!=null){
-                            Log.i(TAG,"An error occurred "+e.getMessage());
-                        }else{
+                            if (e != null) {
+                                Log.i(TAG, "An error occurred " + e.getMessage());
+                            } else {
 
-                            if(snapshot.get(getString(R.string.places_saved))!=null){
-                                places_saved = (ArrayList<String>) snapshot.get(getString(R.string.places_saved));
+                                if (snapshot.get(getString(R.string.places_saved)) != null) {
+                                    places_saved = (ArrayList<String>) snapshot.get(getString(R.string.places_saved));
+                                }
+
                             }
 
+
                         }
-
-
-
-
-                    }
-                });
+                    });
+        }
 
     }
 
