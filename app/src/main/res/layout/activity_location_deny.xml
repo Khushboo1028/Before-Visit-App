@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/super_rel"
+    android:padding="16dp"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".Activities.LocationDenyActivity">
+
+    <include layout="@layout/snippet_top_bar"
+        android:id="@+id/top_bar"/>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_bar"
+        android:id="@+id/scrollView">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/main_rel">
+
+
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@drawable/ic_location_deny"
+                android:layout_marginTop="24dp"
+                android:id="@+id/img_head"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/img_head"
+                android:text="Location Permission"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/robo_bold"
+                android:layout_marginTop="16dp"
+                android:textAllCaps="true"
+                android:textSize="32dp"
+                android:id="@+id/tv_header"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/location_deny"
+                android:fontFamily="@font/roboto_medium"
+                android:layout_below="@id/tv_header"
+                android:layout_marginTop="16dp"
+                android:textSize="16dp"
+                android:textColor="@color/colorPrimary"
+                android:id="@+id/tv_desc"/>
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_desc"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
+                android:text="Give Access"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="@color/colorPrimaryDark"
+                android:paddingHorizontal="24dp"
+                android:background="@drawable/white_rectangle_10"
+                android:id="@+id/btn_give_access"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btn_give_access"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:text="Close app"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="@color/colorPrimary"
+                android:paddingHorizontal="24dp"
+                android:background="@null"
+                android:id="@+id/btn_close_app"
+                />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

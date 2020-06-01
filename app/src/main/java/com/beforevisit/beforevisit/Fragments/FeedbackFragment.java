@@ -210,6 +210,8 @@ public class FeedbackFragment extends Fragment {
                            alert.setTitle("Thank You!");
                            alert.show();
 
+                           et_review.setText("");
+                           ratingBar.setRating(0);
                        }
                    })
                    .addOnFailureListener(new OnFailureListener() {

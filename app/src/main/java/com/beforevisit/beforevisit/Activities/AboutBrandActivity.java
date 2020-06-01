@@ -31,6 +31,7 @@ import com.beforevisit.beforevisit.R;
 import com.beforevisit.beforevisit.Utility.DefaultTextConfig;
 import com.beforevisit.beforevisit.Utility.ExpandableHeightGridView;
 import com.beforevisit.beforevisit.Utility.Utils;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
@@ -46,10 +47,13 @@ import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerUtils;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
+import com.stfalcon.imageviewer.StfalconImageViewer;
+import com.stfalcon.imageviewer.loader.ImageLoader;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -109,6 +113,7 @@ public class AboutBrandActivity extends AppCompatActivity {
     float current_seconds;
 
     YouTubePlayerView youTubePlayerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -242,11 +247,17 @@ public class AboutBrandActivity extends AppCompatActivity {
                     overridePendingTransition(0,0);
 
                 }else{
-                    Intent intent = new Intent(getApplicationContext(), ViewImageActivity.class);
-                    intent.putExtra("image_url",placesArrayList.get(0).getImages_url().get(i));
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    overridePendingTransition(0,0);
+
+                    new StfalconImageViewer.Builder<>(AboutBrandActivity.this, placesArrayList.get(0).getImages_url(), new ImageLoader<String>() {
+                        @Override
+                        public void loadImage(ImageView imageView, String imageUrl) {
+                            Glide.with(getApplicationContext()).load(imageUrl).into(imageView);
+                        }
+                    })
+                            .withStartPosition(i)
+                            .show();
+
+
                 }
             }
         });
@@ -272,6 +283,14 @@ public class AboutBrandActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+//        RelativeLayout topbar_rel = findViewById(R.id.top_bar_rel);
+//        topbar_rel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                utils.goToHome(AboutBrandActivity.this);
+//            }
+//        });
     }
 
 
@@ -317,6 +336,7 @@ public class AboutBrandActivity extends AppCompatActivity {
         img_save = (ImageView) findViewById(R.id.img_save);
         youTubePlayerView = findViewById(R.id.youtube_player_view);
         current_seconds =0;
+
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -583,7 +603,8 @@ public class AboutBrandActivity extends AppCompatActivity {
         // The player will automatically release itself when the fragment is destroyed.
         // The player will automatically pause when the fragment is stopped
         // If you don't add YouTubePlayerView as a lifecycle observer, you will have to release it manually.
-        getLifecycle().addObserver(youTubePlayerView);
+//        getLifecycle().addObserver(youTubePlayerView);
+
 
         youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
@@ -595,6 +616,7 @@ public class AboutBrandActivity extends AppCompatActivity {
                         youTubePlayer, getLifecycle(),
                         url_cue,0f
                 );
+                youTubePlayer.pause();
             }
 
             @Override
@@ -620,6 +642,10 @@ public class AboutBrandActivity extends AppCompatActivity {
 
             @Override
             public void onYouTubePlayerExitFullScreen() {
+                Intent intent = new Intent(getApplicationContext(), FullScreenActivity.class);
+                intent.putExtra("current_seconds", current_seconds);
+                intent.putExtra("video_url",video_url);
+                startActivity(intent);
             }
         });
     }
@@ -995,6 +1021,9 @@ public class AboutBrandActivity extends AppCompatActivity {
         if(listenerRegistration!=null){
             listenerRegistration=null;
         }
+
+
+
 
 
     }

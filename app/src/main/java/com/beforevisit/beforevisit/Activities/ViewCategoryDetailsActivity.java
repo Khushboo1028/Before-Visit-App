@@ -354,9 +354,11 @@ public class ViewCategoryDetailsActivity extends AppCompatActivity {
                 switch (status.getStatusCode()) {
                     case LocationSettingsStatusCodes.SUCCESS:
                         Log.i(TAG, "All location settings are satisfied.");
+                        getPlacesFromCategory("");
                         break;
                     case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
                         Log.i(TAG, "Location settings are not satisfied. Show the user a dialog to upgrade location settings ");
+                        getPlacesFromCategory("");
 
                         try {
                             // Show the dialog by calling startResolutionForResult(), and check the result
@@ -402,6 +404,13 @@ public class ViewCategoryDetailsActivity extends AppCompatActivity {
                         }
                     });
         }
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        displayLocationSettingsRequest(getApplicationContext());
 
     }
 

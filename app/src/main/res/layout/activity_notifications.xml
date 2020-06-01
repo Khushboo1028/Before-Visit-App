@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/super_rel"
+    android:padding="16dp"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".Activities.NotificationsActivity">
+
+
+    <include layout="@layout/snippet_top_bar"
+        android:id="@+id/top_bar"/>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_bar"
+        android:id="@+id/scrollView">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/main_rel">
+
+
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@drawable/ic_notification_bell"
+                android:layout_marginTop="24dp"
+                android:id="@+id/img_head"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/img_head"
+                android:text="Notifications"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/robo_bold"
+                android:layout_marginTop="16dp"
+                android:textAllCaps="true"
+                android:textSize="32dp"
+                android:id="@+id/tv_header"/>
+
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:padding="12dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_vertical"
+                    android:layout_below="@id/tv_header"
+                    android:background="@drawable/white_border_rectangle"
+                    android:id="@+id/allow_all_rel"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Allow all notifications"
+                        android:fontFamily="@font/roboto_medium"
+                        android:textSize="24dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textAllCaps="true"
+                        android:id="@+id/tv_allow_all"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/allow_all_notif_desc"
+                        android:fontFamily="@font/roboto_medium"
+                        android:layout_below="@id/tv_allow_all"
+                        android:textSize="14dp"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/colorPrimary"
+                        android:id="@+id/tv_allow_description"/>
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:fontFamily="@font/roboto_medium"
+                        android:checked="true"
+                        android:buttonTint="@color/highlight_blue"
+                        android:layout_below="@id/tv_allow_description"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/allow_all_notif"/>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:padding="12dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_vertical"
+                    android:layout_below="@id/allow_all_rel"
+                    android:background="@drawable/white_border_rectangle"
+                    android:id="@+id/allow_high_rel">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Allow only high priority notifications"
+                        android:fontFamily="@font/roboto_medium"
+                        android:textSize="24dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textAllCaps="true"
+                        android:id="@+id/tv_allow_high"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/allow_high_notif_desc"
+                        android:fontFamily="@font/roboto_medium"
+                        android:layout_below="@id/tv_allow_high"
+                        android:textSize="14dp"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/colorPrimary"
+                        android:id="@+id/tv_allow_high_desc"/>
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:fontFamily="@font/roboto_medium"
+                        android:checked="false"
+                        android:buttonTint="@color/highlight_blue"
+                        android:layout_below="@id/tv_allow_high_desc"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/allow_high_notif"/>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:padding="12dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_vertical"
+                    android:layout_below="@id/allow_high_rel"
+                    android:background="@drawable/white_border_rectangle"
+                    android:id="@+id/block_all_rel">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Block all notifications"
+                        android:fontFamily="@font/roboto_medium"
+                        android:textSize="24dp"
+                        android:textColor="@color/colorPrimary"
+                        android:textAllCaps="true"
+                        android:id="@+id/tv_block_all"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/block_all_notif_desc"
+                        android:fontFamily="@font/roboto_medium"
+                        android:layout_below="@id/tv_block_all"
+                        android:textSize="14dp"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/colorPrimary"
+                        android:id="@+id/tv_block_all_desc"/>
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:fontFamily="@font/roboto_medium"
+                        android:checked="false"
+                        android:buttonTint="@color/highlight_blue"
+                        android:layout_below="@id/tv_block_all_desc"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/block_all_notif"/>
+
+
+                </RelativeLayout>
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+</RelativeLayout>

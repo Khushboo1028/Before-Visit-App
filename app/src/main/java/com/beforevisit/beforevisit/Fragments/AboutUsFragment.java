@@ -164,10 +164,17 @@ public class AboutUsFragment extends Fragment {
                 intent.putExtra("video_url",video_url);
                 startActivity(intent);
 
+//
+
             }
 
             @Override
             public void onYouTubePlayerExitFullScreen() {
+                Intent intent = new Intent(getActivity(), FullScreenActivity.class);
+                intent.putExtra("current_seconds", current_seconds);
+                intent.putExtra("video_url",video_url);
+                startActivity(intent);
+
             }
         });
     }

@@ -3,6 +3,7 @@ package com.beforevisit.beforevisit.Utility;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.StrictMode;
 import android.os.Vibrator;
 import android.util.Log;
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.viewpager.widget.ViewPager;
 
 
+import com.beforevisit.beforevisit.Activities.MainActivity;
 import com.beforevisit.beforevisit.Adapters.ViewPagerAdapter;
 import com.beforevisit.beforevisit.Model.PlacesHomePage;
 import com.beforevisit.beforevisit.R;
@@ -59,6 +61,11 @@ public class Utils {
         return false;
     }
 
+    public void goToHome(Activity mActivity){
+        Intent intent = new Intent(mActivity, MainActivity.class);
+        mActivity.startActivity(intent);
+        mActivity.overridePendingTransition(0,0);
+    }
     public void vibrate(Context mContext){
         Vibrator v = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
         v.vibrate(500);

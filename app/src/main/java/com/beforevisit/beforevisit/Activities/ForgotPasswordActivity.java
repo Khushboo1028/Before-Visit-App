@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -60,6 +61,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             public void onClick(View view) {
                 tv_error_email.setVisibility(View.GONE);
                 email = et_email.getText().toString().trim();
+                img_done.setEnabled(false);
 
                 if(utils.isInternetAvailable(ForgotPasswordActivity.this)) {
                     if (email.equals("")) {
@@ -77,8 +79,21 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
                                             Log.d("ForgotPasswordActivity", "Email sent.");
-                                            utils.alertDialog(ForgotPasswordActivity.this,"Success","Kindly check your email to change password!");
+                                            builder = new AlertDialog.Builder(ForgotPasswordActivity.this);
+                                            builder.setMessage("Kindly check your email to change password!")
+                                                    .setCancelable(false)
+                                                    .setPositiveButton("Okay!", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                                            onBackPressed();
+                                                        }
+                                                    });
+
+                                            alert = builder.create();
+                                            alert.setTitle("Success");
+                                            alert.show();
                                         }else{
+                                            img_done.setEnabled(true);
                                             Log.i(TAG,"Error in sending password" + task.getException().getLocalizedMessage());
                                             utils.alertDialog(ForgotPasswordActivity.this,"Error!",task.getException().getLocalizedMessage());
 

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.beforevisit.beforevisit.R;
@@ -16,10 +17,12 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 
 public class FullScreenActivity extends AppCompatActivity {
 
+    private static final String TAG = "FullScreenActivity";
     private YouTubePlayerView youTubePlayerView;;
 
     float current_seconds;
-    String video_url;
+    String video_url,activity_name;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,14 +32,17 @@ public class FullScreenActivity extends AppCompatActivity {
 
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN);
         setContentView(R.layout.activity_full_screen);
-
-
         init();
+
+
         current_seconds = getIntent().getFloatExtra("current_seconds", 0f);
+        Log.i("FullScreenActivity","Current seconds is "+ current_seconds);
 
         if(video_url!=null){
             initYouTubePlayerView();
         }
+
+
 
     }
 
@@ -44,6 +50,7 @@ public class FullScreenActivity extends AppCompatActivity {
 
         youTubePlayerView = findViewById(R.id.youtube_player_view);
         video_url = getIntent().getStringExtra("video_url");
+        activity_name = getIntent().getStringExtra("activity_name");
 
     }
 
@@ -61,7 +68,7 @@ public class FullScreenActivity extends AppCompatActivity {
                 String url_cue = video_url.substring(video_url.lastIndexOf("=")+1);
                 YouTubePlayerUtils.loadOrCueVideo(
                         youTubePlayer, getLifecycle(),
-                        url_cue,0f
+                        url_cue,current_seconds
                 );
 
             }
@@ -70,10 +77,14 @@ public class FullScreenActivity extends AppCompatActivity {
         youTubePlayerView.addFullScreenListener(new YouTubePlayerFullScreenListener() {
             @Override
             public void onYouTubePlayerEnterFullScreen() {
+
+
+              onBackPressed();
             }
 
             @Override
             public void onYouTubePlayerExitFullScreen() {
+
                 onBackPressed();
             }
         });

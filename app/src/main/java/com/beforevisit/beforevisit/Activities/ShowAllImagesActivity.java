@@ -6,12 +6,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.beforevisit.beforevisit.Adapters.GridImagePlaceAdapter;
 import com.beforevisit.beforevisit.R;
 import com.beforevisit.beforevisit.Utility.DefaultTextConfig;
 import com.beforevisit.beforevisit.Utility.ExpandableHeightGridView;
+import com.bumptech.glide.Glide;
+import com.stfalcon.imageviewer.StfalconImageViewer;
+import com.stfalcon.imageviewer.loader.ImageLoader;
 
 import java.util.ArrayList;
 
@@ -36,11 +40,17 @@ public class ShowAllImagesActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
 
-                    Intent intent = new Intent(getApplicationContext(), ViewImageActivity.class);
-                    intent.putExtra("image_url",images_url_list.get(i));
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    overridePendingTransition(0,0);
+
+                new StfalconImageViewer.Builder<>(ShowAllImagesActivity.this, images_url_list, new ImageLoader<String>() {
+                    @Override
+                    public void loadImage(ImageView imageView, String imageUrl) {
+                        Glide.with(getApplicationContext()).load(imageUrl).into(imageView);
+                    }
+                })
+                        .withStartPosition(i)
+                        .show();
+
+
 
             }
         });

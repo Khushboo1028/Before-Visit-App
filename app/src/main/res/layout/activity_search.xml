@@ -106,12 +106,20 @@
                     android:id="@+id/tv_filter_results"/>
 
 
-                <Spinner
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
-                    android:backgroundTint="@color/colorPrimaryDark"
-                    android:id="@+id/spinner"/>
+                    android:gravity="center"
+                    android:background="@drawable/white_rectangle_10">
+                    <Spinner
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/colorPrimaryDark"
+                        android:textAlignment="center"
+                        android:id="@+id/spinner"/>
+                </RelativeLayout>
+
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView

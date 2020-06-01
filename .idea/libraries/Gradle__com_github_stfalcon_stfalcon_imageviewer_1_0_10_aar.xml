@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.stfalcon:stfalcon-imageviewer:1.0.10@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b72539ecb73f24681dd4ece4005c90cd/jetified-stfalcon-imageviewer-1.0.10/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b72539ecb73f24681dd4ece4005c90cd/jetified-stfalcon-imageviewer-1.0.10/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.stfalcon/stfalcon-imageviewer/1.0.10/e3a61203b158d66251dfb261350f037406155ed3/stfalcon-imageviewer-1.0.10-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.stfalcon/stfalcon-imageviewer/1.0.10/bf466256925f258296f53c699e2014c0d0dc31c8/stfalcon-imageviewer-1.0.10-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

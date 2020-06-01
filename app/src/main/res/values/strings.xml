@@ -34,6 +34,11 @@
     <string name="USER_SEARCH_LIST">USER_SEARCH_LIST</string>
     <string name="user_preferences">UserPreferences</string>
 
+    <string name="allow_all_notif_desc">By turning on "ALLOW ALL NOTIFICATION", you are allowing the app to show all the notifications on your notification bar. If you are not interested you can always turn it off in the future.</string>
+    <string name="allow_high_notif_desc">By switching to "High priority notifications" you will receive only important and emergency notifications</string>
+    <string name="block_all_notif_desc">By turning off notifications, you wont receive any notification from the app.\n\nYou might miss out on important updates and requests.</string>
+
+    <string name="location_deny">Looks like you have denied the location access. Please provide us the location access. We ask for it to give you an amazing experience :)</string>
 
     <!--    API KEYS DO NOT TOUCH-->
     <string name="FACEBOOK_APP_ID">576167786341616</string>

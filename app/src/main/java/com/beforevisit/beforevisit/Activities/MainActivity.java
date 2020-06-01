@@ -1,16 +1,25 @@
 package com.beforevisit.beforevisit.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,7 +45,17 @@ import com.beforevisit.beforevisit.Model.Category;
 import com.beforevisit.beforevisit.Model.PlacesHomePage;
 import com.beforevisit.beforevisit.R;
 import com.beforevisit.beforevisit.Utility.DefaultTextConfig;
+import com.beforevisit.beforevisit.Utility.LocationTrack;
 import com.beforevisit.beforevisit.Utility.Utils;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -55,6 +74,8 @@ import java.util.Timer;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String TAG = "MainActivity";
+    public static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 69;
+    public static final int REQUEST_CHECK_SETTINGS = 23;
 
     public static final String CHANNEL_ID="NOTIF";
     public static final String CHANNEL_NAME="Notifications";
@@ -104,6 +125,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     TextView view_more_popular,view_more_sponsored,view_more_trending;
 
+
+    LocationTrack locationTrack;
+    double user_longitude,user_latitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -257,6 +281,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent, transitionActivityOptions.toBundle());
             }
         });
+
 
             readCategories();
             readOfferedPlaces();
@@ -690,6 +715,112 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    //Check For Location
+    private void checkForLocation(){
+
+        //When blocked or never asked
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+            } else {
+                ActivityCompat.requestPermissions(MainActivity.this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_FINE_LOCATION);
+
+            }
+        }else{
+            displayLocationSettingsRequest(getApplicationContext());
+        }
+
+    }
+
+    private void displayLocationSettingsRequest(Context context) {
+        //turn on location after permission is given
+        GoogleApiClient googleApiClient = new GoogleApiClient.Builder(context)
+                .addApi(LocationServices.API).build();
+        googleApiClient.connect();
+
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(10000 / 2);
+
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
+        builder.setAlwaysShow(true);
+
+        PendingResult<LocationSettingsResult> result = LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build());
+        result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
+            @Override
+            public void onResult(LocationSettingsResult result) {
+                final Status status = result.getStatus();
+                switch (status.getStatusCode()) {
+                    case LocationSettingsStatusCodes.SUCCESS:
+                        Log.i(TAG, "All location settings are satisfied.");
+                        break;
+                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                        Log.i(TAG, "Location settings are not satisfied. Show the user a dialog to upgrade location settings ");
+
+                        try {
+                            // Show the dialog by calling startResolutionForResult(), and check the result
+                            // in onActivityResult().
+                            status.startResolutionForResult(MainActivity.this, REQUEST_CHECK_SETTINGS);
+
+                        } catch (IntentSender.SendIntentException e) {
+                            Log.i(TAG, "PendingIntent unable to execute request.");
+//                            utils.alertDialog(MainActivity.this,"Error","Can't find your location! Please ensure Mobile GPS is on!");
+
+
+                        }
+                        break;
+                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                        Log.i(TAG, "Location settings are inadequate, and cannot be fixed here. Dialog not created.");
+//                        utils.alertDialog(MainActivity.this,"Error","Can't find your location! Please ensure Mobile GPS is on!");
+                        Intent i = new Intent(getApplicationContext(),LocationDenyActivity.class);
+                        startActivity(i);
+
+                        break;
+                }
+            }
+        });
+    }
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_FINE_LOCATION:
+
+                if (grantResults!=null && grantResults.length > 0  && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    displayLocationSettingsRequest(getApplicationContext());
+                    locationTrack = new LocationTrack(getApplicationContext());
+                    if (locationTrack.canGetLocation()) {
+
+                        user_latitude = locationTrack.getLongitude();
+                        user_longitude = locationTrack.getLatitude();
+
+                    }
+                    return;
+
+                }else{
+
+                    Intent intent = new Intent(getApplicationContext(),LocationDenyActivity.class);
+                    startActivity(intent);
+
+                    //utils.alertDialog(SearchActivity.this,"Uh-Oh","Seems like you have denied permission. The app cannot function normally");
+
+                }
+
+                break;
+
+
+
+
+        }
+    }
 
 
 
@@ -707,6 +838,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public void getPermissionStatus(Activity activity, String androidPermissionName) {
+        if(ContextCompat.checkSelfPermission(activity, androidPermissionName) != PackageManager.PERMISSION_GRANTED) {
+            if(!ActivityCompat.shouldShowRequestPermissionRationale(activity, androidPermissionName)){
+                Log.i(TAG,"Blocked or never asked");
+                checkForLocation();
+                return;
+            }
+            Log.i(TAG,"Permission was denied");
+            Intent intent = new Intent(getApplicationContext(),LocationDenyActivity.class);
+            startActivity(intent);
+            return;
+
+        }
+        Log.i(TAG,"Permission was granted");
+        displayLocationSettingsRequest(getApplicationContext());
+
+    }
 
     @Override
     protected void onStart() {
@@ -714,6 +862,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         makeMenuItemInvisible(tv_home);
         img_notification_bell.setVisibility(View.VISIBLE);
         img_signout.setVisibility(View.GONE);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getPermissionStatus(MainActivity.this,Manifest.permission.ACCESS_FINE_LOCATION);
     }
 
     @Override
