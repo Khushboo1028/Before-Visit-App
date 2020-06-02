@@ -2,6 +2,7 @@ package com.beforevisit.beforevisit.Fragments;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,6 +34,8 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.You
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerUtils;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
+import org.w3c.dom.Text;
+
 public class AboutUsFragment extends Fragment {
     public static final String TAG = "AboutUsFragment";
     View view;
@@ -40,7 +43,7 @@ public class AboutUsFragment extends Fragment {
 
 //    YouTubePlayerSupportFragment youtubePlayerSupportFragment;
 
-    TextView tv_about_desc;
+    TextView tv_about_desc,tv_visit_us_url;
 
     FirebaseFirestore db;
     ListenerRegistration listenerRegistration;
@@ -63,8 +66,21 @@ public class AboutUsFragment extends Fragment {
 //        https://www.youtube.com/watch?v=ZbxbbOVAG6I
 
 
+        tv_visit_us_url.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                if(visit_us_url.contains("http://")){
+                    i.setData(Uri.parse(visit_us_url));
+                }else{
+                    i.setData(Uri.parse("http://"+visit_us_url));
+                }
+
+                startActivity(i);
+            }
+        });
 
         getAboutUsData();
+
 
 
 
@@ -82,6 +98,7 @@ public class AboutUsFragment extends Fragment {
 //        getChildFragmentManager().beginTransaction().replace(R.id.youtube_fragment, youtubePlayerSupportFragment).commit();
 
         tv_about_desc = (TextView) view.findViewById(R.id.tv_about_desc);
+        tv_visit_us_url = (TextView) view.findViewById(R.id.tv_visit_us_url);
 
         db = FirebaseFirestore.getInstance();
 
@@ -112,6 +129,7 @@ public class AboutUsFragment extends Fragment {
 
                                 if(doc.getString(getActivity().getString(R.string.visit_us_url))!=null){
                                     visit_us_url = doc.getString(getActivity().getString(R.string.visit_us_url));
+                                    tv_visit_us_url.setText(visit_us_url);
                                 }
                             }
 

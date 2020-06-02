@@ -17,7 +17,6 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:src="@drawable/before_visit_logo"
-            android:layout_marginVertical="8dp"
             android:layout_centerHorizontal="true"/>
 
         <ImageView
@@ -85,7 +84,7 @@
             android:text="NEW USER"
             android:textSize="16dp"
             android:lines="2"
-            android:textColor="@color/highlight_blue"
+            android:textColor="@color/colorAccent"
             android:layout_toRightOf="@id/img_user"
             android:layout_marginTop="8dp"
             android:textAlignment="center"

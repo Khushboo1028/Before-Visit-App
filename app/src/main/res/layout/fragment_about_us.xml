@@ -102,6 +102,30 @@
                 android:fontFamily="@font/roboto_medium"
                 android:id="@+id/tv_about_desc"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_about_desc"
+                android:layout_marginTop="24dp"
+                android:textAlignment="center"
+                android:textSize="18dp"
+                android:textColor="@color/colorPrimary"
+                android:layout_centerHorizontal="true"
+                android:text="Visit us at"
+                android:fontFamily="@font/roboto_medium"
+                android:id="@+id/tv_visit_us"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_visit_us"
+                android:layout_marginTop="24dp"
+                android:textAlignment="center"
+                android:textSize="16dp"
+                android:textColor="@color/light_grey_hint"
+                android:fontFamily="@font/roboto_medium"
+                android:id="@+id/tv_visit_us_url"/>
+
 
 
 

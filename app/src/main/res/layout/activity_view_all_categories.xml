@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
-    tools:context=".Activities.ViewAllCategories">
+    tools:context=".Activities.ViewAllCategoriesActivity">
 
     <include layout="@layout/snippet_top_bar"
         android:id="@+id/top_bar"/>

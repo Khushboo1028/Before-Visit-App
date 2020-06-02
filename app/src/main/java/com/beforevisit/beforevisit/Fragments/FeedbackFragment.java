@@ -114,6 +114,9 @@ public class FeedbackFragment extends Fragment {
                     else if(review.isEmpty() && rating.isEmpty()){
                         utils.alertDialog(getActivity(),"Uh-Oh","Please complete all details");
                     }
+                    else if(rating.isEmpty()){
+                        utils.alertDialog(getActivity(),"Uh-Oh","Please give a rating to continue!");
+                    }
                     else if (review.equals("")) {
                         builder = new AlertDialog.Builder(mContext);
                         builder.setMessage("You didn't give the review. Do you want to proceed?")

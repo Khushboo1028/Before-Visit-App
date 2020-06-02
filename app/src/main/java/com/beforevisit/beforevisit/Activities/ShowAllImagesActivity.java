@@ -54,6 +54,19 @@ public class ShowAllImagesActivity extends AppCompatActivity {
 
             }
         });
+
+        ImageView top_logo = (ImageView) findViewById(R.id.top_logo);
+        top_logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                overridePendingTransition(0,0);
+
+            }
+        });
     }
 
     private void init(){

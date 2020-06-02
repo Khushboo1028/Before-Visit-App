@@ -292,6 +292,21 @@
                 android:textColor="@color/colorPrimary"
                 android:id="@+id/tv_rating_avg"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv_rating_avg"
+                android:layout_below="@id/text_ratings"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="(100 reviews)"
+                android:textSize="16dp"
+                android:layout_marginLeft="8dp"
+                android:textColor="@color/light_grey_hint"
+                android:id="@+id/tv_total_reviews"/>
+
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

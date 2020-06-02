@@ -4,8 +4,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.beforevisit.beforevisit.Adapters.RecyclerRatingAdapter;
@@ -54,6 +57,19 @@ public class ShowAllReviewsActivity extends AppCompatActivity {
         if(place_id!=null || !place_id.isEmpty()){
             getAllReviews();
         }
+
+        ImageView top_logo = (ImageView) findViewById(R.id.top_logo);
+        top_logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                overridePendingTransition(0,0);
+
+            }
+        });
 
     }
 

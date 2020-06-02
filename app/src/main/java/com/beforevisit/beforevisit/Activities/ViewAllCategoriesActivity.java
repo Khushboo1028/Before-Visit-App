@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.beforevisit.beforevisit.Adapters.GridHomeCategoryAdapter;
@@ -28,7 +29,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class ViewAllCategories extends AppCompatActivity {
+public class ViewAllCategoriesActivity extends AppCompatActivity {
 
     public static final String TAG = "ViewAllCategories";
     Utils utils;
@@ -44,7 +45,7 @@ public class ViewAllCategories extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DefaultTextConfig defaultTextConfig = new DefaultTextConfig();
-        defaultTextConfig.adjustFontScale(getResources().getConfiguration(), ViewAllCategories.this);
+        defaultTextConfig.adjustFontScale(getResources().getConfiguration(), ViewAllCategoriesActivity.this);
         setContentView(R.layout.activity_view_all_categories);
 
         init();
@@ -65,17 +66,30 @@ public class ViewAllCategories extends AppCompatActivity {
             }
         });
 
-        //TODO GALA CHECK
+
         et_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(ViewAllCategories.this, SearchActivity.class);
+                Intent intent = new Intent(ViewAllCategoriesActivity.this, SearchActivity.class);
                 View sharedView = et_search;
                 String transitionName = getString(R.string.search_transition);
 
-                ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(ViewAllCategories.this, sharedView, transitionName);
+                ActivityOptions transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(ViewAllCategoriesActivity.this, sharedView, transitionName);
                 startActivity(intent, transitionActivityOptions.toBundle());
+            }
+        });
+
+        ImageView top_logo = (ImageView) findViewById(R.id.top_logo);
+        top_logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                overridePendingTransition(0,0);
+
             }
         });
 

@@ -90,7 +90,13 @@ public class InterestsAdapter extends RecyclerView.Adapter <InterestsAdapter.Vie
         });
 
 
-
+        if(usersCurrentInterestList!=null && !usersCurrentInterestList.isEmpty()) {
+            if (!holder.checkBox.isChecked()) {
+                if (usersCurrentInterestList.contains(name)) {
+                    usersCurrentInterestList.remove(name);
+                }
+            }
+        }
 
 
 

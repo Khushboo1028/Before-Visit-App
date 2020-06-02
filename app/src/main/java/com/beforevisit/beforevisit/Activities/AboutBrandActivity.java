@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
@@ -67,7 +68,7 @@ public class AboutBrandActivity extends AppCompatActivity {
     public static final String VisitorSharedPreference = "VisitorCount";
     RelativeLayout main_rel, call_rel, location_rel, share_rel, save_rel;
 
-    TextView tv_place_name, tv_place_address, tv_about_store, tv_phone, tv_rating_avg, tv_rating_user;
+    TextView tv_place_name, tv_place_address, tv_about_store, tv_phone, tv_rating_avg, tv_rating_user, tv_total_reviews;
 
     ExpandableHeightGridView images_grid_view;
     GridImagePlaceAdapter gridImagePlaceAdapter;
@@ -113,6 +114,7 @@ public class AboutBrandActivity extends AppCompatActivity {
     float current_seconds;
 
     YouTubePlayerView youTubePlayerView;
+    NestedScrollView scrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -284,13 +286,19 @@ public class AboutBrandActivity extends AppCompatActivity {
             }
         });
 
-//        RelativeLayout topbar_rel = findViewById(R.id.top_bar_rel);
-//        topbar_rel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                utils.goToHome(AboutBrandActivity.this);
-//            }
-//        });
+        ImageView top_logo = (ImageView) findViewById(R.id.top_logo);
+        top_logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                overridePendingTransition(0,0);
+
+            }
+        });
+
     }
 
 
@@ -307,6 +315,7 @@ public class AboutBrandActivity extends AppCompatActivity {
         tv_place_address = (TextView) findViewById(R.id.tv_place_address);
         tv_about_store = (TextView) findViewById(R.id.tv_about_store);
         tv_phone = (TextView) findViewById(R.id.tv_phone);
+        tv_total_reviews = (TextView) findViewById(R.id.tv_total_reviews);
         text_phone = (TextView) findViewById(R.id.text_phone);
         tv_rating_avg = (TextView) findViewById(R.id.tv_rating_avg);
         tv_rating_user = (TextView) findViewById(R.id.tv_rating_user);
@@ -320,6 +329,7 @@ public class AboutBrandActivity extends AppCompatActivity {
         ratingBarAvg = (RatingBar) findViewById(R.id.ratingBarAvg);
         rating_bar_user = (RatingBar) findViewById(R.id.rating_bar_user);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        scrollView = (NestedScrollView) findViewById(R.id.scrollView);
 
         btn_show_more = (Button)findViewById(R.id.btn_show_more);
         place_id = getIntent().getStringExtra("place_id");
@@ -452,7 +462,7 @@ public class AboutBrandActivity extends AppCompatActivity {
                                         }
 
                                         if(images_url_5.size() == 5) {
-                                            images_url_5.add("https://firebasestorage.googleapis.com/v0/b/before-visit.appspot.com/o/view_more.png?alt=media&token=89817a9c-b3c6-4f54-b7aa-c1e376ccd098");
+                                            images_url_5.add("https://firebasestorage.googleapis.com/v0/b/before-visit.appspot.com/o/view_more_text.png?alt=media&token=d2573a48-60ef-4234-b16b-502df02dc85b");
                                         }
 
 
@@ -747,7 +757,7 @@ public class AboutBrandActivity extends AppCompatActivity {
                                 progressBar.setVisibility(View.GONE);
                                 img_done.setEnabled(true);
                                 utils.alertDialog(AboutBrandActivity.this, "Thank You!", "Your feedback is valuable to us!");
-
+                                scrollView.fullScroll(View.FOCUS_UP);
                                if(rating!=null && !rating.isEmpty()) {
                                    //Updating average Review in places
                                    db.collection(getString(R.string.places)).document(place_id)
@@ -794,6 +804,7 @@ public class AboutBrandActivity extends AppCompatActivity {
                                 img_done.setEnabled(true);
                                 utils.alertDialog(AboutBrandActivity.this, "Thank You!", "Your feedback is valuable to us!");
                                 progressBar.setVisibility(View.GONE);
+                                scrollView.fullScroll(View.FOCUS_UP);
 
                                 if(rating!=null && !rating.isEmpty()) {
                                     //Updating average Review in places
@@ -803,6 +814,7 @@ public class AboutBrandActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
                                                     Log.i(TAG, "avg rating under places updated");
+
                                                 }
                                             }).addOnFailureListener(new OnFailureListener() {
                                         @Override
@@ -837,7 +849,16 @@ public class AboutBrandActivity extends AppCompatActivity {
                 if(e!=null){
                     Log.i(TAG,"error"+e.getMessage());
                 }else{
+
                     total_reviews = snapshots.size();
+
+                    if(snapshots.isEmpty()){
+                        total_reviews = 0;
+                    }
+
+                    tv_total_reviews.setText("( "+ Math.round(total_reviews) + " reviews )");
+
+
 
 
                 }

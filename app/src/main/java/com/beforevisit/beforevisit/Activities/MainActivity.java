@@ -19,7 +19,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
-import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -68,8 +67,12 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+
+
+
 import java.util.ArrayList;
 import java.util.Timer;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -178,8 +181,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         img_notification_bell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), AboutBrandActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), NotificationsActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -211,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 if(categoryArrayList.get(i).getIcon_name().equals("View More")){
 
-                    Intent intent = new Intent(getApplicationContext(), ViewAllCategories.class);
+                    Intent intent = new Intent(getApplicationContext(), ViewAllCategoriesActivity.class);
                     startActivity(intent);
                     overridePendingTransition(0,0);
 
@@ -281,6 +284,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent, transitionActivityOptions.toBundle());
             }
         });
+
 
 
             readCategories();
@@ -402,6 +406,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+
+
     @Override
     public void onClick(View view) {
 
@@ -484,7 +490,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tv_help.setTextColor(getColor(R.color.colorPrimary));
         tv_about.setTextColor(getColor(R.color.colorPrimary));
         tv_home.setTextColor(getColor(R.color.colorPrimary));
-        textView.setTextColor(getColor(R.color.highlight_blue));
+        textView.setTextColor(getColor(R.color.colorAccent));
     }
 
     private void readUserData(){
@@ -516,6 +522,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+
+    private void settingTopCarousal(){
+
+    }
 
 
 
@@ -551,7 +561,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
 
 
-                            categoryArrayList.add(new Category("View More","https://firebasestorage.googleapis.com/v0/b/before-visit.appspot.com/o/categories%2Fic_more.png?alt=media&token=9be9bf14-e496-4848-96b7-0c6f8c10cc97",""));
+                            categoryArrayList.add(new Category("View More","https://firebasestorage.googleapis.com/v0/b/before-visit.appspot.com/o/ic_more.png?alt=media&token=ae62c601-5e4b-4884-b45f-0abc34fdc8da",""));
 
 
                             gridAdapter.notifyDataSetChanged();

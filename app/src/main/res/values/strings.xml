@@ -74,6 +74,9 @@
     <string name="places_saved">places_saved</string>
 
     <string name="notification_pref_all">all</string>
+    <string name="notification_pref_some">some</string>
+    <string name="notification_pref_blocked">blocked</string>
+
     <string name="gender_male">male</string>
     <string name="gender_female">female</string>
     <string name="gender_other">other</string>

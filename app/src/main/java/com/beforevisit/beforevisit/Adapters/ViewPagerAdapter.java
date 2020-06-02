@@ -48,7 +48,7 @@ public class ViewPagerAdapter extends PagerAdapter{
 
         ImageView imageView=itemView.findViewById(R.id.image_view);
 
-        Glide.with(mActivity.getApplicationContext()).load(placesImageList.get(position).getOffer_image_url()).into(imageView);
+        Glide.with(mActivity.getApplicationContext()).load(placesImageList.get(position).getOffer_image_url()).placeholder(R.drawable.ic_black).into(imageView);
 
 
         container.addView(itemView);

@@ -104,7 +104,8 @@ public class ViewCategoryDetailsActivity extends AppCompatActivity {
         });
 
 
-        if(category_id!=null){
+        if(category_id!=null || !category_id.isEmpty()){
+            Log.i(TAG,"Category id is "+category_id);
             if (ContextCompat.checkSelfPermission(ViewCategoryDetailsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(ViewCategoryDetailsActivity.this,
                         Manifest.permission.ACCESS_FINE_LOCATION)) {
@@ -150,6 +151,20 @@ public class ViewCategoryDetailsActivity extends AppCompatActivity {
                 startActivity(intent, transitionActivityOptions.toBundle());
             }
         });
+
+        ImageView top_logo = (ImageView) findViewById(R.id.top_logo);
+        top_logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                overridePendingTransition(0,0);
+
+            }
+        });
+
     }
 
     private void init(){
@@ -198,6 +213,13 @@ public class ViewCategoryDetailsActivity extends AppCompatActivity {
 
                                 categoryPlacesArrayList.clear();
                                 for (final QueryDocumentSnapshot doc : snapshots) {
+
+                                    if(doc.get(getString(R.string.category_id))!=null){
+                                        if(!doc.getString(getString(R.string.category_id)).isEmpty()) {
+
+                                        }
+                                    }
+
 
                                     if(doc.getString(getString(R.string.place_name))!=null){
                                         store_name = doc.getString(getString(R.string.place_name));
@@ -272,6 +294,8 @@ public class ViewCategoryDetailsActivity extends AppCompatActivity {
 
 
                                     gridCategoryAdapter.notifyDataSetChanged();
+
+
 
 
 
@@ -354,11 +378,16 @@ public class ViewCategoryDetailsActivity extends AppCompatActivity {
                 switch (status.getStatusCode()) {
                     case LocationSettingsStatusCodes.SUCCESS:
                         Log.i(TAG, "All location settings are satisfied.");
-                        getPlacesFromCategory("");
+                        if(category_id!=null){
+                            getPlacesFromCategory(category_id);
+                        }
+
                         break;
                     case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
                         Log.i(TAG, "Location settings are not satisfied. Show the user a dialog to upgrade location settings ");
-                        getPlacesFromCategory("");
+                        if(category_id!=null){
+                            getPlacesFromCategory(category_id);
+                        }
 
                         try {
                             // Show the dialog by calling startResolutionForResult(), and check the result

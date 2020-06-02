@@ -61,11 +61,7 @@ public class Utils {
         return false;
     }
 
-    public void goToHome(Activity mActivity){
-        Intent intent = new Intent(mActivity, MainActivity.class);
-        mActivity.startActivity(intent);
-        mActivity.overridePendingTransition(0,0);
-    }
+
     public void vibrate(Context mContext){
         Vibrator v = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
         v.vibrate(500);
@@ -115,7 +111,7 @@ public class Utils {
         ivArrayDotsPagerList.clear();
         llPagerDots.removeAllViews();
 
-        for (int i = 0; i < imageUrlList.size(); i++) {
+        for (int i = 0; i < imageUrlList.size() - 1; i++) {
 
             ivArrayDotsPagerList.add(new ImageView(mActivity));
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -157,20 +153,35 @@ public class Utils {
 
                 current_position_of_viewpager = position;
 
+
             }
 
             @Override
             public void onPageSelected(int position) {
 
+                    Log.i(TAG,"position is "+position);
 
 
-                    for (int i = 0; i < imageUrlList.size(); i++) {
+
+                    for (int i = 0; i < ivArrayDotsPagerList.size(); i++) {
+
+
+
                         ivArrayDotsPagerList.get(i).setImageResource(R.drawable.dots_unselected);
+                        if(position!=0){
+                            ivArrayDotsPagerList.get(position-1).setImageResource(R.drawable.dots_selected);
+                        }
+
                     }
 
-                    //TODO: CHECK THIS
+                    if(position==0){
+                        viewPager.setCurrentItem(1);
+                        ivArrayDotsPagerList.get(0).setImageResource(R.drawable.dots_selected);
+                    }
 
-                    ivArrayDotsPagerList.get(position).setImageResource(R.drawable.dots_selected);
+                //TODO: CHECK THIS
+
+
 
 
             }
@@ -186,6 +197,7 @@ public class Utils {
 
                     Log.i(TAG,"viewpager current item "+viewPager.getCurrentItem());
                 }
+
 
 
 

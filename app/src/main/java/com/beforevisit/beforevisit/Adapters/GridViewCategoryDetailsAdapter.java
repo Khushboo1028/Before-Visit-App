@@ -107,6 +107,7 @@ public class GridViewCategoryDetailsAdapter extends BaseAdapter {
 
         Glide.with(mActivity.getApplicationContext()).load(categoryPlacesArrayList.get(i).getImage_url()).into(image_place);
         tv_store_name.setText(categoryPlacesArrayList.get(i).getStore_name());
+        Log.i(TAG,"Store name is "+categoryPlacesArrayList.get(i).getStore_name());
         tv_place_address.setText(categoryPlacesArrayList.get(i).getAddress());
         rating_bar_place.setRating((categoryPlacesArrayList.get(i).getRating()));
 

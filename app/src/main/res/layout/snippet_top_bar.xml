@@ -15,7 +15,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/before_visit_logo"
             android:layout_marginVertical="8dp"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:id="@+id/top_logo"/>
 
     </RelativeLayout>
 </RelativeLayout>

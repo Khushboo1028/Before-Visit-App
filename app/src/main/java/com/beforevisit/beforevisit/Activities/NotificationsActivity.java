@@ -1,19 +1,36 @@
 package com.beforevisit.beforevisit.Activities;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.beforevisit.beforevisit.R;
 import com.beforevisit.beforevisit.Utility.DefaultTextConfig;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 
 public class NotificationsActivity extends AppCompatActivity {
 
@@ -23,6 +40,13 @@ public class NotificationsActivity extends AppCompatActivity {
 
     AlertDialog.Builder builder;
     AlertDialog alert;
+    ProgressBar progressBar;
+
+    FirebaseFirestore db;
+    ListenerRegistration listenerRegistration;
+    FirebaseAuth mAuth;
+    FirebaseUser firebaseUser;
+    String notif_pref = "all";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,56 +60,73 @@ public class NotificationsActivity extends AppCompatActivity {
         allow_all_rel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                allow_all_notif.setChecked(true);
+                allowAllSelected();
+                showAlert("all");
+
             }
         });
 
         allow_high_rel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                allow_high_notif.setChecked(true);
+                allowHighSelected();
+                showAlert("some");
             }
         });
 
         block_all_rel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                block_all_notif.setChecked(true);
+               blockAllSelected();
+                showAlert("blocked");
             }
         });
 
-        allow_all_notif.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        allow_all_notif.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    showAlert("all");
-                }
+            public void onClick(View view) {
+                allowAllSelected();
+                showAlert("all");
             }
         });
 
-        allow_high_notif.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        allow_high_notif.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    showAlert("high");
-                }
+            public void onClick(View view) {
+                allowHighSelected();
+                showAlert("some");
             }
         });
 
-        block_all_notif.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        block_all_notif.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    showAlert("no");
-                }
+            public void onClick(View view) {
+                blockAllSelected();
+                showAlert("blocked");
             }
         });
+
+        ImageView top_logo = (ImageView) findViewById(R.id.top_logo);
+        top_logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                overridePendingTransition(0,0);
+
+            }
+        });
+
+        getUserNotificationPref();
     }
 
     private void allowAllSelected(){
         allow_all_notif.setChecked(true);
         allow_high_notif.setChecked(false);
         block_all_notif.setChecked(false);
+
 
     }
 
@@ -94,12 +135,15 @@ public class NotificationsActivity extends AppCompatActivity {
         allow_high_notif.setChecked(true);
         block_all_notif.setChecked(false);
 
+
     }
 
     private void blockAllSelected(){
         allow_all_notif.setChecked(false);
         allow_high_notif.setChecked(false);
         block_all_notif.setChecked(true);
+
+
 
     }
 
@@ -111,20 +155,26 @@ public class NotificationsActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         // UPDATE PREFRENCES
-                        switch (pref){
-                            case "all":allowAllSelected();break;
-                            case "high":allowHighSelected();break;
-                            case "no":blockAllSelected();break;
-                        }
+
+                        updateNotificationPref(pref);
                     }
+
+
                 })
         .setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 switch (pref){
                     case "all":allow_all_notif.setChecked(false);break;
-                    case "high":allow_high_notif.setChecked(false);break;
-                    case "no":block_all_notif.setChecked(false);break;
+                    case "some":allow_high_notif.setChecked(false);break;
+                    case "blocked":block_all_notif.setChecked(false);break;
+                }
+                if(notif_pref.equals(getString(R.string.notification_pref_all))){
+                    allowAllSelected();
+                }else if(notif_pref.equals(getString(R.string.notification_pref_some))){
+                    allowHighSelected();
+                }else{
+                    blockAllSelected();
                 }
                 dialogInterface.cancel();
             }
@@ -146,6 +196,112 @@ public class NotificationsActivity extends AppCompatActivity {
         allow_high_notif = (RadioButton) findViewById(R.id.allow_high_notif);
         block_all_notif = (RadioButton) findViewById(R.id.block_all_notif);
 
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+
+        mAuth = FirebaseAuth.getInstance();
+        firebaseUser = mAuth.getCurrentUser();
+        db = FirebaseFirestore.getInstance();
+
+
+    }
+
+    private void getUserNotificationPref(){
+        if(firebaseUser!=null){
+
+            listenerRegistration = db.collection(getString(R.string.users)).document(firebaseUser.getUid())
+                    .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
+                            if(e!=null){
+                                Log.i(TAG,"error in getting notif data "+e.getMessage());
+                            }else{
+                                if(snapshot.get(getString(R.string.notification_pref)) != null){
+                                    notif_pref = snapshot.getString(getString(R.string.notification_pref));
+                                    Log.i(TAG,"notif pref is "+notif_pref);
+
+                                    if(notif_pref.equals(getString(R.string.notification_pref_all))){
+                                        allowAllSelected();
+                                    }else if(notif_pref.equals(getString(R.string.notification_pref_some))){
+                                        allowHighSelected();
+                                    }else{
+                                        blockAllSelected();
+
+                                    }
+                                }
+
+
+
+                            }
+                        }
+                    });
+
+        }else{
+
+        }
+    }
+
+    private void updateNotificationPref(final String pref) {
+        progressBar.setVisibility(View.VISIBLE);
+        if(firebaseUser!=null){
+            db.collection(getString(R.string.users)).document(firebaseUser.getUid())
+                    .update(getString(R.string.notification_pref),pref)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            progressBar.setVisibility(View.GONE);
+                            switch (pref){
+                                case "all":allowAllSelected();break;
+                                case "some":allowHighSelected();break;
+                                case "blocked":blockAllSelected();break;
+                            }
+
+                            if(pref.equals("blocked")){
+//                                Intent intent = new Intent();
+//                                intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+//
+//                                //for Android 5-7
+//                                intent.putExtra("app_package", getPackageName());
+//                                intent.putExtra("app_uid", getApplicationInfo().uid);
+//
+//                                // for Android 8 and above
+//                                intent.putExtra("android.provider.extra.APP_PACKAGE", getPackageName());
+//
+//                                startActivity(intent);
+                            }else{
+                                Toast.makeText(getApplicationContext(),"Your preferences have been updated",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.i(TAG,"Error: "+e.getMessage());
+                            Toast.makeText(getApplicationContext(),"Could not update your notification preference. PLease try again later",Toast.LENGTH_LONG).show();
+                        }
+                    });
+        }else{
+            builder = new AlertDialog.Builder(NotificationsActivity.this);
+            builder.setMessage("Please Login to update notification preferences")
+                    .setCancelable(true)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                            Intent intent = new Intent(getApplicationContext(), LoginMainActivity.class);
+                            startActivity(intent);
+                            overridePendingTransition(0, 0);
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            alert.dismiss();
+                        }
+                    });
+            alert = builder.create();
+            alert.setTitle("You are not logged in!");
+            alert.show();
+        }
 
     }
 
@@ -153,5 +309,20 @@ public class NotificationsActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        if(listenerRegistration!=null){
+            listenerRegistration = null;
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseUser = mAuth.getCurrentUser();
     }
 }

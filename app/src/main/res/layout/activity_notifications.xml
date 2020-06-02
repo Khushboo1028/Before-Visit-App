@@ -85,7 +85,7 @@
                         android:textAlignment="center"
                         android:fontFamily="@font/roboto_medium"
                         android:checked="true"
-                        android:buttonTint="@color/highlight_blue"
+                        android:buttonTint="@color/colorAccent"
                         android:layout_below="@id/tv_allow_description"
                         android:layout_alignParentRight="true"
                         android:id="@+id/allow_all_notif"/>
@@ -130,7 +130,7 @@
                         android:textAlignment="center"
                         android:fontFamily="@font/roboto_medium"
                         android:checked="false"
-                        android:buttonTint="@color/highlight_blue"
+                        android:buttonTint="@color/colorAccent"
                         android:layout_below="@id/tv_allow_high_desc"
                         android:layout_alignParentRight="true"
                         android:id="@+id/allow_high_notif"/>
@@ -175,7 +175,7 @@
                         android:textAlignment="center"
                         android:fontFamily="@font/roboto_medium"
                         android:checked="false"
-                        android:buttonTint="@color/highlight_blue"
+                        android:buttonTint="@color/colorAccent"
                         android:layout_below="@id/tv_block_all_desc"
                         android:layout_alignParentRight="true"
                         android:id="@+id/block_all_notif"/>
@@ -187,5 +187,12 @@
 
 
     </ScrollView>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/progress_bar"
+        android:visibility="gone"/>
 
 </RelativeLayout>
