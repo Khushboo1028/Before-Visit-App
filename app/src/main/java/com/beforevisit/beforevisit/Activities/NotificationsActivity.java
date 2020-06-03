@@ -197,6 +197,7 @@ public class NotificationsActivity extends AppCompatActivity {
         block_all_notif = (RadioButton) findViewById(R.id.block_all_notif);
 
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.GONE);
 
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
@@ -280,12 +281,14 @@ public class NotificationsActivity extends AppCompatActivity {
                         }
                     });
         }else{
+            progressBar.setVisibility(View.GONE);
             builder = new AlertDialog.Builder(NotificationsActivity.this);
             builder.setMessage("Please Login to update notification preferences")
                     .setCancelable(true)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
+
 
                             Intent intent = new Intent(getApplicationContext(), LoginMainActivity.class);
                             startActivity(intent);

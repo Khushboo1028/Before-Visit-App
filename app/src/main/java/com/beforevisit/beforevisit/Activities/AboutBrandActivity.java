@@ -139,9 +139,21 @@ public class AboutBrandActivity extends AppCompatActivity {
         location_rel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String map = "http://maps.google.co.in/maps?q=" + placesArrayList.get(0).getPlace_name() + "%20" + placesArrayList.get(0).getPlace_address();
-                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(map));
-                startActivity(i);
+//                if(placesArrayList.get(0).getLatitude()!=0 && placesArrayList.get(0).getLongitude()!=0){
+//                    Uri gmmIntentUri = Uri.parse("google.navigation:"+placesArrayList.get(0).getLatitude()+","+placesArrayList.get(0).getLongitude());
+//                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+//                    mapIntent.setPackage("com.google.android.apps.maps");
+//
+//                    if (mapIntent.resolveActivity(getPackageManager()) != null) {
+//                        startActivity(mapIntent);
+//                    }
+//
+//                }else{
+                    String map = "http://maps.google.co.in/maps?q=" + placesArrayList.get(0).getPlace_name() + "%20" + placesArrayList.get(0).getPlace_address();
+                    Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(map));
+                    startActivity(i);
+//                }
+
             }
         });
 
@@ -462,7 +474,7 @@ public class AboutBrandActivity extends AppCompatActivity {
                                         }
 
                                         if(images_url_5.size() == 5) {
-                                            images_url_5.add("https://firebasestorage.googleapis.com/v0/b/before-visit.appspot.com/o/view_more_text.png?alt=media&token=d2573a48-60ef-4234-b16b-502df02dc85b");
+                                            images_url_5.add("https://firebasestorage.googleapis.com/v0/b/before-visit.appspot.com/o/view_more_text.png?alt=media&token=0c840df9-3d3c-4c58-a3d3-9e93d76057ef");
                                         }
 
 
@@ -574,6 +586,7 @@ public class AboutBrandActivity extends AppCompatActivity {
                                 initYouTubePlayerView(video_url);
                                 gridImagePlaceAdapter = new GridImagePlaceAdapter(AboutBrandActivity.this, images_url_5);
                                 images_grid_view.setAdapter(gridImagePlaceAdapter);
+
 
 
 
@@ -854,6 +867,7 @@ public class AboutBrandActivity extends AppCompatActivity {
 
                     if(snapshots.isEmpty()){
                         total_reviews = 0;
+                        btn_show_more.setVisibility(View.GONE);
                     }
 
                     tv_total_reviews.setText("( "+ Math.round(total_reviews) + " reviews )");

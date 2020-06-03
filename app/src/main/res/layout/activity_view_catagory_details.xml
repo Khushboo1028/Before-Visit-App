@@ -53,14 +53,55 @@
                 android:layout_marginTop="16dp"
                 android:id="@+id/search_bar"/>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_below="@id/search_bar"
+                android:layout_marginTop="12dp"
+                android:id="@+id/ll_filter">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_filter"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:text="@string/filter_results"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/roboto_medium"
+                    android:textSize="18dp"
+                    android:layout_marginStart="12dp"
+                    android:id="@+id/tv_filter_results"/>
+
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:gravity="center"
+                    android:background="@drawable/white_rectangle_10">
+                    <Spinner
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/colorPrimaryDark"
+                        android:textAlignment="center"
+                        android:id="@+id/spinner"/>
+                </RelativeLayout>
+
+            </LinearLayout>
 
             <com.beforevisit.beforevisit.Utility.ExpandableHeightGridView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/search_bar"
+                android:layout_below="@id/ll_filter"
                 android:columnWidth="160dp"
                 android:numColumns="2"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="22dp"
                 android:scrollbarStyle="outsideInset"
                 android:verticalSpacing="24dp"
                 android:horizontalSpacing="24dp"
