@@ -131,8 +131,7 @@ public class ReportIssueFragment extends Fragment {
         et_issue = (EditText) view.findViewById(R.id.et_issue);
         progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
 
-        mAuth = FirebaseAuth.getInstance();
-        firebaseUser = mAuth.getCurrentUser();
+
         db = FirebaseFirestore.getInstance();
         utils = new Utils();
 
@@ -176,7 +175,7 @@ public class ReportIssueFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
         db = FirebaseFirestore.getInstance();
         Map<String, Object> data = new HashMap<>();
-        if(!name.isEmpty()){
+        if(name!=null && !name.isEmpty()){
             data.put(mContext.getString(R.string.name), name);
         }
 
@@ -194,6 +193,7 @@ public class ReportIssueFragment extends Fragment {
                             Log.d(TAG, "DocumentSnapshot successfully written!");
                             progressBar.setVisibility(View.GONE);
                             img_done.setEnabled(true);
+                            et_issue.setText("");
                             builder = new AlertDialog.Builder(getActivity());
                             builder.setMessage("We will get back to you shortly!")
                                     .setCancelable(false)
@@ -227,6 +227,12 @@ public class ReportIssueFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
+        mAuth = FirebaseAuth.getInstance();
+        firebaseUser = mAuth.getCurrentUser();
+
+        if(firebaseUser!=null){
+            readUserData();
+        }
 
     }
 
@@ -243,4 +249,6 @@ public class ReportIssueFragment extends Fragment {
         super.onAttach(context);
         mContext = getContext();
     }
+
+
 }

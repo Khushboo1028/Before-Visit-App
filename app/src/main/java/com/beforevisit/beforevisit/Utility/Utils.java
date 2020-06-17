@@ -98,10 +98,14 @@ public class Utils {
         //setting the dots
         if(imageUrlList.isEmpty()){
            relativeLayout.setVisibility(View.GONE);
+        }else if(imageUrlList.size()!=0){
+            imageUrlList.add(0,new PlacesHomePage("",""));
+            imageUrlList.add(imageUrlList.size(),new PlacesHomePage("",""));
         }
 
 
-        imageUrlList.add(0,new PlacesHomePage("",""));
+
+
 
 
         viewPagerAdapter = new ViewPagerAdapter(mActivity, imageUrlList);
@@ -111,7 +115,7 @@ public class Utils {
         ivArrayDotsPagerList.clear();
         llPagerDots.removeAllViews();
 
-        for (int i = 0; i < imageUrlList.size() - 1; i++) {
+        for (int i = 0; i < imageUrlList.size() - 2; i++) {
 
             ivArrayDotsPagerList.add(new ImageView(mActivity));
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -136,7 +140,7 @@ public class Utils {
 
 
 
-        if(imageUrlList.size()!=0){
+        if(imageUrlList.size()>2){
             ivArrayDotsPagerList.get(0).setImageResource(R.drawable.dots_selected);
 
         }
@@ -146,14 +150,22 @@ public class Utils {
         }
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            boolean lastPageChange = false;
+
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
 
                 current_position_of_viewpager = position;
+                if (position==imageUrlList.size()-1){
+                    viewPager.setCurrentItem(1,true);
+                }
+                current_position_of_viewpager = position;
 
 
+                if (position == 0 && imageUrlList.size()>2) {
+                    viewPager.setCurrentItem(1,true);
+                    ivArrayDotsPagerList.get(0).setImageResource(R.drawable.dots_selected);
+                }
             }
 
             @Override
@@ -161,25 +173,31 @@ public class Utils {
 
                     Log.i(TAG,"position is "+position);
 
-
+                if (position == imageUrlList.size()-1){
+                    ivArrayDotsPagerList.get(position-2).setImageResource(R.drawable.dots_selected);
+                }else{
 
                     for (int i = 0; i < ivArrayDotsPagerList.size(); i++) {
 
 
-
                         ivArrayDotsPagerList.get(i).setImageResource(R.drawable.dots_unselected);
-                        if(position!=0){
-                            ivArrayDotsPagerList.get(position-1).setImageResource(R.drawable.dots_selected);
+                        if (position != 0) {
+                            ivArrayDotsPagerList.get(position - 1).setImageResource(R.drawable.dots_selected);
                         }
 
-                    }
 
-                    if(position==0){
-                        viewPager.setCurrentItem(1);
-                        ivArrayDotsPagerList.get(0).setImageResource(R.drawable.dots_selected);
                     }
+                }
 
-                //TODO: CHECK THIS
+
+
+                if (position == 0) {
+                    viewPager.setCurrentItem(1);
+                    ivArrayDotsPagerList.get(0).setImageResource(R.drawable.dots_selected);
+                }
+
+
+
 
 
 
@@ -188,16 +206,6 @@ public class Utils {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
-
-                if(viewPager.getCurrentItem() == imageUrlList.size()-1 && state == ViewPager.SCROLL_STATE_DRAGGING){
-
-                    viewPager.setCurrentItem(0,false);
-                    current_position_of_viewpager = 0;
-
-                    Log.i(TAG,"viewpager current item "+viewPager.getCurrentItem());
-                }
-
 
 
 

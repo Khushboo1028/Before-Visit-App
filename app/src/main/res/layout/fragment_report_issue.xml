@@ -8,7 +8,7 @@
     android:background="@color/colorPrimaryDark"
     android:id="@+id/super_rel">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/scrollView">
@@ -108,7 +108,7 @@
 
         </RelativeLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <ProgressBar
         android:layout_width="wrap_content"

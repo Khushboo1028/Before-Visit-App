@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final String CHANNEL_NAME="Notifications";
     public static final String CHANNEL_DESC="This channel is for all notifications";
 
-    ImageView img_menu,img_notification_bell;
+    ImageView img_menu,img_notification_bell,img_top_logo;
     RelativeLayout expanded_menu,top_main_rel;
     Boolean is_menu_clicked = false;
     RelativeLayout super_rel;
@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     LocationTrack locationTrack;
     double user_longitude,user_latitude;
+    Fragment fragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -244,6 +245,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        img_top_logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                makeMenuItemInvisible(tv_home);
+                loadFragment(null);
+            }
+        });
         view_more_sponsored.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -305,6 +313,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void init(){
        img_menu = (ImageView) findViewById(R.id.img_menu);
+       img_top_logo = (ImageView) findViewById(R.id.img_top_logo);
        img_notification_bell = (ImageView) findViewById(R.id.img_notification_bell);
        img_notification_bell.setVisibility(View.VISIBLE);
 
@@ -411,7 +420,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
 
-        Fragment fragment = null;
+
         switch(view.getId()) {
             case R.id.tv_profile:
                 makeMenuItemInvisible(tv_profile);
@@ -448,6 +457,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 makeMenuItemInvisible(tv_home);
                 Log.i(TAG, "HOME CLICKED");
                 fragment=null;
+                readUserData();
                 break;
 
         }
@@ -521,12 +531,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-
-
-    private void settingTopCarousal(){
-
-    }
-
 
 
     private void readCategories(){
@@ -872,6 +876,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         makeMenuItemInvisible(tv_home);
         img_notification_bell.setVisibility(View.VISIBLE);
         img_signout.setVisibility(View.GONE);
+
+        if(firebaseUser!=null){
+            readUserData();
+        }
 
     }
 

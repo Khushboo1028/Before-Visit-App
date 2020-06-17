@@ -366,7 +366,6 @@ public class ProfileFragment extends Fragment{
     private void updateUserData(String address, String dob, String gender, String mobile, String name, ArrayList<String> usersInterestsList){
 
         Map<String, Object> data = new HashMap<>();
-        data.put(mContext.getString(R.string.date_created),new Timestamp(new Date()));
 
         if(!address.isEmpty()){
             data.put(mContext.getString(R.string.address), address);

@@ -19,6 +19,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -161,12 +162,14 @@ public class SearchActivity extends AppCompatActivity {
         spinner.setAdapter(dataAdapter);
 
         if(filterFromMainActivity!=null){
-            et_search.setFocusable(false);
+            this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
             recent_search_rel.setVisibility(View.GONE);
             places_search_rel.setVisibility(View.VISIBLE);
             getNewestPlacesData(filterFromMainActivity);
 
             spinner.setSelection(dataAdapter.getPosition(filterFromMainActivity));
+
         }
 
 
@@ -323,7 +326,10 @@ public class SearchActivity extends AppCompatActivity {
             ArrayList<String> arrPackageData = gson.fromJson(json, type);
             searchList = new ArrayList<>();
             for (String data : arrPackageData) {
-                searchList.add(data);
+                if(!data.isEmpty()){
+                    searchList.add(data);
+                }
+
             }
         }
 

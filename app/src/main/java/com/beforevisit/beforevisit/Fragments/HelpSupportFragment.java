@@ -152,4 +152,6 @@ public class HelpSupportFragment extends Fragment {
         super.onAttach(context);
         mContext = getContext();
     }
+
+
 }

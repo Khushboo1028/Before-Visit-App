@@ -161,6 +161,7 @@ public class AboutUsFragment extends Fragment {
                         youTubePlayer, getLifecycle(),
                         url_cue,0f
                 );
+                youTubePlayer.pause();
             }
 
             @Override
@@ -209,4 +210,6 @@ public class AboutUsFragment extends Fragment {
         }
 
     }
+
+
 }

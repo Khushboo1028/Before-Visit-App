@@ -94,7 +94,7 @@ public class AboutBrandActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     AlertDialog.Builder builder;
     AlertDialog alert;
-    String name, review;
+    String name, review, location_url;
     double total_reviews;
     int avg_rating;
     ProgressBar progressBar;
@@ -139,20 +139,14 @@ public class AboutBrandActivity extends AppCompatActivity {
         location_rel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if(placesArrayList.get(0).getLatitude()!=0 && placesArrayList.get(0).getLongitude()!=0){
-//                    Uri gmmIntentUri = Uri.parse("google.navigation:"+placesArrayList.get(0).getLatitude()+","+placesArrayList.get(0).getLongitude());
-//                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-//                    mapIntent.setPackage("com.google.android.apps.maps");
-//
-//                    if (mapIntent.resolveActivity(getPackageManager()) != null) {
-//                        startActivity(mapIntent);
-//                    }
-//
-//                }else{
-                    String map = "http://maps.google.co.in/maps?q=" + placesArrayList.get(0).getPlace_name() + "%20" + placesArrayList.get(0).getPlace_address();
-                    Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(map));
+
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                Log.i(TAG,"Location url is "+location_url);
+                if(!location_url.isEmpty() && location_url.contains("http")){
+                    i.setData(Uri.parse(location_url));
                     startActivity(i);
-//                }
+                }
+
 
             }
         });
@@ -198,7 +192,7 @@ public class AboutBrandActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 share_text = "Check out this place:\n"+placesArrayList.get(0).getPlace_name()+"\n\nDownload from Play Store:\n"+ share_link
-                        +"\n\nBefore you visit check out Before Visit :)";
+                        +"\n\nBefore you visit, check out Before Visit :)";
 
 
 
@@ -560,6 +554,13 @@ public class AboutBrandActivity extends AppCompatActivity {
                                     longitude = 0.0;
                                 }
 
+                                if (snapshot.getString(getString(R.string.location_url)) != null) {
+                                    location_url = snapshot.getString(getString(R.string.location_url));
+
+                                } else {
+                                    location_url = "";
+                                }
+
                                 placesArrayList.add(new Places(
                                         place_id,
                                         about_Store,
@@ -581,6 +582,9 @@ public class AboutBrandActivity extends AppCompatActivity {
                                         longitude
 
                                 ));
+
+                                Log.i(TAG,"Lat: " +latitude);
+                                Log.i(TAG,"Long: "+ longitude);
 
 
                                 initYouTubePlayerView(video_url);

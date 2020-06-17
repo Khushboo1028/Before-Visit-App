@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Before Visit</string>
+    <string name="tag_line">Explore places like never before!</string>
 
     <string name="search_places">Search for places</string>
     <string name="app_name_first_word">BEFORE</string>
@@ -139,6 +140,7 @@
     <string name="avg_rating">avg_review</string>
     <string name="latitude">latitude</string>
     <string name="longitude">longitude</string>
+    <string name="location_url">location_url</string>
 
     <!--    about_us fields-->
     <string name="description">description</string>

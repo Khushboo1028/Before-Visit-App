@@ -73,6 +73,7 @@ public class ShowAllImagesActivity extends AppCompatActivity {
         images_url_list = new ArrayList<>();
         images_url_list = getIntent().getStringArrayListExtra("images_url");
         images_grid_view = (ExpandableHeightGridView) findViewById(R.id.images_grid_view);
+        images_grid_view.setExpanded(true);
         gridImagePlaceAdapter = new GridImagePlaceAdapter(ShowAllImagesActivity.this,images_url_list);
         images_grid_view.setAdapter(gridImagePlaceAdapter);
 
