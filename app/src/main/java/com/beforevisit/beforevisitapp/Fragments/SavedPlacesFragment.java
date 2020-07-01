@@ -183,7 +183,7 @@ public class SavedPlacesFragment extends Fragment {
                                                 snapshot.getId(),
                                                 latitude,
                                                 longitude,
-                                                ""
+                                                0.0
                                         ));
 
                                         gridAdapter.notifyDataSetChanged();

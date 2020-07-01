@@ -90,6 +90,8 @@ public class Utils {
         alert.show();
     }
 
+
+
     public void setViewPager(RelativeLayout relativeLayout, final ViewPager viewPager, final ArrayList<PlacesHomePage> imageUrlList, LinearLayout llPagerDots, Activity mActivity){
 
 

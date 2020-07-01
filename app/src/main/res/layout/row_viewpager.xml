@@ -4,14 +4,11 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<!--    <androidx.cardview.widget.CardView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        app:cardCornerRadius="10dp">-->
+
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/light_grey"/>
+            android:background="@color/colorPrimaryDark"/>
 
         <ImageView
             android:layout_width="match_parent"
@@ -19,7 +16,6 @@
             android:scaleType="fitXY"
             android:src="@drawable/ic_wide_image"
             android:id="@+id/image_view"/>
-<!--    </androidx.cardview.widget.CardView>-->
 
 
 

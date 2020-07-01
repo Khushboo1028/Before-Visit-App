@@ -585,8 +585,8 @@ public class SearchActivity extends AppCompatActivity {
                     locationTrack = new LocationTrack(getApplicationContext());
                     if (locationTrack.canGetLocation()) {
 
-                        user_latitude = locationTrack.getLongitude();
-                        user_longitude = locationTrack.getLatitude();
+                        user_latitude = locationTrack.getLatitude();
+                        user_longitude = locationTrack.getLongitude();
 
                         sortByNearest();
                     }
@@ -652,13 +652,16 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void sortByNearest(){
-        DisctanceCalculator disctanceCalculator = new DisctanceCalculator();
+
         ArrayList<Location> locationArrayList = new ArrayList<>();
         ArrayList<Places> nearbySortedList = new ArrayList<>();
         for(int i =0 ;i<placesArrayList.size();i++){
-            double distanceFromCurrentLocation = disctanceCalculator.distance(user_latitude, user_longitude,placesArrayList.get(i).getLatitude() , placesArrayList.get(i).getLongitude(), "K");
+            float results[] = new float[1];
+            android.location.Location.distanceBetween(user_latitude,user_longitude,placesArrayList.get(i).getLatitude(), placesArrayList.get(i).getLongitude(),results);
+            double distanceFromCurrentLocation = results[0];
+
             Log.i(TAG,"distance is "+distanceFromCurrentLocation);
-            locationArrayList.add(new Location(placesArrayList.get(i).getDoc_id(),String.format("%.0f", distanceFromCurrentLocation)));
+            locationArrayList.add(new Location(placesArrayList.get(i).getDoc_id(),distanceFromCurrentLocation));
         }
 
         SortingClass sortingClass = new SortingClass(locationArrayList);

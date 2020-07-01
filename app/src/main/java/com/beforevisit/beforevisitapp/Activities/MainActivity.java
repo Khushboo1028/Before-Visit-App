@@ -46,6 +46,8 @@ import com.beforevisit.beforevisitapp.R;
 import com.beforevisit.beforevisitapp.Utility.DefaultTextConfig;
 import com.beforevisit.beforevisitapp.Utility.LocationTrack;
 import com.beforevisit.beforevisitapp.Utility.Utils;
+import com.github.javiersantos.appupdater.AppUpdater;
+import com.github.javiersantos.appupdater.enums.Display;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -142,6 +144,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         init();
+
+        //checking for update
+        AppUpdater appUpdater = new AppUpdater(this);
+        appUpdater.start();
+
+        new AppUpdater(this)
+                .setDisplay(Display.SNACKBAR);
 
         //Notification
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){

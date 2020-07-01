@@ -245,7 +245,6 @@ public class ViewCategoryDetailsActivity extends AppCompatActivity {
                     user_latitude = locationTrack.getLatitude();
                     user_longitude = locationTrack.getLongitude();
 
-                    getPlacesFromCategory(category_id);
                 }
             }
 
@@ -332,8 +331,12 @@ public class ViewCategoryDetailsActivity extends AppCompatActivity {
                                     }
 
 
-                                    DisctanceCalculator disctanceCalculator = new DisctanceCalculator();
-                                    double distanceFromCurrentLocation = disctanceCalculator.distance(user_latitude, user_longitude,latitude , longitude, "K");
+                                    float results[] = new float[1];
+//                                    DisctanceCalculator disctanceCalculator = new DisctanceCalculator();
+//                                    double distanceFromCurrentLocation = disctanceCalculator.distance(user_latitude, user_longitude,latitude , longitude, "K");
+
+                                    android.location.Location.distanceBetween(user_latitude,user_longitude,latitude,longitude,results);
+                                    double distanceFromCurrentLocation = results[0];
 
 
                                     categoryPlacesArrayList.add(new CategoryPlaces(
@@ -345,12 +348,14 @@ public class ViewCategoryDetailsActivity extends AppCompatActivity {
                                             doc.getId(),
                                             latitude,
                                             longitude,
-                                            String.format("%.0f", distanceFromCurrentLocation)
+                                            distanceFromCurrentLocation
                                     ));
 
 
                                     SortingClassCategory sortingClass = new SortingClassCategory(categoryPlacesArrayList);
                                     Collections.reverse(sortingClass.sortDistanceLowToHigh());
+
+
 
 
                                     gridCategoryAdapter.notifyDataSetChanged();
@@ -485,7 +490,7 @@ public class ViewCategoryDetailsActivity extends AppCompatActivity {
                                     doc.getId(),
                                     latitude,
                                     longitude,
-                                    ""
+                                    0
                             ));
 
 
@@ -524,6 +529,7 @@ public class ViewCategoryDetailsActivity extends AppCompatActivity {
                         user_longitude = locationTrack.getLongitude();
 
                         if(category_id!=null){
+                            Log.i(TAG,"Running from onPermissions");
                             getPlacesFromCategory(category_id);
 
                         }

@@ -11,9 +11,9 @@ public class CategoryPlaces {
     String place_id;
     double latitude;
     double longitude;
-    String distance;
+    double distance;
 
-    public CategoryPlaces(String store_name, String address, String image_url, float rating, Boolean isSaved, String place_id, double latitude, double longitude, String distance) {
+    public CategoryPlaces(String store_name, String address, String image_url, float rating, Boolean isSaved, String place_id, double latitude, double longitude, double distance) {
         this.store_name = store_name;
         this.address = address;
         this.image_url = image_url;
@@ -89,20 +89,21 @@ public class CategoryPlaces {
         this.image_url = image_url;
     }
 
-    public String getDistance() {
+    public double getDistance() {
         return distance;
     }
 
-    public void setDistance(String distance) {
+    public void setDistance(double distance) {
         this.distance = distance;
     }
+
 
 
     public static Comparator<CategoryPlaces> distanceLowToHigh =new Comparator<CategoryPlaces>() {
         @Override
         public int compare(CategoryPlaces o1, CategoryPlaces o2) {
-            return (Integer.parseInt(o2.getDistance())<Integer.parseInt(o1.getDistance()) ? -1:
-                    (Integer.parseInt(o2.getDistance())==Integer.parseInt(o1.getDistance()) ? 0 : 1));
+            return (o2.getDistance()<o1.getDistance()) ? -1:
+                    (o2.getDistance()==o1.getDistance() ? 0 : 1);
         }
     };
 
