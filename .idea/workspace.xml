@@ -11,6 +11,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="ViewCa" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
@@ -26,79 +27,17 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/google-services.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/google-services.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/release/app-release.aab" beforeDir="false" afterPath="$PROJECT_DIR$/app/release/app-release.aab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Activities/AboutBrandActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Activities/AboutBrandActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Activities/CreateAccountActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Activities/CreateAccountActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Activities/ForgotPasswordActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Activities/ForgotPasswordActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Activities/FullScreenActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Activities/FullScreenActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Activities/LocationDenyActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Activities/LocationDenyActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Activities/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Activities/LoginActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Activities/LoginMainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Activities/LoginMainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Activities/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Activities/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Activities/NotificationsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Activities/NotificationsActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Activities/SearchActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Activities/SearchActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Activities/ShowAllImagesActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Activities/ShowAllImagesActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Activities/ShowAllReviewsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Activities/ShowAllReviewsActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Activities/ViewAllCategoriesActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Activities/ViewAllCategoriesActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Activities/ViewCategoryDetailsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Activities/ViewCategoryDetailsActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Adapters/FaqAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Adapters/FaqAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Adapters/GridHomeCategoryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Adapters/GridHomeCategoryAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Adapters/GridImagePlaceAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Adapters/GridImagePlaceAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Adapters/GridViewCategoryDetailsAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Adapters/GridViewCategoryDetailsAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Adapters/InterestsAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Adapters/InterestsAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Adapters/RecyclerRatingAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Adapters/RecyclerRatingAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Adapters/RecyclerSearchResultsAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Adapters/RecyclerSearchResultsAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Adapters/SavedPlacesAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Adapters/SavedPlacesAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Adapters/SearchAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Adapters/SearchAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Adapters/ViewPagerAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Adapters/ViewPagerAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Fragments/AboutUsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Fragments/AboutUsFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Fragments/FeedbackFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Fragments/FeedbackFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Fragments/HelpSupportFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Fragments/HelpSupportFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Fragments/ListBusinessFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Fragments/ListBusinessFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Fragments/ProfileFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Fragments/ProfileFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Fragments/ReportIssueFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Fragments/ReportIssueFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Fragments/SavedPlacesFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Fragments/SavedPlacesFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Model/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Model/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Model/CategoryPlaces.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Model/CategoryPlaces.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Model/Faq.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Model/Faq.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Model/Interests.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Model/Interests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Model/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Model/Location.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Model/Places.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Model/Places.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Model/PlacesHomePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Model/PlacesHomePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Model/RatingAndReviews.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Model/RatingAndReviews.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Model/SearchResults.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Model/SearchResults.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Model/VisitorCount.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Model/VisitorCount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Utility/AddUserDataToFirestore.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Utility/AddUserDataToFirestore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Utility/DefaultTextConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Utility/DefaultTextConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Utility/DisctanceCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Utility/DisctanceCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Utility/ExpandableHeightGridView.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Utility/ExpandableHeightGridView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Utility/LocationTrack.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Utility/LocationTrack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Utility/MyFirebaseMessagingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Utility/MyFirebaseMessagingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Utility/SortingClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Utility/SortingClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Utility/SortingClassCategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Utility/SortingClassCategory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisit/Utility/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Utility/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_about_brand.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_about_brand.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_create_account.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_create_account.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_forgot_password.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_forgot_password.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_full_screen.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_full_screen.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_location_deny.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_location_deny.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_notifications.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_notifications.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_search.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_search.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_show_all_images.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_show_all_images.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_show_all_reviews.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_show_all_reviews.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_view_all_categories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_view_all_categories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_view_catagory_details.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_view_catagory_details.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_saved_places.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_saved_places.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Activities/AboutBrandActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Activities/AboutBrandActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Activities/ViewCategoryDetailsActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Activities/ViewCategoryDetailsActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Fragments/ProfileFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/beforevisit/beforevisitapp/Fragments/ProfileFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/grid_category_place.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/grid_category_place.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/row_viewpager.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/row_viewpager.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -106,7 +45,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_3a_API_29_Hardware_accelerated" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="71723c57" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />

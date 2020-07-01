@@ -18,7 +18,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             android:contentDescription="Place Image"
             android:src="@drawable/star_filled"
             android:id="@+id/image_place"

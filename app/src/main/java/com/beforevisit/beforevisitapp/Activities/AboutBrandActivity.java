@@ -582,8 +582,7 @@ public class AboutBrandActivity extends AppCompatActivity {
 
                                 ));
 
-                                Log.i(TAG,"Lat: " +latitude);
-                                Log.i(TAG,"Long: "+ longitude);
+
 
 
                                 initYouTubePlayerView(video_url);

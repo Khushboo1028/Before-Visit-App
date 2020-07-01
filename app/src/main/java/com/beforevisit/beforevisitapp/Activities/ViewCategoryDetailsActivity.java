@@ -242,8 +242,8 @@ public class ViewCategoryDetailsActivity extends AppCompatActivity {
                 locationTrack = new LocationTrack(getApplicationContext());
                 if (locationTrack.canGetLocation()) {
 
-                    user_latitude = locationTrack.getLongitude();
-                    user_longitude = locationTrack.getLatitude();
+                    user_latitude = locationTrack.getLatitude();
+                    user_longitude = locationTrack.getLongitude();
 
                     getPlacesFromCategory(category_id);
                 }
@@ -334,6 +334,7 @@ public class ViewCategoryDetailsActivity extends AppCompatActivity {
 
                                     DisctanceCalculator disctanceCalculator = new DisctanceCalculator();
                                     double distanceFromCurrentLocation = disctanceCalculator.distance(user_latitude, user_longitude,latitude , longitude, "K");
+
 
                                     categoryPlacesArrayList.add(new CategoryPlaces(
                                             store_name,
@@ -519,8 +520,8 @@ public class ViewCategoryDetailsActivity extends AppCompatActivity {
                     locationTrack = new LocationTrack(getApplicationContext());
                     if (locationTrack.canGetLocation()) {
 
-                        user_latitude = locationTrack.getLongitude();
-                        user_longitude = locationTrack.getLatitude();
+                        user_latitude = locationTrack.getLatitude();
+                        user_longitude = locationTrack.getLongitude();
 
                         if(category_id!=null){
                             getPlacesFromCategory(category_id);
