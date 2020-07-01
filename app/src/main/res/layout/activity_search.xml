@@ -7,7 +7,7 @@
     android:background="@color/colorPrimaryDark"
     android:id="@+id/super_rel"
     android:padding="16dp"
-    tools:context=".Activities.SearchActivity">
+    tools:context="com.beforevisit.beforevisitapp.Activities.SearchActivity">
 
 
     <include layout="@layout/snippet_top_bar"

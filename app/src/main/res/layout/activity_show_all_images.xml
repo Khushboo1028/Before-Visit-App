@@ -7,7 +7,7 @@
     android:id="@+id/super_rel"
     android:padding="16dp"
     android:background="@color/colorPrimaryDark"
-    tools:context=".Activities.ShowAllImagesActivity">
+    tools:context="com.beforevisit.beforevisitapp.Activities.ShowAllImagesActivity">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -56,7 +56,7 @@
                 android:id="@+id/tv_header"/>
 
 
-            <com.beforevisit.beforevisit.Utility.ExpandableHeightGridView
+            <com.beforevisit.beforevisitapp.Utility.ExpandableHeightGridView
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_below="@id/tv_header"

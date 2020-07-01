@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.LoginMainActivity"
+    tools:context="com.beforevisit.beforevisitapp.Activities.LoginMainActivity"
     android:background="@color/colorPrimaryDark"
     android:id="@+id/super_rel">
 

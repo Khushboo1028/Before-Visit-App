@@ -7,7 +7,7 @@
     android:id="@+id/super_rel"
     android:padding="16dp"
     android:background="@color/colorPrimaryDark"
-    tools:context=".Activities.ShowAllReviewsActivity">
+    tools:context="com.beforevisit.beforevisitapp.Activities.ShowAllReviewsActivity">
 
 
     <androidx.core.widget.NestedScrollView

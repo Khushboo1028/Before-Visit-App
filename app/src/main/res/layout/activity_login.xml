@@ -7,7 +7,7 @@
     android:id="@+id/super_rel"
     android:background="@color/colorPrimaryDark"
     android:padding="16dp"
-    tools:context=".Activities.LoginActivity">
+    tools:context="com.beforevisit.beforevisitapp.Activities.LoginActivity">
 
     <include layout="@layout/snippet_top_bar"
         android:id="@+id/top_bar"/>

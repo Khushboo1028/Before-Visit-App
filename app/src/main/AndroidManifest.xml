@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.beforevisit.beforevisit">
+    package="com.beforevisit.beforevisitapp">
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -16,24 +16,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.LocationDenyActivity"
+        <activity android:name="com.beforevisit.beforevisitapp.Activities.LocationDenyActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="LockedOrientationActivity"></activity>
         <activity
-            android:name=".Activities.ViewAllCategoriesActivity"
+            android:name="com.beforevisit.beforevisitapp.Activities.ViewAllCategoriesActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".Activities.ForgotPasswordActivity"
+            android:name="com.beforevisit.beforevisitapp.Activities.ForgotPasswordActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".Activities.LoginActivity"
+            android:name="com.beforevisit.beforevisitapp.Activities.LoginActivity"
             android:configChanges="orientation"
             android:exported="true"
             android:screenOrientation="portrait"
@@ -48,52 +48,52 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.CreateAccountActivity"
+            android:name="com.beforevisit.beforevisitapp.Activities.CreateAccountActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name=".Activities.NotificationsActivity"
+            android:name="com.beforevisit.beforevisitapp.Activities.NotificationsActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".Activities.LoginMainActivity"
+            android:name="com.beforevisit.beforevisitapp.Activities.LoginMainActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".Activities.ShowAllImagesActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".Activities.SearchActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".Activities.AboutBrandActivity"
+            android:name="com.beforevisit.beforevisitapp.Activities.ShowAllImagesActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".Activities.ShowAllReviewsActivity"
+            android:name="com.beforevisit.beforevisitapp.Activities.SearchActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.beforevisit.beforevisitapp.Activities.AboutBrandActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".Activities.ViewCategoryDetailsActivity"
+            android:name="com.beforevisit.beforevisitapp.Activities.ShowAllReviewsActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".Activities.MainActivity"
+            android:name="com.beforevisit.beforevisitapp.Activities.ViewCategoryDetailsActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name="com.beforevisit.beforevisitapp.Activities.MainActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Launcher"
@@ -110,7 +110,7 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
         <activity
-            android:name=".Activities.FullScreenActivity"
+            android:name="com.beforevisit.beforevisitapp.Activities.FullScreenActivity"
             android:configChanges="orientation"
             android:screenOrientation="landscape"
             tools:ignore="LockedOrientationActivity" />
@@ -130,7 +130,7 @@
             android:resource="@color/colorAccent" />
 
         <service
-            android:name=".Utility.MyFirebaseMessagingService"
+            android:name="com.beforevisit.beforevisitapp.Utility.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

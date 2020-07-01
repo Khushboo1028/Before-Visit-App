@@ -7,7 +7,7 @@
     android:background="@color/colorPrimaryDark"
     android:id="@+id/super_rel"
     android:padding="16dp"
-    tools:context=".Activities.ViewCategoryDetailsActivity">
+    tools:context="com.beforevisit.beforevisitapp.Activities.ViewCategoryDetailsActivity">
 
     <include layout="@layout/snippet_top_bar"
         android:id="@+id/top_bar"/>
@@ -95,7 +95,7 @@
 
             </LinearLayout>
 
-            <com.beforevisit.beforevisit.Utility.ExpandableHeightGridView
+            <com.beforevisit.beforevisitapp.Utility.ExpandableHeightGridView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ll_filter"
